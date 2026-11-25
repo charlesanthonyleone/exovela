@@ -9,20 +9,31 @@ in vec2 p; out vec2 v; void main(){ v = vec2(p.x*.5+.5, .5-p.y*.5); gl_Position 
 const FS = `#version 300 es
 precision highp float;
 in vec2 v; out vec4 o;
-uniform sampler2D uBase, uMaps, uZone, uAtlas;
-uniform vec4 uBox[10]; uniform vec4 uAt[10]; uniform float uOn[10];
-uniform vec2 uAtlasSize; uniform float uLook, uSel, uPulse, uGlow;
+uniform sampler2D uBase, uMaps, uZone, uAtlas, uFx;
+uniform vec4 uBox[10]; uniform vec4 uAt[10]; uniform float uOn[10]; uniform float uXf[10];
+uniform vec2 uAtlasSize; uniform float uLook, uSel, uPulse, uGlow, uT, uMotion, uFlip, uFade;
 vec3 lin(vec3 c){ return pow(c, vec3(2.2)); }
+float hsh(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
 void main(){
-  vec3 base = texture(uBase, v).rgb;
-  vec3 m = texture(uMaps, v).rgb;              // r shade (knit texture), g display mask, b spill reach
-  float idf = texture(uZone, v).r * 255.;       // zone id * 20
+  // slow camera drift over the whole scene (the garment and the pier move together)
+  vec2 vv = .5 + (v - .5) * (1. - uMotion * .008 * (.5 + .5 * sin(uT * .23))) + uMotion * vec2(.0018 * sin(uT * .11), .0009 * sin(uT * .17));
+  vec2 p = uFlip > .5 ? vec2(1. - vv.x, vv.y) : vv;
+  vec4 fx = texture(uFx, p) * uMotion;          // r stars, g water and wet deck, b neon
+  vec2 pb = p + fx.g * vec2(.0024 * sin(p.y * 300. + uT * 1.6) * (.6 + .4 * sin(p.y * 47. + uT * .8)), .0012 * sin(p.x * 110. + uT * 1.2));
+  vec3 base = texture(uBase, pb).rgb;
+  vec3 m = texture(uMaps, p).rgb;              // r shade (knit texture), g display mask, b spill reach
+  float idf = texture(uZone, p).r * 255.;       // zone id * 20
   int id = int(floor(idf/20. + .5)) - 1;
   vec3 col = lin(base);
+  float h = hsh(floor(p * vec2(360., 480.)));
+  col *= 1. + fx.r * .8 * sin(uT * (1.2 + h * 2.8) + h * 31.);
+  col *= 1. + fx.b * (.10 * sin(uT * 1.05 + p.x * 2.5) + .04 * sin(uT * 6.1 + p.y * 13.));
+  col += col * fx.g * .9 * pow(max(0., sin(p.x * 190. + p.y * 610. - uT * 2.3) * sin(p.x * 70. - p.y * 260. + uT * 1.1)), 6.);
   vec3 emit = vec3(0.);
   if (id >= 0 && id < 10 && uOn[id] > .5) {
     vec4 bx = uBox[id], at = uAt[id];
-    vec2 uv = clamp((v - bx.xy) / bx.zw, 0., .9999);
+    vec2 uv = clamp((p - bx.xy) / bx.zw, 0., .9999);
+    if (uFlip > .5 && uXf[id] > .5) uv.x = .9999 - uv.x;   // "Match": art reads the same on both feet
     vec2 cell = uv * at.zw;
     vec2 ci = floor(cell), f = fract(cell) - .5;
     vec2 tc = (at.xy + ci + .5) / uAtlasSize;
@@ -43,15 +54,15 @@ void main(){
       e = px * sub * row * 2.6 + halo*.06;
     }
     // light comes through the knit: texture and folds modulate it
-    e *= (.45 + .9*shade) * uGlow;
+    e *= (.45 + .9*shade) * uGlow * uFade;
     e = e * 1.3 / (1. + e*.5);
     emit = e * m.g;
-    col = mix(col, col*.55, m.g) + emit;
+    col = mix(col, col*.55, m.g * uFade) + emit;
     if (float(id) == uSel) col += vec3(.55,.8,1.) * uPulse * .08 * m.g * (.5+.5*shade);
   }
   // spill: average garment light onto nearby fabric and the deck
   vec3 avg = lin(textureLod(uAtlas, vec2(.5), 10.).rgb);
-  col += avg * m.b * .55 * (1. - m.g);
+  col += avg * m.b * .55 * (1. - m.g) * uFade;
   o = vec4(pow(col, vec3(1./2.2)), 1.);
 }`;
 
@@ -67,7 +78,7 @@ export class LiveGarment {
     this.view = cfg.views[0].id;
     this.assign = {};       // zoneId -> { src, opts, span }
     this.zc = {};           // zoneId -> canvas
-    this.sel = null; this.pulse = 0;
+    this.sel = null; this.pulse = 0; this.fade = 1; this.fadeTo = 1; this.pairMode = 'match';
     this.listeners = [];
     this.visible = false; this.started = false;
     new IntersectionObserver(es => { for (const e of es) { this.visible = e.isIntersecting; if (this.visible) this.start(); clips.setActive(this.visible); } }, { rootMargin: '150px' }).observe(root);
@@ -91,14 +102,14 @@ export class LiveGarment {
     gl.attachShader(pr, sh(gl, gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl, gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr); gl.useProgram(pr);
     const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
     const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-    this.U = {}; for (const n of ['uBase','uMaps','uZone','uAtlas','uBox','uAt','uOn','uAtlasSize','uLook','uSel','uPulse','uGlow']) this.U[n] = gl.getUniformLocation(pr, n);
-    gl.uniform1i(this.U.uBase, 0); gl.uniform1i(this.U.uMaps, 1); gl.uniform1i(this.U.uZone, 2); gl.uniform1i(this.U.uAtlas, 3);
+    this.U = {}; for (const n of ['uBase','uMaps','uZone','uAtlas','uFx','uBox','uAt','uOn','uXf','uAtlasSize','uLook','uSel','uPulse','uGlow','uT','uMotion','uFlip','uFade']) this.U[n] = gl.getUniformLocation(pr, n);
+    gl.uniform1i(this.U.uBase, 0); gl.uniform1i(this.U.uMaps, 1); gl.uniform1i(this.U.uZone, 2); gl.uniform1i(this.U.uAtlas, 3); gl.uniform1i(this.U.uFx, 4);
     gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
     this.tex = {}; this.idData = {};
     const big = this.canvas.clientWidth * Math.min(devicePixelRatio || 1, 2) > 900;
     await Promise.all(this.cfg.views.map(async v => {
-      const [b, m, z] = await Promise.all([loadImg(big ? v.base2x : v.base), loadImg(v.maps), loadImg(v.zone)]);
-      this.tex[v.id] = { base: this.mk(b, gl.LINEAR), maps: this.mk(m, gl.LINEAR), zone: this.mk(z, gl.NEAREST) };
+      const [b, m, z, f] = await Promise.all([loadImg(big ? v.base2x : v.base), loadImg(v.maps), loadImg(v.zone), v.fx ? loadImg(v.fx).catch(() => null) : null]);
+      this.tex[v.id] = { base: this.mk(b, gl.LINEAR), maps: this.mk(m, gl.LINEAR), zone: this.mk(z, gl.NEAREST), fx: f ? this.mk(f, gl.LINEAR) : null };
       const c = document.createElement('canvas'); c.width = z.width; c.height = z.height; const cx = c.getContext('2d', { willReadFrequently: true }); cx.drawImage(z, 0, 0);
       this.idData[v.id] = { w: z.width, h: z.height, d: cx.getImageData(0, 0, z.width, z.height).data };
     }));
@@ -113,6 +124,9 @@ export class LiveGarment {
     const loop = t => { requestAnimationFrame(loop); if (!this.visible) return; if (t - (this.last || 0) < (this.reduce ? 1000 : 1000/30)) return; this.last = t; this.frame(this.reduce ? 2 : t/1000); };
     requestAnimationFrame(loop);
   }
+  blackTex(){ if (this._black) return this._black; const gl = this.gl, t = this._black = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0,0,0,255])); return t; }
+  setStealth(on){ this.stealth = on; this.fadeTo = on ? 0 : 1; this.emit(); }
+  setPairMode(m){ this.pairMode = m; this.emit(); }
   mk(img, filt){
     const gl = this.gl, t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -139,11 +153,11 @@ export class LiveGarment {
     this.assign[zoneId] = { src, opts, span, inst: span ? null : S.create(opts, this) };
     this.emit();
   }
-  setSpan(zoneIds, src, opts = {}){
+  setSpan(zoneIds, src, opts = {}, axis = 'y'){
     for (const id of zoneIds) { const p = this.assign[id]; if (p && p.inst && p.inst.dispose) p.inst.dispose(); }
     const inst = SOURCES[src].create(opts, this);
     const key = zoneIds.join('+');
-    for (const id of zoneIds) this.assign[id] = { src, opts, span: key, inst, group: zoneIds };
+    for (const id of zoneIds) this.assign[id] = { src, opts, span: key, inst, group: zoneIds, axis };
     this.emit();
   }
   applyPreset(p){
@@ -151,7 +165,7 @@ export class LiveGarment {
     for (const id of Object.keys(this.assign)) { const a = this.assign[id]; if (a.inst && a.inst.dispose) a.inst.dispose(); }
     this.assign = {};
     for (const rule of p.zones) {
-      if (rule.span) this.setSpan(rule.span, rule.src, rule.opts || {});
+      if (rule.span) this.setSpan(rule.span, rule.src, rule.opts || {}, rule.axis || 'y');
       else for (const id of [].concat(rule.zone)) this.set(id, rule.src, { ...(rule.opts || {}), zone: id });
     }
     this.preset = p.id; this.emit();
@@ -163,11 +177,13 @@ export class LiveGarment {
       if (a.span) {
         if (done.has(a.span)) continue; done.add(a.span);
         // a span: render once across the combined grid of its zones (stacked vertically), then split
-        const zs = a.group.map(g => this.zc[g]);
-        const W = Math.max(...zs.map(c => c.width)), H = zs.reduce((s, c) => s + c.height, 0);
+        const zs = a.group.map(g => this.zc[g]), X = a.axis === 'x';
+        const W = X ? zs.reduce((s, c) => s + c.width, 0) : Math.max(...zs.map(c => c.width)), H = X ? Math.max(...zs.map(c => c.height)) : zs.reduce((s, c) => s + c.height, 0);
         const tmp = a._tmp || (a._tmp = document.createElement('canvas')); if (tmp.width !== W || tmp.height !== H) { tmp.width = W; tmp.height = H; }
         const tc = tmp.getContext('2d'); a.inst.draw(tc, W, H, t);
-        let yy = 0; for (const g of a.group) { const c = this.zc[g]; const cx = c.getContext('2d'); cx.clearRect(0,0,c.width,c.height); cx.drawImage(tmp, 0, yy, W, c.height, 0, 0, c.width, c.height); yy += c.height; this.assign[g]._tmp = tmp; }
+        let o = 0; for (const g of a.group) { const c = this.zc[g]; const cx = c.getContext('2d'); cx.clearRect(0,0,c.width,c.height);
+          if (X) { cx.drawImage(tmp, o, 0, c.width, H, 0, 0, c.width, c.height); o += c.width; } else { cx.drawImage(tmp, 0, o, W, c.height, 0, 0, c.width, c.height); o += c.height; }
+          this.assign[g]._tmp = tmp; }
       } else {
         const c = this.zc[id]; a.inst.draw(c.getContext('2d'), c.width, c.height, t);
       }
@@ -178,6 +194,7 @@ export class LiveGarment {
   frame(t){
     const gl = this.gl; if (!gl) return;
     this.t = t; this.draw(t); this.frameNo = (this.frameNo || 0) + 1;
+    this.fade += (this.fadeTo - this.fade) * (this.reduce ? 1 : .18); if (Math.abs(this.fade - this.fadeTo) < .002) this.fade = this.fadeTo;
     if (this.paused2d) { this.pulse = Math.max(0, this.pulse - 0.04); return; }  // the 3D viewer is showing; it reads the atlas
     gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, this.atex);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
@@ -187,10 +204,13 @@ export class LiveGarment {
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, T.base);
     gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, T.maps);
     gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, T.zone);
-    const zs = this.zonesInView(); const box = new Float32Array(40), at = new Float32Array(40), on = new Float32Array(10);
+    gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D, T.fx || this.blackTex());
+    const zs = this.zonesInView(); const box = new Float32Array(40), at = new Float32Array(40), on = new Float32Array(10), xf = new Float32Array(10);
     let selIdx = -1;
-    zs.forEach(z => { const i = z.idx; box.set(z.box, i*4); at.set(this.at[z.id], i*4); on[i] = this.assign[z.id] ? 1 : 0; if (z.id === this.sel) selIdx = i; });
-    gl.uniform4fv(this.U.uBox, box); gl.uniform4fv(this.U.uAt, at); gl.uniform1fv(this.U.uOn, on);
+    zs.forEach(z => { const i = z.idx; if (i < 0) return; box.set(z.box, i*4); at.set(this.at[z.id], i*4); on[i] = this.assign[z.id] ? 1 : 0; xf[i] = this.pairMode === 'match' ? 1 : 0; if (z.id === this.sel) selIdx = i; });
+    gl.uniform4fv(this.U.uBox, box); gl.uniform4fv(this.U.uAt, at); gl.uniform1fv(this.U.uOn, on); gl.uniform1fv(this.U.uXf, xf);
+    const V = this.cfg.views.find(x => x.id === this.view);
+    gl.uniform1f(this.U.uT, t); gl.uniform1f(this.U.uMotion, this.reduce ? 0 : 1); gl.uniform1f(this.U.uFlip, V.flip ? 1 : 0); gl.uniform1f(this.U.uFade, this.fade);
     gl.uniform2f(this.U.uAtlasSize, this.atlas.width, this.atlas.height);
     gl.uniform1f(this.U.uLook, this.look); gl.uniform1f(this.U.uSel, selIdx);
     this.pulse = Math.max(0, this.pulse - 0.04); gl.uniform1f(this.U.uPulse, this.pulse * (0.6 + 0.4*Math.sin(t*12)));
@@ -203,12 +223,14 @@ export class LiveGarment {
     if (this.gl) this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
   }
   hit(e){
-    const r = this.canvas.getBoundingClientRect(); const u = (e.clientX - r.left) / r.width, v = (e.clientY - r.top) / r.height;
+    const r = this.canvas.getBoundingClientRect(); let u = (e.clientX - r.left) / r.width; const v = (e.clientY - r.top) / r.height;
+    const V = this.cfg.views.find(x => x.id === this.view); if (V.flip) u = 1 - u;
     const D = this.idData[this.view]; if (!D) return null;
     const x = Math.min(D.w-1, Math.floor(u*D.w)), y = Math.min(D.h-1, Math.floor(v*D.h));
     const id = Math.round(D.d[(y*D.w + x)*4] / 20) - 1; if (id < 0) return null;
     const z = this.zonesInView().find(z => z.idx === id); if (!z) return null;
-    return { z, lu: (u - z.box[0]) / z.box[2], lv: (v - z.box[1]) / z.box[3] };
+    let lu = (u - z.box[0]) / z.box[2]; if (V.flip && this.pairMode === 'match') lu = 1 - lu;
+    return { z, lu, lv: (v - z.box[1]) / z.box[3] };
   }
   click(e){
     const h = this.hit(e); if (!h) return; this.tapZone(h.z.id, h.lu, h.lv);
@@ -219,9 +241,10 @@ export class LiveGarment {
     const a = this.assign[id];
     if (a && a.inst && a.inst.tap) {
       if (a.span) { // convert to span-local coordinates
-        const tot = a.group.reduce((s, g) => s + this.zc[g].height, 0); let off = 0;
-        for (const g of a.group) { if (g === id) break; off += this.zc[g].height; }
-        lv = (off + lv * this.zc[id].height) / tot;
+        const k = a.axis === 'x' ? 'width' : 'height';
+        const tot = a.group.reduce((s, g) => s + this.zc[g][k], 0); let off = 0;
+        for (const g of a.group) { if (g === id) break; off += this.zc[g][k]; }
+        if (a.axis === 'x') lu = (off + lu * this.zc[id].width) / tot; else lv = (off + lv * this.zc[id].height) / tot;
       }
       a.inst.tap(lu, lv); return true;
     }

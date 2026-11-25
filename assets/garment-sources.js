@@ -36,6 +36,16 @@ export const CLIPS = [
   { id: 'rain', label: 'City rain', kind: 'Ambient' },
 ];
 
+
+// ---------- simulated sensors for the idea demos. Nothing here reads a real sensor. ----------
+export const sim = {
+  cadence: 1.45, stepT0: 0, brakeUntil: 0, autoBrake: true, music: true, listeners: new Set(),
+  stepPhase(t){ const p = ((t - this.stepT0) * this.cadence) % 1; return p; },               // 0..1 since the last footfall
+  brake(){ this.brakeUntil = performance.now() / 1000 + 1.6; this.listeners.forEach(f => f('brake')); },
+  brakeLevel(t){ const now = performance.now() / 1000; if (now < this.brakeUntil) return 1; if (this.autoBrake && !reduce) { const k = t % 7; if (k > 5.6 && k < 6.8) return 1; } return 0; },
+  beat(t){ const b = (t * 118 / 60) % 1; return Math.exp(-b * 6); },
+};
+
 // ---------- text on a tiny grid ----------
 function pixText(ctx, str, x, y, size, color, align = 'left'){ ctx.fillStyle = color; ctx.font = `700 ${size}px ui-monospace, Menlo, Consolas, monospace`; ctx.textBaseline = 'top'; ctx.textAlign = align; ctx.fillText(str, x, y); }
 function wrap(ctx, str, maxW){ const words = str.split(/\s+/); const lines = []; let cur = ''; for (const w of words) { const t = cur ? cur + ' ' + w : w; if (ctx.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t; } if (cur) lines.push(cur); return lines; }
@@ -115,7 +125,7 @@ export const SOURCES = {
       for (const p of s) { p.y += p.v; if (p.y > h) { p.y = -3; p.x = Math.random()*w|0; } c.fillStyle = o.color || hsl(200 + p.x*6, 90, 60); c.fillRect(p.x, p.y|0, 1, 3); } } }; } },
   ticker: { label: 'Ticker', create: o => { let off = 0; return { draw(c, w, h, t){
       c.fillStyle = o.bg || '#05060a'; c.fillRect(0, 0, w, h); const txt = (o.text || bus.handle) + '   ·   ';
-      const vertical = o.vertical ?? (h > w * 1.6); const size = Math.max(6, Math.min(vertical ? w : h, 16) * .82 | 0);
+      const vertical = o.vertical ?? (h > w * 1.6); const size = Math.max(6, Math.min(vertical ? w : h, 16) * (vertical ? .62 : .82) | 0);
       c.save(); if (vertical) { c.translate(w, 0); c.rotate(Math.PI/2); }
       const L = vertical ? h : w, S = vertical ? w : h; c.font = `700 ${size}px ui-monospace, Menlo, monospace`; const tw = c.measureText(txt).width; off = (off + (o.speed || .6)) % tw;
       for (let x = -off; x < L; x += tw) pixText(c, txt, x, (S - size)/2, size, o.color || '#8fd8ff'); c.restore(); } }; } },
@@ -144,6 +154,25 @@ export const SOURCES = {
       const size = Math.max(6, w/8|0); pixText(c, 'SAMPLE AD', w/2, h*.6, size, '#eef0f3', 'center'); pixText(c, 'your slot · A-0142', w/2, h*.6 + size*1.25, Math.max(5, size*.55|0), '#8fd8ff', 'center');
       c.fillStyle = '#ffcf5a'; c.fillRect(1, 1, Math.max(4, w*.12|0), Math.max(3, h*.06|0)); } }) },
   code: { label: 'Code', create: o => new CodeSource(o.code || CODE_SAMPLES.plasma) },
+  // ---- simulated sensors (labelled "simulated" in the UI): steps, braking, music, a nearby wearer ----
+  step: { label: 'Step ripple', create: o => ({ draw(c, w, h, t){ // a pulse runs heel to toe on each simulated footfall
+      c.fillStyle = o.bg || '#030408'; c.fillRect(0, 0, w, h); const k = sim.stepPhase(t); const col = o.color || '#5ff2ff';
+      for (let x = 0; x < w; x++) { const u = x / Math.max(1, w - 1); const d = (1 - u) - k * 1.4 + .2; const a = Math.max(0, 1 - Math.abs(d) * 5) ** 1.6 + .06;
+        c.globalAlpha = Math.min(1, a); c.fillStyle = col; c.fillRect(x, 0, 1, h); } c.globalAlpha = 1; } }) },
+  brake: { label: 'Brake light', create: o => ({ draw(c, w, h, t){ // dim red tail light, full red while braking. Steady, never strobing
+      const b = sim.brakeLevel(t); c.fillStyle = `rgb(${60 + 195*b|0},${4 + 10*b|0},${8 + 12*b|0})`; c.fillRect(0, 0, w, h);
+      c.fillStyle = `rgba(255,${120 + 80*b|0},${120 + 60*b|0},${.25 + .5*b})`; c.fillRect(1, h*.35|0, Math.max(1, w - 2), Math.max(1, h*.3|0)); } }) },
+  chevron: { label: 'Chevrons', create: o => ({ draw(c, w, h, t){ // amber chevrons scroll toward the heel at running pace
+      c.fillStyle = '#050403'; c.fillRect(0, 0, w, h); const sp = Math.max(4, h * .9), off = (t * (o.speed || 9)) % sp; c.fillStyle = o.color || '#ffb21f';
+      for (let x0 = -sp + off; x0 < w + sp; x0 += sp) for (let y = 0; y < h; y++) { const dx = Math.abs(y - h / 2) * .6; c.fillRect((x0 + dx) | 0, y, Math.max(1, sp * .28 | 0), 1); } } }) },
+  beat: { label: 'Beat pulse', create: o => ({ draw(c, w, h, t){ // simulated music: a 118 BPM kick envelope
+      const e = sim.beat(t); const hue = (o.hue ?? 300) + 40 * Math.sin(t * .4); c.fillStyle = hsl(hue, 95, 8 + 50 * e); c.fillRect(0, 0, w, h);
+      if (w > 10) { c.fillStyle = hsl(hue + 40, 100, 70); const r = (Math.min(w, h) * .45) * (.4 + .6 * e); c.beginPath(); c.arc(w / 2, h / 2, r, 0, TAU); c.fill(); } } }) },
+  card: { label: 'Calling card', create: o => ({ draw(c, w, h, t){ // what a nearby wearer would see: your handle and a wave
+      const g = c.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#071a2b'); g.addColorStop(1, '#2a0a2e'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+      const size = Math.max(6, w / 9 | 0); const wave = Math.sin(t * 6) > 0 ? 'hi!' : 'hi';
+      pixText(c, wave, w / 2, h * .22, size * 1.3 | 0, '#ffcf5a', 'center'); pixText(c, bus.handle, w / 2, h * .46, size, '#eef0f3', 'center');
+      pixText(c, 'say hi', w / 2, h * .66, Math.max(5, size * .6 | 0), '#8fd8ff', 'center'); } }) },
 };
 export function hsv(h, s, v){ h = ((h % 360) + 360) % 360 / 60; const i = Math.floor(h), f = h - i, p = v*(1-s), q = v*(1-s*f), u = v*(1-s*(1-f)); const m = [[v,u,p],[q,v,p],[p,v,u],[p,q,v],[u,p,v],[v,p,q]][i % 6]; return m.map(x => x*255|0); }
 
@@ -289,3 +318,26 @@ export const PRESETS = [
     { zone: ['chest'], src: 'code', opts: {} }, { zone: ['stomach'], src: 'video', opts: { clip: 'santa' } }, { zone: ['back'], src: 'ad' },
     { zone: ['sleeveL'], src: 'clock' }, { zone: ['sleeveR'], src: 'ticker', opts: { text: '@yourname' } }, { zone: ['cuffL', 'cuffR'], src: 'stripes', opts: { n: 4 } } ] },
 ];
+
+// ---------- shoe looks: motion-aware. The toe cap flexes and scuffs, so it only ever gets color; the side panels carry the art ----------
+const WRAP = ['outer', 'heel', 'inner'], SIDES = ['outer', 'inner'];
+export const TOE_OK = new Set(['off', 'solid', 'stripes', 'plasma', 'flannel', 'beat', 'brake']);
+export const SHOE_PRESETS = [
+  { id: 'psych', label: 'Psychedelic', zones: [ { zone: SIDES, src: 'plasma' }, { zone: ['heel'], src: 'stripes', opts: { n: 3 } }, { zone: ['toe'], src: 'plasma', opts: { phase: 90, speed: .6 } }, { zone: ['tongue'], src: 'stripes', opts: { n: 2 } }, { zone: ['sole'], src: 'eq' } ] },
+  { id: 'show', label: 'Your show', note: 'One picture wrapped around the heel', zones: [ { span: WRAP, axis: 'x', src: 'video', opts: { clip: 'surf' } }, { zone: ['toe', 'tongue'], src: 'solid', opts: { match: 'surf' } }, { zone: ['sole'], src: 'solid', opts: { match: 'surf', breathe: true } } ] },
+  { id: 'ocean', label: 'Night ocean', zones: [ { span: WRAP, axis: 'x', src: 'video', opts: { clip: 'ocean' } }, { zone: ['toe', 'tongue'], src: 'solid', opts: { color: '#0b3e66' } }, { zone: ['sole'], src: 'solid', opts: { color: '#19d3ff' } } ] },
+  { id: 'fire', label: 'Fireplace', zones: [ { zone: SIDES, src: 'fireplace' }, { zone: ['heel'], src: 'solid', opts: { color: '#ff8a2a', breathe: true } }, { zone: ['toe'], src: 'solid', opts: { color: '#ff6a1a' } }, { zone: ['tongue'], src: 'solid', opts: { color: '#3a1204' } }, { zone: ['sole'], src: 'streaks', opts: { color: '#ff9a3a' } } ] },
+  { id: 'grid', label: 'Neon grid', zones: [ { zone: SIDES, src: 'grid' }, { zone: ['heel'], src: 'streaks', opts: { color: '#ff3d8b' } }, { zone: ['toe'], src: 'solid', opts: { color: '#ff3d8b' } }, { zone: ['tongue'], src: 'solid', opts: { color: '#33e6ff' } }, { zone: ['sole'], src: 'stripes', opts: { n: 12, colors: ['#33e6ff', '#0a0216'], speed: 14 } } ] },
+  { id: 'aurora', label: 'Aurora', zones: [ { span: WRAP, axis: 'x', src: 'video', opts: { clip: 'aurora' } }, { zone: ['toe', 'tongue'], src: 'solid', opts: { color: '#14ff9a' } }, { zone: ['sole'], src: 'solid', opts: { match: 'aurora' } } ] },
+  { id: 'santa', label: 'Dancing Santa', zones: [ { zone: SIDES, src: 'video', opts: { clip: 'santa' } }, { zone: ['heel'], src: 'snow' }, { zone: ['toe'], src: 'solid', opts: { color: '#d61f2c' } }, { zone: ['tongue'], src: 'solid', opts: { color: '#f4f4f4' } }, { zone: ['sole'], src: 'stripes', opts: { n: 10, colors: ['#d61f2c', '#f4f4f4'], speed: 6 } } ] },
+  { id: 'flannel', label: 'Flannel', zones: [ { zone: SIDES, src: 'flannel' }, { zone: ['heel'], src: 'flannel', opts: { seed: 2 } }, { zone: ['toe'], src: 'solid', opts: { color: '#7a1f1f' } }, { zone: ['tongue'], src: 'flannel', opts: { seed: 1 } }, { zone: ['sole'], src: 'solid', opts: { color: '#d9b44a' } } ] },
+  { id: 'handle', label: 'Handle + clock', zones: [ { zone: SIDES, src: 'ticker', opts: { text: '@yourname', color: '#eef0f3', bg: '#0b1a24', vertical: false } }, { zone: ['heel'], src: 'clock' }, { zone: ['toe'], src: 'solid', opts: { color: '#0b1a24' } }, { zone: ['tongue'], src: 'solid', opts: { color: '#8fd8ff' } }, { zone: ['sole'], src: 'stripes', opts: { n: 8, colors: ['#8fd8ff', '#05060a'], speed: 5 } } ] },
+  { id: 'eq', label: 'Equalizer sole', zones: [ { zone: SIDES, src: 'eq' }, { zone: ['heel'], src: 'beat', opts: { hue: 300 } }, { zone: ['toe'], src: 'beat', opts: { hue: 190 } }, { zone: ['tongue'], src: 'solid', opts: { color: '#22ff88' } }, { zone: ['sole'], src: 'eq' } ] },
+  { id: 'lava', label: 'Lava sole', zones: [ { zone: SIDES, src: 'solid', opts: { color: '#120604' } }, { zone: ['heel'], src: 'solid', opts: { color: '#ff4a12', breathe: true } }, { zone: ['toe'], src: 'solid', opts: { color: '#2a0a04' } }, { zone: ['tongue'], src: 'solid', opts: { color: '#ff7a1a' } }, { zone: ['sole'], src: 'fireplace' } ] },
+  // idea demos (simulated sensors)
+  { id: 'run', label: 'Night run', sim: true, note: 'Simulated: steps ripple the sole, the heel brakes red, chevrons on the sides', zones: [ { zone: SIDES, src: 'chevron' }, { zone: ['heel'], src: 'brake' }, { zone: ['toe'], src: 'solid', opts: { color: '#eef6ff' } }, { zone: ['tongue'], src: 'solid', opts: { color: '#ffb21f' } }, { zone: ['sole'], src: 'step', opts: { color: '#ffffff' } } ] },
+  { id: 'beat', label: 'Music', sim: true, note: 'Simulated beat at 118 BPM', zones: [ { zone: SIDES, src: 'eq' }, { zone: ['heel', 'toe', 'tongue'], src: 'beat' }, { zone: ['sole'], src: 'step', opts: { color: '#ff3d9e' } } ] },
+  { id: 'stealth', label: 'Stealth', zones: [] },
+];
+// outfit sync: a sweater look picks the matching shoe look
+export const OUTFIT = { mix: 'handle', psych: 'psych', layout: 'ocean', santa: 'santa', surf: 'show', ocean: 'ocean', eq: 'eq', grid: 'grid', warp: 'psych', aurora: 'aurora', rain: 'grid', flannel: 'flannel', fireplace: 'fire', show: 'show' };

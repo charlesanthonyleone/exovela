@@ -1,0 +1,8 @@
+shoe.glb
+  Based on "Materials Variants Shoe" by Shopify (c) 2021, from the Khronos glTF Sample Assets.
+  License: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+  Changes by Exovela: brand stripe and logo removed, retextured, split into LED zones,
+  material variants removed, compressed with meshopt.
+
+sweater.glb and sw-* textures
+  Original work for Exovela (authored in Blender, procedural knit textures).

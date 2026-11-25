@@ -301,7 +301,7 @@ input[type=color]{width:40px;height:32px;border:1px solid var(--line2);border-ra
   .lg-panel{margin-top:14px}
 }
 /* r4 3D viewer */
-.lg-stage canvas.lg-3d{display:none;z-index:2;opacity:1;cursor:grab;touch-action:none;background:radial-gradient(ellipse 70% 60% at 50% 42%,#1b2233 0%,#0b0d14 55%,#05060a 100%)}
+.lg-stage canvas.lg-3d{display:none;z-index:2;opacity:1;cursor:grab;touch-action:none;background:radial-gradient(ellipse 46% 34% at 4% 80%,rgba(33,220,255,.20),transparent 70%),radial-gradient(ellipse 46% 34% at 96% 80%,rgba(255,61,158,.18),transparent 70%),radial-gradient(ellipse 60% 40% at 50% 40%,rgba(120,150,200,.10),transparent 70%),linear-gradient(180deg,#04070d 0%,#0a1322 30%,#122033 37.5%,#0b1119 39%,#07090e 62%,#050608 100%)}
 .lg-stage canvas.lg-3d:active{cursor:grabbing}
 .lg-stage.is3d picture,.lg-stage.is3d>canvas:not(.lg-3d){visibility:hidden}
 .lg-3dctl{position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:3}
@@ -314,3 +314,35 @@ input[type=color]{width:40px;height:32px;border:1px solid var(--line2);border-ra
 .lg-loading{position:absolute;inset:0;display:none;place-items:center;margin:0;z-index:4;font:500 13px var(--mono);letter-spacing:.06em;color:var(--dim);background:rgba(5,6,10,.55)}
 .lg-stage.is-loading3d .lg-loading{display:grid}
 @media (max-width:520px){.lg-hint{white-space:normal;width:82%;text-align:center;top:56px}}
+/* r5 */
+.lg-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+.lg-actions[hidden]{display:none}
+.btn-sm small,.preset small{font:500 10.5px var(--mono);letter-spacing:.04em;color:var(--faint);text-transform:uppercase;margin-left:4px}
+.preset-sim{border-style:dashed}
+.btn-sync[aria-pressed="true"],[data-stealth][aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.btn-brake{border-color:rgba(255,60,60,.55)}
+.sw-shoe-psych{background:conic-gradient(#ff3d8b,#ffcf5a,#36ff9a,#33e6ff,#7a5cff,#ff3d8b)}.sw-shoe-show{background:linear-gradient(160deg,#f6c25a,#0f7c8c)}
+.sw-shoe-ocean{background:linear-gradient(#06122b,#19d3ff)}.sw-shoe-fire{background:radial-gradient(circle at 50% 80%,#ffd36b,#ff6a1a 40%,#5b2216 70%)}
+.sw-shoe-grid{background:linear-gradient(#ff3d8b,#1a0633 50%,#33e6ff 51%,#0a0216 54%)}.sw-shoe-aurora{background:linear-gradient(160deg,#36ff9a,#7a5cff)}
+.sw-shoe-santa{background:linear-gradient(#d61f2c 0 60%,#f4f4f4 60%)}.sw-shoe-flannel{background:repeating-linear-gradient(0deg,rgba(0,0,0,.45) 0 4px,transparent 4px 9px),repeating-linear-gradient(90deg,#7a1f1f 0 5px,#2a0c0c 5px 9px)}
+.sw-shoe-handle{background:linear-gradient(#0b1a24 0 35%,#eef0f3 35% 50%,#0b1a24 50%)}.sw-shoe-eq{background:linear-gradient(90deg,#22ff88 0 20%,transparent 20% 30%,#ffcf5a 30% 50%,transparent 50% 60%,#ff3d8b 60% 80%,transparent 80%),#05030a}
+.sw-shoe-lava{background:linear-gradient(#120604 0 62%,#ff5a1a 62% 80%,#ffd36b 80%)}.sw-shoe-run{background:linear-gradient(90deg,#ff2a2a 0 22%,#120604 22% 60%,#8fd8ff 60%)}
+.sw-shoe-beat{background:radial-gradient(circle,#ff3d8b 0 30%,#3a0a3a 60%,#05030a)}.sw-shoe-stealth{background:#08090c;box-shadow:inset 0 0 0 1px var(--line2)}
+.ideas{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:28px}
+.idea{padding:18px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.015)}
+.idea h3{margin:10px 0 6px;font-size:18px}.idea p{margin:0;color:var(--dim);font-size:14.5px;line-height:1.5}
+.idea .tag{display:inline-block;border:1px solid var(--line2);border-radius:999px;padding:3px 9px;font-size:11px;text-transform:uppercase}
+.idea .tag-live{color:var(--accent);border-color:rgba(143,216,255,.45)}
+.flagship{scroll-margin-top:64px}
+.model-credit{padding-top:20px;padding-bottom:28px;color:var(--faint)}
+.model-credit a{color:var(--dim)}
+.hero-actions{margin-top:18px}
+@media (min-width:1200px){.ideas{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media (max-width:560px){
+  .shoe-stage{aspect-ratio:auto}
+  .shoe-stage::before{content:"";display:block;padding-top:calc(56.25% + 100px)}
+  .shoe-stage>picture,.shoe-stage>canvas:not(.lg-3d){top:50px;bottom:50px;height:auto}
+  .shoe-stage .lg-over-top{top:8px}.shoe-stage .lg-over-bottom{bottom:8px}
+  .shoe-stage .render-note{width:100%;text-align:center;order:3}
+  .shoe-stage .lg-3dctl{right:8px}
+}

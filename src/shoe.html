@@ -1,6 +1,6 @@
 <!--
-title: Exovela Shoe | Prototype 02, side panels and heel that light up
-description: The Exovela shoe has sealed LED panels on the side and heel, and a removable, washable inner bootie. Try its live demo. Concept by Charles Anthony Leone.
+title: Exovela Shoe | Flagship 02, six zones that light up
+description: The Exovela shoe has six sealed LED zones and a removable, washable inner bootie. Try its live demo in photo or 3D, as a pair. Concept by Charles Anthony Leone.
 body: page-shoe
 scripts: live-ui.js
 preload: assets/img/shoe-side-1080.avif 1080w, assets/img/shoe-side-1440.avif 1440w, assets/img/shoe-side-2160.avif 2160w
@@ -10,37 +10,100 @@ preloadsizes: (max-width: 900px) 92vw, 760px
   <div class="wrap shoe-grid">
     <div class="lg-head">
       <p class="eyebrow">Exovela · Prototype 02, the shoe</p>
-      <h1 id="shoe-h">A sneaker with a screen on the side.</h1>
-      <p class="lede">Sealed LED panels on the side and the heel, and an inner bootie that comes out so you can wash it. It runs the same looks as the sweater, re-flowed for a foot.</p>
+      <h1 id="shoe-h">A sneaker that lights up on six sides.</h1>
+      <p class="lede">Sealed LED zones on the outer side, inner side, heel, toe cap, tongue and along the sole, and an inner bootie that comes out so you can wash it. It runs everything the sweater does, laid out for a foot that bends.</p>
     </div>
     <div class="lg-stage shoe-stage">
       <picture>
         <source type="image/avif" srcset="assets/img/shoe-side-1080.avif 1080w, assets/img/shoe-side-1440.avif 1440w, assets/img/shoe-side-2160.avif 2160w" sizes="(max-width: 900px) 92vw, 760px">
-        <img src="assets/img/shoe-side-1080.webp" srcset="assets/img/shoe-side-1080.webp 1080w, assets/img/shoe-side-1440.webp 1440w, assets/img/shoe-side-2160.webp 2160w" sizes="(max-width: 900px) 92vw, 760px" width="2160" height="1215" alt="Side view of a dark sneaker. The side panel and heel glow with LED pixels." fetchpriority="high" decoding="async">
+        <img src="assets/img/shoe-side-1080.webp" srcset="assets/img/shoe-side-1080.webp 1080w, assets/img/shoe-side-1440.webp 1440w, assets/img/shoe-side-2160.webp 2160w" sizes="(max-width: 900px) 92vw, 760px" width="2160" height="1215" alt="Side view of a dark knit sneaker on a wet pier at night. The side, heel, toe cap, tongue and sole strip glow with LED pixels." fetchpriority="high" decoding="async">
       </picture>
-      <canvas aria-label="Live shoe demo" role="img"></canvas>
-      <div class="lg-over lg-over-top"><span></span>
+      <canvas aria-label="Live shoe. Tap a zone to edit it." role="img"></canvas>
+      <div class="lg-over lg-over-top">
+        <div class="seg" role="group" aria-label="Foot"><button type="button" data-view="L" aria-pressed="true">Left</button><button type="button" data-view="R" aria-pressed="false">Right</button></div>
         <div class="seg" role="group" aria-label="Display look"><button type="button" data-look="0" aria-pressed="true">LED</button><button type="button" data-look="1" aria-pressed="false">OLED</button></div>
       </div>
       <div class="lg-3dctl" data-3dctl hidden><button type="button" class="icon-btn" data-spin aria-pressed="true" title="Auto-spin" aria-label="Auto-spin"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 4v4.5h-4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="icon-btn" data-reset title="Reset view" aria-label="Reset view"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
       <p class="lg-hint" data-hint aria-hidden="true">Drag to rotate · Pinch or scroll to zoom · Two fingers or right-drag to move</p>
       <p class="lg-loading" aria-live="polite">Loading 3D…</p>
-      <div class="lg-over lg-over-bottom"><div class="seg" role="group" aria-label="Viewer"><button type="button" data-mode3d="0" aria-pressed="true">Photo</button><button type="button" data-mode3d="1" aria-pressed="false">3D</button></div><span class="render-note" data-note>Simulated on a concept render</span></div>
+      <div class="lg-over lg-over-bottom">
+        <div class="seg" role="group" aria-label="Viewer"><button type="button" data-mode3d="0" aria-pressed="true">Photo</button><button type="button" data-mode3d="1" aria-pressed="false">3D</button></div>
+        <div class="seg" role="group" aria-label="Pair"><button type="button" data-pair aria-pressed="false">Pair</button><button type="button" data-pairmode="match" aria-pressed="true">Match</button><button type="button" data-pairmode="mirror" aria-pressed="false">Mirror</button></div>
+        <span class="render-note" data-note>Simulated on a concept render</span>
+      </div>
     </div>
     <div class="lg-panel">
-      <p class="lg-label">Looks</p>
-      <div class="chips">
-        <button type="button" class="chip" data-shoe="psych" aria-pressed="true">Psychedelic</button>
-        <button type="button" class="chip" data-shoe="show" aria-pressed="false">Surf show</button>
-        <button type="button" class="chip" data-shoe="ocean" aria-pressed="false">Night ocean</button>
-        <button type="button" class="chip" data-shoe="fire" aria-pressed="false">Fireplace</button>
-        <button type="button" class="chip" data-shoe="grid" aria-pressed="false">Neon grid</button>
-        <button type="button" class="chip" data-shoe="ticker" aria-pressed="false">Handle + clock</button>
-        <button type="button" class="chip" data-shoe="ad" aria-pressed="false">Flannel + ad</button>
+      <div class="tabs" role="tablist" aria-label="Demo mode">
+        <button type="button" role="tab" data-tab="looks" aria-selected="true">Preset looks</button>
+        <button type="button" role="tab" data-tab="free" aria-selected="false">Free mode</button>
       </div>
-      <p class="lg-label">Your account's ad slot</p>
-      <button type="button" class="btn btn-sm" data-ad-toggle aria-pressed="false">Ad slot off</button>
-      <p class="fine">Turn the slot on here or on the <a href="index.html#live">sweater</a>. It belongs to your account, so it shows up on whatever you wear: the sweater's back, this shoe's heel.</p>
+      <div data-pane="looks">
+        <div class="presets" data-presets></div>
+        <p class="fine">Every look is motion-aware. The toe cap creases with each step, so it only gets color and pulses. Pictures and text live on the side panels, and a picture can wrap from the outer side around the heel.</p>
+      </div>
+      <div data-pane="free" hidden>
+        <p class="lg-label">1 · Pick a zone, or tap one on the shoe</p>
+        <div class="chips" data-zones></div>
+        <p class="lg-label">2 · Give it a source</p>
+        <div class="tabs tabs-sm" role="tablist" aria-label="Source">
+          <button type="button" role="tab" data-src="shows" aria-selected="true">Shows</button>
+          <button type="button" role="tab" data-src="mirror" aria-selected="false">Phone</button>
+          <button type="button" role="tab" data-src="code" aria-selected="false">Code</button>
+          <button type="button" role="tab" data-src="draw" aria-selected="false">Draw</button>
+          <button type="button" role="tab" data-src="game" aria-selected="false">Game</button>
+          <button type="button" role="tab" data-src="ad" aria-selected="false">Ad slot</button>
+          <button type="button" role="tab" data-src="widgets" aria-selected="false">Widgets</button>
+          <button type="button" role="tab" data-src="patterns" aria-selected="false">Patterns</button>
+        </div>
+        <div data-srcpane="shows">
+          <label class="lg-inline">Play across <select data-span><option value="zone">this zone</option><option value="wrap" selected>outer side, around the heel, inner side</option><option value="all">every zone, each framed on its own</option></select></label>
+          <div class="chans" data-shows></div>
+          <p class="fine">Host your shows: anything you have the rights to. These clips are originals made for this demo.</p>
+        </div>
+        <div data-srcpane="mirror" hidden>
+          <div class="phone-row"><div class="phone"><canvas data-mirror width="180" height="320" aria-label="Simulated phone screen"></canvas></div>
+          <p class="fine">Simulated mirroring. Your phone's screen goes to the selected zone, live. In the product it would stream over Wi-Fi from an app.</p></div>
+        </div>
+        <div data-srcpane="code" hidden>
+          <div class="code-head"><span class="fine">draw(led, t): led.w, led.h, led.set(x, y, r, g, b), led.fill(), led.text(), led.hsv()</span></div>
+          <textarea data-code spellcheck="false" rows="8" aria-label="Code for the selected zone"></textarea>
+          <div class="actions-sm"><button type="button" class="btn btn-sm btn-led" data-run>Run on this zone</button><button type="button" class="btn btn-sm" data-sample="plasma">Plasma</button><button type="button" class="btn btn-sm" data-sample="ticker">Ticker</button><button type="button" class="btn btn-sm" data-sample="life">Dot rain</button></div>
+          <p class="fine" data-code-err aria-live="polite">Your code runs in its own worker thread, away from this page, and is stopped if a frame takes longer than a second.</p>
+        </div>
+        <div data-srcpane="draw" hidden>
+          <div class="phone-row"><div class="phone">
+            <div class="ptabs" role="tablist"><button type="button" role="tab" data-ptab="text" aria-selected="true">Text</button><button type="button" role="tab" data-ptab="pad" aria-selected="false">Draw</button></div>
+            <div data-ppane="text"><textarea data-text rows="4" aria-label="Message for the shoe">nice shoes</textarea><button type="button" class="btn btn-sm btn-led" data-send>Send to shoe</button></div>
+            <div data-ppane="pad" hidden><canvas data-pad width="300" height="300" aria-label="Draw pad"></canvas><div class="inks"><button type="button" data-ink="#8fd8ff" aria-label="Blue"></button><button type="button" data-ink="#ff5fa2" aria-label="Pink"></button><button type="button" data-ink="#ffcf5a" aria-label="Yellow"></button><button type="button" data-ink="#36ff9a" aria-label="Green"></button><button type="button" class="btn btn-sm" data-clear>Clear</button></div></div>
+          </div>
+          <p class="fine">Write or draw on your phone and it shows up on the zone you picked. The outer side is the default.</p></div>
+        </div>
+        <div data-srcpane="game" hidden>
+          <div class="phone-row"><div class="phone"><div class="ttt" data-ttt></div><p class="fine" data-ttt-status aria-live="polite"></p><button type="button" class="btn btn-sm" data-ttt-new>New game</button></div>
+          <p class="fine">Tic-tac-toe on the side panel. Tap a square on the shoe or on the phone. You're X.</p></div>
+        </div>
+        <div data-srcpane="ad" hidden data-ad>
+          <div class="card ad-card"><span class="num">AD SLOT · A-0142</span><h3>Bound to your account</h3>
+          <p>Rent out a slot and it follows you: whatever Exovela piece you wear, the slot shows up in the same place. Here it sits on the shoe's heel, and it moves to the sweater's back when you put on the <a href="index.html#live">sweater</a>.</p>
+          <p class="fine" data-ad-state></p><button type="button" class="btn btn-sm btn-led" data-ad-toggle aria-pressed="false">Turn the slot on</button></div>
+        </div>
+        <div data-srcpane="widgets" hidden>
+          <div class="chips"><button type="button" class="chip" data-pat="clock">Clock</button><button type="button" class="chip" data-pat="temp" data-opts='{"value":48}'>Temperature (demo value)</button><button type="button" class="chip" data-pat="ticker">Handle ticker</button><button type="button" class="chip" data-pat="eq" data-opts='{"vertical":true}'>Level meter</button></div>
+          <label class="lg-inline">Your handle <input data-handle value="@yourname" maxlength="24"></label>
+        </div>
+        <div data-srcpane="patterns" hidden>
+          <div class="chips"><button type="button" class="chip" data-pat="flannel">Flannel</button><button type="button" class="chip" data-pat="plasma">Psychedelic</button><button type="button" class="chip" data-pat="stripes">Stripes</button><button type="button" class="chip" data-pat="snow">Snow</button><button type="button" class="chip" data-pat="fireplace">Fireplace</button><button type="button" class="chip" data-pat="eq">Equalizer</button><button type="button" class="chip" data-pat="grid">Neon grid</button><button type="button" class="chip" data-pat="warp">Warp</button><button type="button" class="chip" data-off>Off</button></div>
+          <label class="lg-inline">Solid color <input type="color" data-solid value="#2a6cff"></label>
+        </div>
+      </div>
+      <div class="lg-actions" data-sim hidden>
+        <button type="button" class="btn btn-sm btn-brake" data-brake>Stop <small>simulated</small></button>
+        <button type="button" class="btn btn-sm" data-stepnow>Take a step <small>simulated</small></button>
+      </div>
+      <div class="lg-actions">
+        <button type="button" class="btn btn-sm" data-stealth aria-pressed="false">Stealth</button>
+        <button type="button" class="btn btn-sm btn-sync" data-outfit aria-pressed="false">Outfit sync with the sweater</button>
+      </div>
       <p class="fine lg-status" data-lg-status aria-live="polite"></p>
       <p class="fine">Prototype resolution: about 5 mm between LEDs. The exact pitch of the first pair isn't settled yet.</p>
     </div>
@@ -66,7 +129,8 @@ preloadsizes: (max-width: 900px) 92vw, 760px
     <div class="reveal"><dl class="spec">
       <dt>Side panels</dt><dd>Small flexible boards of tiny addressable LEDs, about 5 mm apart, potted in clear silicone. These would be made to order for the first pair</dd>
       <dt>Heel</dt><dd>A small curved panel of the same LEDs</dd>
-      <dt>Brain</dt><dd>A thumb-sized microcontroller with Bluetooth and Wi-Fi, in a sealed pod in the heel</dd>
+      <dt>Toe, tongue, sole</dt><dd>Short LED strips. The sole strip sits behind a translucent band in the midsole. Nothing lights the crease behind the toe cap, where the shoe bends most</dd>
+      <dt>Brain</dt><dd>A thumb-sized microcontroller with Bluetooth, Wi-Fi and a motion sensor, in a sealed pod in the heel</dd>
       <dt>Battery</dt><dd>A small rechargeable cell in the heel pod, charged by a magnetic connector or a wireless pad. About 2 to 3 hours at night brightness (estimate)</dd>
       <dt>Liner</dt><dd>Removable knit bootie with no electronics, machine washable</dd>
       <dt>Parts</dt><dd>About $190 to $260 per pair for a hand-built prototype, most of it the custom LED boards (estimate)</dd>
@@ -77,6 +141,8 @@ preloadsizes: (max-width: 900px) 92vw, 760px
 <section class="section-tight rule">
   <div class="wrap split" style="align-items:center">
     <div class="reveal"><p class="eyebrow">Status</p><h2>Concept stage.</h2></div>
-    <p class="muted reveal">No shoe exists yet. The picture is a concept render, and the demo is drawn live in your browser. No application has been filed.</p>
+    <p class="muted reveal">No shoe exists yet. The picture is a concept render, the 3D view is a licensed shoe model we retextured, and the demo is drawn live in your browser. A technical disclosure has been prepared for review by a patent attorney. No application has been filed.</p>
   </div>
 </section>
+
+<p class="model-credit wrap fine">3D shoe model: "Materials Variants Shoe" by Shopify, <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>, from the <a href="https://github.com/KhronosGroup/glTF-Sample-Assets" rel="noopener">Khronos glTF sample assets</a>, retextured and given LED zones by Exovela.</p>

@@ -1,6 +1,6 @@
 <!--
-title: Exovela | A sweater that plays anything, zone by zone
-description: Exovela is a thick knit sweater with LED panels under the stitches. Chest, stomach, back, sleeves and cuffs each play their own source: your shows, a game, a note from your phone, code you wrote. Concept by Charles Anthony Leone.
+title: Exovela | Clothes and shoes that play anything
+description: Exovela puts soft LED panels under the knit of a sweater and inside the side of a sneaker. Every zone plays its own source: your shows, a note from your phone, a game, code you wrote. Two live demos, the build plan and the roadmap. Concept by Charles Anthony Leone.
 body: page-home
 scripts: live-ui.js
 preload: assets/img/sweater-front-1080.avif 1080w, assets/img/sweater-front-1440.avif 1440w, assets/img/sweater-front-2160.avif 2160w
@@ -9,9 +9,10 @@ preloadsizes: (max-width: 900px) 92vw, 600px
 <section class="lg-hero" id="live" data-live-garment="sweater" aria-labelledby="hero-h">
   <div class="wrap lg-grid">
     <div class="lg-head">
-      <p class="eyebrow">Exovela · Prototype 01, the sweater</p>
-      <h1 id="hero-h">Wear anything, zone by zone.</h1>
-      <p class="lede">A thick knit sweater with LED panels under the stitches. The chest, stomach, back, both sleeves and the cuffs each run their own source: your show, a game, a note from your phone, code you wrote.</p>
+      <p class="eyebrow">Exovela · Clothes and shoes with screens in them</p>
+      <h1 id="hero-h">Wear whatever you want to see.</h1>
+      <p class="lede">Soft LED panels under the knit of a sweater and inside the side of a sneaker. Every zone plays its own source: your show on the stomach, a note from your phone on the back, a game someone plays from across the room. One app and one account run everything you wear.</p>
+      <div class="actions hero-actions"><a class="btn btn-led" href="#shoe-live">Meet the shoe</a><a class="btn" href="#vision">The whole idea</a></div>
     </div>
     <div class="lg-stage">
       <picture>
@@ -96,91 +97,176 @@ preloadsizes: (max-width: 900px) 92vw, 600px
           <label class="lg-inline">Solid color <input type="color" data-solid value="#2a6cff"></label>
         </div>
       </div>
+      <div class="lg-actions">
+        <button type="button" class="btn btn-sm" data-stealth aria-pressed="false" title="Every zone dark at once">Stealth</button>
+        <button type="button" class="btn btn-sm" data-nearby title="Simulated">Someone nearby <small>simulated</small></button>
+        <button type="button" class="btn btn-sm btn-sync" data-outfit aria-pressed="false">Outfit sync with the shoe</button>
+      </div>
       <p class="fine lg-status" data-lg-status aria-live="polite"></p>
       <p class="fine">Prototype resolution. We don't know the first screen's exact pixel pitch or color depth yet, so switch between the pitches we'd test. 10 mm is LED mesh, 2.5 mm is the flexible panels in the build plan.</p>
     </div>
   </div>
 </section>
 
-<section class="section rule" id="motion">
-  <div class="wrap split">
-    <div class="reveal"><p class="eyebrow">Motion-aware layouts</p><h2>Built for a body that moves.</h2></div>
-    <div class="reveal">
-      <p class="lede">A picture that runs from your chest down your arm breaks the moment you reach for something. So every look keeps each zone self-contained.</p>
-      <ul class="ticks">
-        <li><strong>Torso scenes stay framed in the torso.</strong> Chest and stomach can join into one screen because they move together.</li>
-        <li><strong>Sleeves get things that survive motion:</strong> vertical stripes, tickers, a clock, a level meter, solid color.</li>
-        <li><strong>Cuffs are light bands:</strong> a color or a pulse, never a picture.</li>
-        <li><strong>The layout knows the garment.</strong> The same look re-flows onto a shoe or a cardigan, zone by zone.</li>
-      </ul>
+<section class="section rule flagship" id="shoe-live" data-live-garment="shoe" aria-labelledby="shoe-h">
+  <div class="wrap shoe-grid">
+    <div class="lg-head">
+      <p class="eyebrow">Flagship 02 · The shoe</p>
+      <h2 id="shoe-h">A sneaker that lights up on six sides.</h2>
+      <p class="lede">The outer side, inner side, heel, toe cap, tongue and a strip along the sole. Turn on outfit sync and the shoes follow whatever the sweater is showing.</p>
+    </div>
+    <div class="lg-stage shoe-stage">
+      <picture>
+        <source type="image/avif" srcset="assets/img/shoe-side-1080.avif 1080w, assets/img/shoe-side-1440.avif 1440w, assets/img/shoe-side-2160.avif 2160w" sizes="(max-width: 900px) 92vw, 760px">
+        <img src="assets/img/shoe-side-1080.webp" srcset="assets/img/shoe-side-1080.webp 1080w, assets/img/shoe-side-1440.webp 1440w, assets/img/shoe-side-2160.webp 2160w" sizes="(max-width: 900px) 92vw, 760px" width="2160" height="1215" alt="Side view of a dark knit sneaker on a wet pier at night. The side, heel, toe cap, tongue and sole strip glow with LED pixels." loading="lazy" decoding="async">
+      </picture>
+      <canvas aria-label="Live shoe. Tap a zone to edit it." role="img"></canvas>
+      <div class="lg-over lg-over-top">
+        <div class="seg" role="group" aria-label="Foot"><button type="button" data-view="L" aria-pressed="true">Left</button><button type="button" data-view="R" aria-pressed="false">Right</button></div>
+        <div class="seg" role="group" aria-label="Display look"><button type="button" data-look="0" aria-pressed="true">LED</button><button type="button" data-look="1" aria-pressed="false">OLED</button></div>
+      </div>
+      <div class="lg-3dctl" data-3dctl hidden><button type="button" class="icon-btn" data-spin aria-pressed="true" title="Auto-spin" aria-label="Auto-spin"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 4v4.5h-4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="icon-btn" data-reset title="Reset view" aria-label="Reset view"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+      <p class="lg-hint" data-hint aria-hidden="true">Drag to rotate · Pinch or scroll to zoom · Two fingers or right-drag to move</p>
+      <p class="lg-loading" aria-live="polite">Loading 3D…</p>
+      <div class="lg-over lg-over-bottom">
+        <div class="seg" role="group" aria-label="Viewer"><button type="button" data-mode3d="0" aria-pressed="true">Photo</button><button type="button" data-mode3d="1" aria-pressed="false">3D</button></div>
+        <div class="seg" role="group" aria-label="Pair"><button type="button" data-pair aria-pressed="false">Pair</button><button type="button" data-pairmode="match" aria-pressed="true">Match</button><button type="button" data-pairmode="mirror" aria-pressed="false">Mirror</button></div>
+        <span class="render-note" data-note>Simulated on a concept render</span>
+      </div>
+    </div>
+    <div class="lg-panel">
+      <p class="lg-label">Shoe looks</p>
+      <div data-pane="looks">
+        <div class="presets" data-presets></div>
+        <p class="fine">Every look is motion-aware. The toe cap creases with each step, so it only gets color and pulses. Pictures and text live on the side panels, and a picture can wrap from the outer side around the heel.</p>
+      </div>
+      <div class="lg-actions" data-sim hidden>
+        <button type="button" class="btn btn-sm btn-brake" data-brake>Stop <small>simulated</small></button>
+        <button type="button" class="btn btn-sm" data-stepnow>Take a step <small>simulated</small></button>
+      </div>
+      <div class="lg-actions">
+        <button type="button" class="btn btn-sm" data-stealth aria-pressed="false">Stealth</button>
+        <button type="button" class="btn btn-sm btn-sync" data-outfit aria-pressed="false">Outfit sync with the sweater</button>
+        <a class="btn btn-sm btn-led" href="shoe.html">Full shoe demo</a>
+      </div>
+      <p class="fine lg-status" data-lg-status aria-live="polite"></p>
+      <p class="fine">Six zones: outer side, inner side, heel, toe cap, tongue and a strip along the sole. Pair shows both feet in 3D; Match keeps text readable on both, Mirror reflects it.</p>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap">
-    <div class="reveal"><p class="eyebrow">What it plays</p><h2>Six ways to use a zone.</h2></div>
-    <div class="grid g3" style="margin-top:32px">
-      <div class="card reveal"><span class="num">SHOWS</span><h3>Your shows, on your stomach</h3><p>Host whole episodes of anything you have the rights to. People watch while they talk to you.</p></div>
-      <div class="card reveal"><span class="num">PHONE</span><h3>Mirror your phone</h3><p>Send a playlist, a map or a photo from your phone to one zone, live.</p></div>
-      <div class="card reveal"><span class="num">CODE</span><h3>Write what it draws</h3><p>A tiny canvas API per zone. A plasma, a ticker, a game. Code is sandboxed and checked for safe flash rates before it plays.</p></div>
-      <div class="card reveal"><span class="num">DRAW</span><h3>Write on your back</h3><p>Type or draw on your phone and it shows up on the zone you pick. Say what you didn't get to say out loud.</p></div>
-      <div class="card reveal"><span class="num">GAMES</span><h3>Play on your chest</h3><p>Tic-tac-toe today. Anything turn-based that someone can tap on their own phone tomorrow.</p></div>
-      <div class="card reveal"><span class="num">AD SLOTS</span><h3>Rent space that follows you</h3><p>Ad slots belong to your account, so they move with you onto every Exovela piece you wear. You choose who rents them.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section rule">
+<section class="section rule" id="vision">
   <div class="wrap split" style="align-items:start">
-    <div class="reveal"><p class="eyebrow">How we'd make it real</p><h2>A first sweater from parts on sale today.</h2>
-      <p class="lede">Why a sweater first: thick knit hides flexible LED panels and diffuses them into soft pixels, so it looks like a sweater when it's off. A thin shirt would show every board.</p>
-      <div class="actions"><a class="btn btn-led" href="proof-of-concept.html#build">Read the build plan</a><a class="btn" href="how-it-works.html">How the two layers work</a></div></div>
-    <div class="reveal"><dl class="spec">
-      <dt>Chest, stomach, back</dt><dd>Flexible LED matrix panels (2.5 mm pitch) in pockets under the knit</dd>
-      <dt>Sleeves</dt><dd>Separate flexible LED strips that bend with the arm</dd>
-      <dt>Cuffs</dt><dd>Addressable LED bands</dd>
-      <dt>Controller</dt><dd>A small single-board computer for the panels, a second microcontroller for sleeves and cuffs, phone app over Wi-Fi</dd>
-      <dt>Power</dt><dd>USB-C power bank in the washable inner layer, one magnetic dock. About 1.5 hours at night brightness (estimate)</dd>
-      <dt>Parts</dt><dd>About $950 for one prototype sweater (estimate)</dd>
-      <dt>Status</dt><dd>Not built yet. Every number here is an estimate until it's measured.</dd>
-    </dl></div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="reveal"><p class="eyebrow">The ecosystem</p><h2>Buy the piece once. Change it every day.</h2></div>
-    <div class="grid g3" style="margin-top:32px">
-      <div class="card reveal"><span class="num">THE BASE PIECE</span><h3>One garment, any look</h3><p>You buy the sweater or the shoe. Looks are software, so the same piece is a flannel at lunch and a fireplace at night.</p></div>
-      <div class="card reveal"><span class="num">CREATOR MARKET</span><h3>Design, sell and buy looks</h3><p>A free marketplace for looks, widgets and games. Creators set their price, and every look is checked for fit, power and flash safety before it's listed.</p><p><a href="marketplace.html">How creators get paid</a></p></div>
-      <div class="card reveal"><span class="num">MADE TO ORDER</span><h3>New styles, made on demand</h3><p>We're working toward a manufacturing partner that can make new cuts in small runs, so a popular design can become a real garment without a big factory order. That partnership is in the works; it doesn't exist yet.</p></div>
+    <div class="reveal"><p class="eyebrow">The idea</p><h2>Your clothes become a screen you control.</h2></div>
+    <div class="reveal">
+      <p class="lede">Most of what we wear says one thing for as long as we own it. Exovela pieces change with the day. A flannel at lunch, a fireplace at a winter party, the second half of the game on your stomach while you talk to friends.</p>
+      <p>The display hides inside the garment and diffuses through the knit or the shell, so the piece still looks like normal clothing when it's off. Looks are software. You buy the piece once, then download, design or sell what plays on it.</p>
     </div>
   </div>
 </section>
 
-<section class="section rule" id="lineup">
+<section class="section" id="how">
   <div class="wrap">
-    <div class="reveal"><p class="eyebrow">The lineup</p><h2>Start where the tech hides well.</h2></div>
+    <div class="reveal"><p class="eyebrow">How it works</p><h2>Zones, a phone, and layouts that move with you.</h2></div>
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card reveal"><span class="num">ZONES</span><h3>Each area is its own screen</h3><p>A sweater has a chest, stomach, back, two sleeves and cuffs. The shoe has six zones of its own. Every zone can play something different, or several can join into one picture.</p></div>
+      <div class="card reveal"><span class="num">MOTION-AWARE</span><h3>Built for a body that moves</h3><p>Pictures stay where the garment holds still: the torso, the side of the shoe. Sleeves get stripes, tickers and widgets. The toe cap creases with every step, so it only ever gets color.</p></div>
+      <div class="card reveal"><span class="num">YOUR PHONE</span><h3>The remote is the app you already carry</h3><p>Pick a look, mirror your screen, type a message, draw, or run code you wrote. Other people can join a game from their own phones.</p></div>
+      <div class="card reveal"><span class="num">SHOWS</span><h3>Host the things you love</h3><p>Play episodes of anything you have the rights to. People watch while they talk to you.</p></div>
+      <div class="card reveal"><span class="num">WASHABLE</span><h3>Electronics come out</h3><p>The sweater's panels sit in pockets of a removable inner layer. The shoe's panels are sealed in silicone, and the bootie that touches your foot has no electronics at all.</p></div>
+      <div class="card reveal"><span class="num">SAFE BY DEFAULT</span><h3>Checked before it plays</h3><p>Every look and every line of code is checked for flash rate and brightness before it reaches a garment. Stealth turns everything dark in one tap.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section rule" id="ideas">
+  <div class="wrap">
+    <div class="reveal"><p class="eyebrow">Ideas lab</p><h2>What else a lit sweater and shoe can do.</h2>
+      <p class="lede">Ideas we think are buildable with the parts in the plan. The ones marked "try it" are in the demos above, with the sensors simulated in your browser.</p></div>
+    <div class="ideas reveal">
+      <article class="idea"><span class="tag tag-live">Try it above</span><h3>Outfit sync</h3><p>Pick a sweater look and the shoes switch to the matching one. Software only: both pieces already share one account.</p></article>
+      <article class="idea"><span class="tag tag-live">Try it · simulated</span><h3>Night run</h3><p>The heel glows like a tail light and goes full red when you stop. The sole lights from heel to toe with each step. Needs a motion sensor in the heel pod, a part that costs a few dollars.</p></article>
+      <article class="idea"><span class="tag tag-live">Try it · simulated</span><h3>Music</h3><p>Shoes and sleeves pulse with the beat of what's playing on your phone. The phone already knows the tempo, so this is software plus Bluetooth.</p></article>
+      <article class="idea"><span class="tag tag-live">Try it above</span><h3>Stealth</h3><p>One tap and every zone goes dark, and the piece looks like a plain sweater or sneaker. On the real shoe, a double tap of the heel would do the same.</p></article>
+      <article class="idea"><span class="tag tag-live">Try it · simulated</span><h3>Calling card</h3><p>When another Exovela wearer is close and you've both opted in, your back shows your handle for a few seconds. Bluetooth low energy, which the controllers already have.</p></article>
+      <article class="idea"><span class="tag">Software only</span><h3>Group pulse</h3><p>A run club or a concert crowd, every sleeve and sole pulsing together off one clock.</p></article>
+      <article class="idea"><span class="tag">Software only</span><h3>Find my shoe</h3><p>Lost one at the gym? Your phone makes it blink.</p></article>
+      <article class="idea"><span class="tag">Software only</span><h3>Weather cuffs</h3><p>Cuffs turn blue an hour before rain, from the forecast on your phone.</p></article>
+      <article class="idea"><span class="tag">Small sensor</span><h3>Step goals</h3><p>The tongue fills up like a progress ring as you walk toward today's goal.</p></article>
+      <article class="idea"><span class="tag">Later</span><h3>Team colors</h3><p>Pickup game? Everyone taps once and the shoes split into two team colors.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="platform">
+  <div class="wrap">
+    <div class="reveal"><p class="eyebrow">Platform and market</p><h2>Buy the piece once. Change it every day.</h2></div>
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card reveal"><span class="num">THE BASE PIECE</span><h3>Hardware people keep</h3><p>The sweater and the shoe are the products you buy. Looks are software, so one piece covers many outfits, and it gets new ones without a new purchase.</p></div>
+      <div class="card reveal"><span class="num">CREATOR MARKET</span><h3>Design, sell and buy looks</h3><p>A marketplace for looks, widgets and games. Creators set their price, and every listing is checked for fit, power and flash safety first.</p><p><a href="marketplace.html">How creators would sell</a></p></div>
+      <div class="card reveal"><span class="num">AD SLOTS</span><h3>Space that follows the wearer</h3><p>An ad slot belongs to the wearer's account and appears in the same place on every piece they put on. The wearer chooses who rents it and keeps a share.</p></div>
+    </div>
+    <p class="fine reveal" style="margin-top:18px">How the money would work is still a plan: hardware sales, a cut of marketplace sales, and a share of ad slot rentals. We haven't tested prices or demand yet, so there are no market numbers on this page.</p>
+  </div>
+</section>
+
+<section class="section rule" id="build">
+  <div class="wrap">
+    <div class="reveal"><p class="eyebrow">The honest build plan</p><h2>Both flagships from parts on sale today.</h2>
+      <p class="lede">Neither is built yet. These are the parts we'd start with, and every number is an estimate until it's measured.</p></div>
+    <div class="grid g2" style="margin-top:28px">
+      <div class="card reveal"><span class="num">PROTOTYPE 01 · SWEATER</span><dl class="spec">
+        <dt>Chest, stomach, back</dt><dd>Flexible LED matrix panels (2.5 mm pitch) in pockets under the knit</dd>
+        <dt>Sleeves and cuffs</dt><dd>Flexible LED strips that bend with the arm, and addressable LED bands</dd>
+        <dt>Controller</dt><dd>A small single-board computer for the panels, a microcontroller for sleeves and cuffs, phone app over Wi-Fi</dd>
+        <dt>Power</dt><dd>USB-C power bank in the washable inner layer. About 1.5 hours at night brightness (estimate)</dd>
+        <dt>Parts</dt><dd>About $950 for one hand-built sweater (estimate)</dd>
+      </dl></div>
+      <div class="card reveal"><span class="num">PROTOTYPE 02 · SHOE</span><dl class="spec">
+        <dt>Side panels and heel</dt><dd>Small flexible boards of tiny addressable LEDs about 5 mm apart, potted in clear silicone</dd>
+        <dt>Toe, tongue, sole</dt><dd>Short LED strips. The sole strip sits behind a translucent band in the midsole</dd>
+        <dt>Brain</dt><dd>A thumb-sized microcontroller with Bluetooth and Wi-Fi and a motion sensor, sealed in a heel pod</dd>
+        <dt>Power</dt><dd>A small rechargeable cell in the heel pod. About 2 to 3 hours at night brightness (estimate)</dd>
+        <dt>Parts</dt><dd>About $190 to $260 per hand-built pair, most of it the custom LED boards (estimate)</dd>
+      </dl></div>
+    </div>
+    <div class="actions reveal"><a class="btn btn-led" href="proof-of-concept.html#build">Read the build and test plan</a><a class="btn" href="how-it-works.html">How the layers work</a></div>
+  </div>
+</section>
+
+<section class="section" id="lineup">
+  <div class="wrap">
+    <div class="reveal"><p class="eyebrow">Roadmap and price</p><h2>Expensive first, then within reach.</h2>
+      <p class="lede">Hand-built prototypes cost what the parts cost. The path to a price people pay for good outerwear is custom LED tiles made in volume, fewer and smarter zones on the entry line, and electronics you move between seasons.</p></div>
     <div class="lineup reveal">
       <a class="lu now" href="#live"><span class="num">PROTOTYPE 01</span><strong>Sweater</strong><span>Thick knit, panels under the stitches.</span></a>
-      <a class="lu now" href="shoe.html"><span class="num">PROTOTYPE 02</span><strong>Shoe</strong><span>Sealed LED side panels and heel, washable inner.</span></a>
+      <a class="lu now" href="shoe.html"><span class="num">PROTOTYPE 02</span><strong>Shoe</strong><span>Six sealed zones, washable inner bootie.</span></a>
       <div class="lu"><span class="num">NEXT</span><strong>Joggers</strong><span>Thigh and shin zones.</span></div>
       <div class="lu"><span class="num">NEXT</span><strong>Cardigan</strong><span>Two front panels, a knit back.</span></div>
       <div class="lu"><span class="num">LATER</span><strong>V-neck</strong><span>Thinner knit, finer pixels.</span></div>
       <div class="lu"><span class="num">LAST</span><strong>T-shirt</strong><span>Waits for stretchable displays.</span></div>
     </div>
     <div class="grid g3" style="margin-top:32px">
-      <div class="card reveal"><span class="num">STEP 1</span><h3>Prototype</h3><p>Off-the-shelf panels, hand-built. Expensive and heavy, but it plays.</p></div>
-      <div class="card reveal"><span class="num">STEP 2</span><h3>Custom tiles</h3><p>Sealed LED tiles cut to the pattern pieces, made in volume. Lighter, cheaper per garment.</p></div>
-      <div class="card reveal"><span class="num">STEP 3</span><h3>Within reach</h3><p>Fewer, smarter zones for a lower-priced line, and a shell you can move between seasons. Stretchable displays bring the thin pieces last.</p></div>
+      <div class="card reveal"><span class="num">STEP 1</span><h3>Prototype</h3><p>Off-the-shelf panels, hand-built and measured: weight, heat, battery life, washing.</p></div>
+      <div class="card reveal"><span class="num">STEP 2</span><h3>Custom tiles</h3><p>Sealed LED tiles cut to the pattern pieces and made in volume. Lighter, and cheaper per piece.</p></div>
+      <div class="card reveal"><span class="num">STEP 3</span><h3>Within reach</h3><p>An entry line with fewer zones, and a core you move from your winter sweater to your spring shoes.</p></div>
     </div>
+    <p class="fine reveal" style="margin-top:14px"><a href="roadmap.html">Full roadmap</a></p>
+  </div>
+</section>
+
+<section class="section rule close-band">
+  <div class="wrap grid g2">
+    <div class="card reveal"><span class="num">IF YOU'D WEAR ONE</span><h3>Play with both demos, then make a look.</h3><p>Everything above runs in your browser. Try free mode on the <a href="shoe.html">shoe</a>, write a look in <a href="studio.html">the studio</a>, or see how creators would sell theirs.</p><div class="actions"><a class="btn btn-led" href="#live">Back to the sweater</a><a class="btn" href="studio.html">Open the studio</a></div></div>
+    <div class="card reveal"><span class="num">IF YOU'D BUILD IT WITH US</span><h3>The plan, the parts and the tests are written down.</h3><p>Investors, manufacturers and engineers: the technology page has the build plan, the cost estimates and the test plan for both prototypes, with every estimate marked as one.</p><div class="actions"><a class="btn btn-led" href="proof-of-concept.html">Technology and status</a><a class="btn" href="roadmap.html">Roadmap</a></div></div>
   </div>
 </section>
 
 <section class="section-tight rule">
   <div class="wrap split" style="align-items:center">
     <div class="reveal"><p class="eyebrow">Status</p><h2>Concept stage, honestly labeled.</h2></div>
-    <p class="muted reveal">No product exists yet. The pictures are concept renders, and the demo above is drawn live in your browser. A technical disclosure has been prepared for review by a patent attorney. No application has been filed. <a href="proof-of-concept.html">Technology and status</a></p>
+    <p class="muted reveal">No product exists yet. The pictures are concept renders, the 3D views are models, and the demos are drawn live in your browser. A technical disclosure has been prepared for review by a patent attorney. No application has been filed. <a href="proof-of-concept.html">Technology and status</a></p>
   </div>
 </section>
+
+<p class="model-credit wrap fine">3D shoe model: "Materials Variants Shoe" by Shopify, <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>, from the <a href="https://github.com/KhronosGroup/glTF-Sample-Assets" rel="noopener">Khronos glTF sample assets</a>, retextured and given LED zones by Exovela. The 3D sweater, the renders and the video loops are original.</p>
