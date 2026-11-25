@@ -11,6 +11,36 @@ export const adSlot = { get(){ try { return JSON.parse(localStorage.getItem(AD_K
 const SWEATER_ZONES = [['chest','Chest'],['stomach','Stomach'],['sleeveL','Left sleeve'],['sleeveR','Right sleeve'],['cuffs','Cuffs'],['back','Back']];
 const zoneIds = z => z === 'cuffs' ? ['cuffL','cuffR'] : [z];
 
+// Photo / 3D switch for a stage. The 3D viewer (three.js) loads only when first asked for.
+function mount3D(root, g, kind){
+  const stage = $('.lg-stage', root), btns = [...root.querySelectorAll('[data-mode3d]')], ctl = $('[data-3dctl]', root), note = $('[data-note]', root);
+  const photoNote = note ? note.textContent : '';
+  let viewer = null, loading = false, hintT;
+  const set = async on => {
+    btns.forEach(b => b.setAttribute('aria-pressed', String((b.dataset.mode3d === '1') === on)));
+    if (on) {
+      if (!viewer) {
+        if (loading) return; loading = true; stage.classList.add('is-loading3d');
+        try { const { Viewer3D } = await import('./garment3d-view.js'); viewer = new Viewer3D(stage, g, kind); }
+        catch (e) { loading = false; stage.classList.remove('is-loading3d'); btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode3d === '0'))); if (note) note.textContent = '3D needs WebGL, which this browser has turned off'; return; }
+        loading = false; stage.classList.remove('is-loading3d');
+      }
+      viewer.show(); g.paused2d = true; stage.classList.add('is3d'); if (ctl) ctl.hidden = false;
+      if (note) note.textContent = 'Simulated LEDs on a procedural 3D model';
+      if (g.view === 'back') viewer.face('back');
+      stage.classList.add('hint-on'); clearTimeout(hintT); hintT = setTimeout(() => stage.classList.remove('hint-on'), 4200);
+    } else {
+      if (viewer) viewer.hide(); g.paused2d = false; g.last = 0; stage.classList.remove('is3d', 'hint-on'); if (ctl) ctl.hidden = true; if (note) note.textContent = photoNote;
+    }
+  };
+  btns.forEach(b => b.addEventListener('click', () => set(b.dataset.mode3d === '1')));
+  const spin = $('[data-spin]', root);
+  if (spin) { if (matchMedia('(prefers-reduced-motion: reduce)').matches) spin.setAttribute('aria-pressed', 'false');
+    spin.addEventListener('click', () => { const on = spin.getAttribute('aria-pressed') !== 'true'; spin.setAttribute('aria-pressed', String(on)); viewer && viewer.setSpin(on); }); }
+  $('[data-reset]', root)?.addEventListener('click', () => viewer && viewer.reset());
+  return { face: v => { if (viewer && viewer.on) viewer.face(v); }, get viewer(){ return viewer; } };
+}
+
 function mountSweater(root){
   const g = new LiveGarment($('.lg-stage', root), SWEATER);
   const ui = $('.lg-panel', root);
@@ -20,11 +50,13 @@ function mountSweater(root){
 
   // view toggle and display controls on the stage
   const viewBtns = [...root.querySelectorAll('[data-view]')];
-  const setView = v => { g.setView(v); viewBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === v))); };
+  let v3 = null;
+  const setView = v => { g.setView(v); viewBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === v))); if (v3) v3.face(v); };
   viewBtns.forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
   root.querySelectorAll('[data-look]').forEach(b => b.addEventListener('click', () => { g.setLook(+b.dataset.look); root.querySelectorAll('[data-look]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
   root.querySelectorAll('[data-pitch]').forEach(b => b.addEventListener('click', () => { g.setPitch(+b.dataset.pitch); root.querySelectorAll('[data-pitch]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
 
+  v3 = mount3D(root, g, 'sweater');
   // preset looks
   const presetBox = $('[data-presets]', root);
   const presetBtns = PRESETS.map(p => h('button', { type: 'button', class: 'preset', 'data-preset': p.id, 'aria-pressed': 'false', onclick: () => { g.applyPreset(p); mark(p.id); say(`${p.label}${p.note ? ': ' + p.note.toLowerCase() : ''}.`); } }, h('span', { class: 'sw sw-' + p.id }), p.label));
@@ -42,7 +74,7 @@ function mountSweater(root){
   const zoneBtns = SWEATER_ZONES.map(([id, label]) => h('button', { type: 'button', class: 'chip', 'data-z': id, 'aria-pressed': String(id === zone), onclick: () => pickZone(id) }, label));
   zoneBox.append(...zoneBtns);
   const pickZone = id => { zone = id; zoneBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.z === id))); if (id === 'back' && g.view !== 'back') setView('back'); if ((id === 'chest' || id === 'stomach') && g.view !== 'front') setView('front'); g.select(zoneIds(id)[0]); say(`Editing: ${SWEATER_ZONES.find(z => z[0] === id)[1]}.`); };
-  g.on(() => {}); // keep for future
+  g.on(() => { if (!g.sel) return; const z = g.sel.startsWith('cuff') ? 'cuffs' : g.sel; if (z !== zone && SWEATER_ZONES.some(q => q[0] === z)) { zone = z; zoneBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.z === z))); } });
   const assign = (src, opts = {}) => { for (const id of zoneIds(zone)) g.set(id, src, { ...opts, zone: id }); mark(null); };
 
   const srcTabs = [...root.querySelectorAll('[data-src]')], srcPanes = [...root.querySelectorAll('[data-srcpane]')];
@@ -129,7 +161,7 @@ function mountSweater(root){
   const first = PRESETS.find(p => p.id === 'mix'); g.applyPreset(first); mark('mix');
   if (adSlot.get().on) g.set('back', 'ad');
   showTab('looks'); showSrc('shows');
-  window.__lg = g;
+  window.__lg = g; window.__v3 = v3;
 }
 
 function mountShoe(root){
@@ -152,7 +184,7 @@ function mountShoe(root){
   const sync = () => { const s = adSlot.get(); if (adB) { adB.setAttribute('aria-pressed', String(!!s.on)); adB.textContent = s.on ? 'Ad slot on (from your account)' : 'Ad slot off'; } };
   adB?.addEventListener('click', () => { const s = adSlot.get(); s.on = !s.on; adSlot.set(s); sync(); apply(btns.find(b => b.getAttribute('aria-pressed') === 'true')?.dataset.shoe || 'psych'); });
   sync(); apply('psych');
-  window.__shoe = g;
+  window.__shoe = g; window.__v3shoe = mount3D(root, g, 'shoe');
 }
 
 document.querySelectorAll('[data-live-garment="sweater"]').forEach(mountSweater);

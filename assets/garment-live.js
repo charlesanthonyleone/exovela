@@ -177,7 +177,8 @@ export class LiveGarment {
   }
   frame(t){
     const gl = this.gl; if (!gl) return;
-    this.t = t; this.draw(t);
+    this.t = t; this.draw(t); this.frameNo = (this.frameNo || 0) + 1;
+    if (this.paused2d) { this.pulse = Math.max(0, this.pulse - 0.04); return; }  // the 3D viewer is showing; it reads the atlas
     gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, this.atex);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -210,17 +211,20 @@ export class LiveGarment {
     return { z, lu: (u - z.box[0]) / z.box[2], lv: (v - z.box[1]) / z.box[3] };
   }
   click(e){
-    const h = this.hit(e); if (!h) return; this.last = 0;
-    const a = this.assign[h.z.id];
+    const h = this.hit(e); if (!h) return; this.tapZone(h.z.id, h.lu, h.lv);
+  }
+  // a tap at zone-local (lu, lv): plays the source if it takes taps (the game), otherwise selects the zone
+  tapZone(id, lu, lv){
+    this.last = 0;
+    const a = this.assign[id];
     if (a && a.inst && a.inst.tap) {
-      let lv = h.lv;
       if (a.span) { // convert to span-local coordinates
-        const cs = a.group.map(g => this.zc[g].height), tot = cs.reduce((s,c)=>s+c,0); let off = 0;
-        for (const g of a.group) { if (g === h.z.id) break; off += this.zc[g].height; }
-        lv = (off + h.lv * this.zc[h.z.id].height) / tot;
+        const tot = a.group.reduce((s, g) => s + this.zc[g].height, 0); let off = 0;
+        for (const g of a.group) { if (g === id) break; off += this.zc[g].height; }
+        lv = (off + lv * this.zc[id].height) / tot;
       }
-      a.inst.tap(h.lu, lv); return;
+      a.inst.tap(lu, lv); return true;
     }
-    this.select(h.z.id);
+    this.select(id); return false;
   }
 }
