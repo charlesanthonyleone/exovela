@@ -48,6 +48,7 @@ void main(){
   float shade = m.r;
   float s = pow(shade, 1.15) * 1.45 + w.b*.0;
   vec3 panel = lc * s * uGain;
+  panel = panel * 1.35 / (1. + panel * .55);   // soft knee: bright content rolls off instead of clipping
   // a dark, slightly glossy surface where the panel is off, plus the photo's sheen
   vec3 off = srgb2lin(base);
   vec3 lit = off*.35 + panel;
