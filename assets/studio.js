@@ -68,14 +68,14 @@
     if (!q) { $('ai-status').textContent = 'Describe a look first, or tap one of the examples.'; return; }
     if (credits <= 0) { $('ai-status').textContent = 'Out of demo credits. Reload the page to reset them.'; return; }
     let style = 'spectrum'; for (const [re, s] of STYLES) if (re.test(q)) { style = s; break; }
-    const found = Object.keys(COLORS).filter(c => new RegExp(`\\b${c}\\b`).test(q));
+    const found = Object.keys(COLORS).filter(c => new RegExp(`\\b${c}\\b`).test(q)).sort((x, y) => q.search(new RegExp(`\\b${x}\\b`)) - q.search(new RegExp(`\\b${y}\\b`)));
     choose(style);
     if (found[0]) state.a = COLORS[found[0]];
     if (found[1]) state.b = COLORS[found[1]];
     state.s = /fast|quick|hype|energetic/.test(q) ? 1.8 : /slow|calm|chill|gentle/.test(q) ? .5 : 1;
     $('speed').value = state.s; $('speed-v').textContent = state.s + '×';
     credits--; $('credits').textContent = credits; syncColors(); render();
-    $('ai-status').textContent = `Drafted a ${E.PRESETS[style].name.toLowerCase()} skin${found.length ? ' in ' + found.slice(0, 2).join(' and ') : ''}. Open the Code tab to see and edit it.`;
+    $('ai-status').textContent = `Drafted a skin in the ${E.PRESETS[style].name} style${found.length ? ', in ' + found.slice(0, 2).join(' and ') : ''}. Open the Code tab to see and edit it.`;
   });
   syncCode();
 })();
