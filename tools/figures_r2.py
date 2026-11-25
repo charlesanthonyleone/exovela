@@ -203,10 +203,66 @@ def fig_method(t, site):
     if not site: b += f'<text x="450" y="505" text-anchor="middle" font-size="18" font-weight="bold">FIG. 2</text>'
     return svg(W, H, b, t, 'Method of use', x0=0, x1=900)
 
+def fig_v0wiring(t, site):
+    W, H = 900, 560
+    b = f'<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{t["ln"]}"/></marker></defs>'
+    if site: b += f'<text x="30" y="32" font-size="15" fill="{t["txt"]}">Prototype v0: power and signal path</text>'
+    b += f'<rect x="20" y="56" width="250" height="330" rx="12" fill="none" stroke="{t["dim"]}" stroke-dasharray="6 5"/><text x="34" y="78" font-size="12" fill="{t["dim"]}">Inner suit 12, spine pack 34</text>'
+    b += f'<rect x="330" y="56" width="560" height="470" rx="12" fill="none" stroke="{t["dim"]}" stroke-dasharray="6 5"/><text x="344" y="78" font-size="12" fill="{t["dim"]}">Display shell 14</text>'
+    b += box(t,45,100,200,56,'Power bank','116',True,'USB-C PD, 20,000 mAh')
+    b += box(t,45,200,200,56,'PD trigger','114',True,'requests 9 V')
+    b += box(t,45,300,200,56,'Dock, suit half','118a',True,'2x 9 V, 2x GND, detect')
+    b += box(t,350,300,190,56,'Dock, shell half','118b',True,'potted, flush')
+    b += box(t,350,190,190,56,'Fuse','112',True,'inline, est. 5 A')
+    b += box(t,580,190,140,56,'Buck 9 to 5 V','110',True,'5.5 A max')
+    b += box(t,745,190,125,56,'Temp sensor','124',True,'centre panel')
+    b += f'<rect x="560" y="92" width="310" height="74" rx="10" fill="none" stroke="{t["ln"]}" stroke-width="1.2"/><text x="572" y="108" font-size="11" fill="{t["dim"]}">Sealed controller pod 106</text>'
+    b += box(t,572,116,130,40,'Pi Zero 2 W','58',True)
+    b += box(t,716,116,142,40,'Matrix bonnet','108',True)
+    for i in range(6):
+        x = 350 + i*88
+        b += f'<rect x="{x}" y="420" width="76" height="40" rx="4" fill="{t["fill2"]}" stroke="{t["ln"]}" stroke-width="1.2"/><text x="{x+38}" y="445" text-anchor="middle" font-size="11" fill="{t["num"]}">{"F" if i<3 else "B"}{i%3+1}</text>'
+        if i < 5: b += f'<path d="M{x+76} 440 H{x+88}" stroke="{t["acc"]}" stroke-width="2"/>'
+    b += f'<text x="350" y="486" font-size="12" fill="{t["dim"]}">Flexible LED panels 100, 96 x 48 px each, one HUB75 chain 122</text><text x="350" y="503" font-size="12" fill="{t["dim"]}">(front F1-F3, back B1-B3)</text>'
+    b += arrow(t,145,156,145,200) + f'<text x="152" y="182" font-size="11" fill="{t["dim"]}">USB-C</text>' + arrow(t,145,256,145,300)
+    b += arrow(t,245,328,350,328) + f'<text x="298" y="320" text-anchor="middle" font-size="11" fill="{t["dim"]}">9 V, magnetic</text>'
+    b += arrow(t,445,300,445,246) + arrow(t,540,218,580,218)
+    b += arrow(t,640,190,640,156) + f'<text x="646" y="178" font-size="11" fill="{t["dim"]}">5 V</text>'
+    b += f'<path d="M650 246 V390 H392 V418" fill="none" stroke="{t["ln"]}" stroke-width="1.6" marker-end="url(#ah)"/><text x="560" y="384" font-size="11" fill="{t["dim"]}">5 V panel feed</text>'
+    b += f'<path d="M858 136 H880 V404 H372 V418" fill="none" stroke="{t["acc"]}" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#ah)"/><text x="700" y="398" font-size="11" fill="{t["dim"]}">HUB75 data</text>'
+    b += arrow(t,807,190,807,156) + f'<text x="813" y="178" font-size="11" fill="{t["dim"]}">I2C</text>'
+    b += box(t,45,440,200,56,'Phone','120',True,'Wi-Fi channel page')
+    b += f'<path d="M245 468 C300 468 330 140 572 136" fill="none" stroke="{t["dim"]}" stroke-width="1" stroke-dasharray="2 4" marker-end="url(#ah)"/><text x="250" y="420" font-size="11" fill="{t["dim"]}">channel, brightness</text>'
+    if not site: b += f'<text x="450" y="552" text-anchor="middle" font-size="18" font-weight="bold">FIG. 6</text>'
+    return svg(W, H, b, t, 'Prototype v0 wiring and system diagram', x0=0, x1=900)
+
+def fig_v0layout(t, site):
+    W, H = 900, 600
+    b = ''
+    if site: b += f'<text x="30" y="32" font-size="15" fill="{t["txt"]}">Prototype v0: panel layout, inside of the shell (panels 240 x 120 mm, to scale)</text>'
+    sc = 1.5; k = sc / 3.3   # px per mm (hoodie drawing unit is about 3.3 mm)
+    pw, ph = 120*k, 240*k
+    def panel(x, y, w, h, lab):
+        cells = ''.join(f'<path d="M{x+i*w/6:.1f} {y:.1f}V{y+h:.1f}" stroke="{t["dim"]}" stroke-width="0.4"/>' for i in range(1,6))
+        return f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="{t["fill2"]}" stroke="{t["acc"] if site else t["ln"]}" stroke-width="1.4"/>{cells}<text x="{x+w/2:.1f}" y="{y+h/2+4:.1f}" text-anchor="middle" font-size="12" fill="{t["num"]}">{lab}</text>'
+    ox1, ox2, oy = 0, 450, 50
+    b += hoodie(t, ox1, oy, sc=sc, pocket=False) + hoodie(t, ox2, oy, sc=sc, pocket=False)
+    cx1 = ox1 + 150*sc; fy = oy + 118*sc
+    b += panel(cx1-pw, fy, pw, ph, 'F1') + panel(cx1, fy, pw, ph, 'F2') + panel(cx1-pw, fy+ph, 2*pw, pw, 'F3')
+    cx2 = ox2 + 150*sc; by = oy + 128*sc
+    for i in range(3): b += panel(cx2-1.5*pw+i*pw, by, pw, ph, f'B{i+1}')
+    b += f'<text x="{cx1}" y="{oy+300*sc+34}" text-anchor="middle" font-size="13" fill="{t["txt"]}">Front: 240 x 360 mm, 96 x 144 px</text>'
+    b += f'<text x="{cx2}" y="{oy+300*sc+34}" text-anchor="middle" font-size="13" fill="{t["txt"]}">Back: 360 x 240 mm, 144 x 96 px</text>'
+    b += lead(t, cx1-pw+14, fy+30, cx1-pw-60, fy-60, '100', 'Panel', site)
+    b += lead(t, cx2+1.5*pw-8, by+20, 740, by-50, '126', 'Pocket', site)
+    b += lead(t, cx2+1.5*pw-8, by+ph-20, 740, by+ph+60, '102', 'Diffusion layer', site)
+    if not site: b += f'<text x="450" y="592" text-anchor="middle" font-size="18" font-weight="bold">FIG. 7</text>'
+    return svg(W, H, b, t, 'Prototype v0 panel layout', x0=0, x1=900)
+
 def write(path, s):
     os.makedirs(os.path.dirname(path), exist_ok=True); open(path, 'w').write(s)
-figs = [('exploded', fig_exploded, 1), ('method', fig_method, 2), ('section', fig_section, 3), ('dock', fig_dock, 4), ('system', fig_system, 5)]
+figs = [('exploded', fig_exploded, 1), ('method', fig_method, 2), ('section', fig_section, 3), ('dock', fig_dock, 4), ('system', fig_system, 5), ('v0-wiring', fig_v0wiring, 6), ('v0-layout', fig_v0layout, 7)]
 for name, fn, n in figs:
-    write(f'{ROOT}/assets/figures/r2-{name}.svg', fn(TH['site'], True))
+    if name != 'method': write(f"{ROOT}/assets/figures/{'r3' if name.startswith('v0') else 'r2'}-{name}.svg", fn(TH['site'], True))
     write(f'{ROOT}/poc/figures/FIG-{n}-{name}.svg', fn(TH['patent'], False))
 print('figures written')

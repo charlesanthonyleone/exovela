@@ -33,9 +33,38 @@
       <h1>The outer layer is a display.</h1>
       <p class="lede">Exovela is two pieces. A washable inner suit carries the battery and handles your body heat. Over it goes a sealed, flexible display shell that plays full-motion content, and is wiped clean, never washed.</p>
       <div class="actions">
-        <a class="btn btn-led" href="studio.html">Open the studio</a>
+        <a class="btn btn-led" href="#live">Try it live</a>
         <a class="btn" href="how-it-works.html">How it’s built</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section live" id="live" aria-labelledby="live-h">
+  <div class="wrap">
+    <div class="live-grid">
+    <div class="live-head"><p class="eyebrow">Live demo</p><h2 id="live-h">Pick a channel.</h2></div>
+    <div class="live-stage" data-live='{"base":"assets/img/demo-base-1080.webp","base2x":"assets/img/demo-base-2160.webp","maps":"assets/img/demo-maps.webp","warp":"assets/img/demo-warp.webp","box":[0.25278,0.21458,0.43519,0.58611],"aspect":0.75,"cols":96,"rows":144,"gain":1.0,"channels":[{"id":"santa","label":"Dancing Santa"},{"id":"surf","label":"Surf"},{"id":"ocean","label":"Night ocean"},{"id":"aurora","label":"Aurora"},{"id":"rain","label":"City rain"}]}'>
+      <picture>
+        <source type="image/avif" srcset="assets/img/demo-base-1080.avif 1080w, assets/img/demo-base-1440.avif 1440w, assets/img/demo-base-2160.avif 2160w" sizes="(max-width: 900px) 92vw, 560px">
+        <img class="live-poster" src="assets/img/demo-base-1080.webp" srcset="assets/img/demo-base-1080.webp 1080w, assets/img/demo-base-1440.webp 1440w, assets/img/demo-base-2160.webp 2160w" sizes="(max-width: 900px) 92vw, 560px" width="2160" height="2880" alt="The display shell hoodie on a pier at night, its front panel playing the selected channel." loading="lazy" decoding="async">
+      </picture>
+      <canvas aria-hidden="true"></canvas>
+      <span class="render-note">Simulated on a concept render</span>
+    </div>
+    <div class="live-copy">
+      <p class="lede">Each channel is a short video loop playing on the shell’s front panel. The picture bends with the folds, picks up the fabric’s shading, and throws its light onto the hood and sleeves.</p>
+      <div class="chans" role="group" aria-label="Channels">
+        <button type="button" class="chan" data-channel="santa" aria-pressed="true"><img src="assets/video/ch-santa-poster.jpg" alt="" width="60" height="80" loading="lazy" decoding="async"><span>Dancing Santa</span></button>
+        <button type="button" class="chan" data-channel="surf" aria-pressed="false"><img src="assets/video/ch-surf-poster.jpg" alt="" width="60" height="80" loading="lazy" decoding="async"><span>Surf</span></button>
+        <button type="button" class="chan" data-channel="ocean" aria-pressed="false"><img src="assets/video/ch-ocean-poster.jpg" alt="" width="60" height="80" loading="lazy" decoding="async"><span>Night ocean</span></button>
+        <button type="button" class="chan" data-channel="aurora" aria-pressed="false"><img src="assets/video/ch-aurora-poster.jpg" alt="" width="60" height="80" loading="lazy" decoding="async"><span>Aurora</span></button>
+        <button type="button" class="chan" data-channel="rain" aria-pressed="false"><img src="assets/video/ch-rain-poster.jpg" alt="" width="60" height="80" loading="lazy" decoding="async"><span>City rain</span></button>
+      </div>
+      <button type="button" class="btn btn-sm" data-led-grid aria-pressed="false">Show prototype resolution</button>
+      <p class="fine" data-live-status aria-live="polite">Now showing: Dancing Santa</p>
+      <p class="fine">The prototype resolution view shows what the first wearable build can draw: 96 × 144 LEDs at 2.5 mm pitch on the front, from three flexible panels. Clips are original, made for this demo. <a href="proof-of-concept.html#build">How we’d build it</a></p>
+    </div>
     </div>
   </div>
 </section>
@@ -113,5 +142,5 @@
 </div>
 
 <script src="assets/site.js" defer></script>
-<script type="module" src="assets/composite.js"></script><script type="module" src="assets/tiles.js"></script>
+<script type="module" src="assets/composite.js"></script><script type="module" src="assets/tiles.js"></script><script type="module" src="assets/livedemo.js"></script>
 </body></html>

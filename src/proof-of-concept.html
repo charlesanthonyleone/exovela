@@ -37,6 +37,36 @@ description: The state of the Exovela concept: what is designed, what is estimat
   </div>
 </section>
 
+<section class="section rule" id="build">
+  <div class="wrap">
+    <div class="split" style="align-items:end">
+      <div class="reveal"><p class="eyebrow">How we’d build it</p><h2>A first wearable can be built from parts on sale today.</h2></div>
+      <p class="lede reveal">Stage costumes already carry flexible LED panels that play video. Prototype v0 uses the same parts, rearranged so the electronics live in a sealed shell and the battery stays in the washable layer underneath. The catch is resolution: about 96 × 144 pixels across the front. That's sharp from a few metres away and coarse up close.</p>
+    </div>
+    <div class="tbl reveal" style="margin-top:32px"><table>
+      <thead><tr><th>Display option</th><th>Video</th><th>Flexibility</th><th>Resolution on a garment</th><th>Can you buy it?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Flexible LED matrix panels</strong> (HUB75, 2.5 mm pitch)</td><td>Yes</td><td>Bends gently; not for constant flexing</td><td>96 × 48 px per 240 × 120 mm panel</td><td>Yes, about $30 a panel</td></tr>
+        <tr><td><strong>Addressable LED mesh</strong> (WS2812B, SK6812, APA102)</td><td>Low resolution</td><td>Flexible, can be sewn</td><td>16 × 16 px per 160 mm</td><td>Yes</td></tr>
+        <tr><td><strong>Flexible OLED</strong></td><td>Yes</td><td>Bends on one axis, doesn't stretch or breathe</td><td>Phone-class</td><td>Not in garment sizes</td></tr>
+        <tr><td><strong>Stretchable micro-LED</strong></td><td>Yes</td><td>Stretches 25–50% in prototypes</td><td>100–120 ppi shown at trade shows</td><td>No, prototype stage</td></tr>
+        <tr><td><strong>Woven fiber displays</strong></td><td>Limited</td><td>Fully textile, washable in research</td><td>~0.8 mm pixel spacing in a 2021 study</td><td>No, research</td></tr>
+        <tr><td><strong>Electroluminescent panels</strong></td><td>No, shapes only</td><td>Very flexible</td><td>Segments</td><td>Yes</td></tr>
+        <tr><td><strong>Color e-paper</strong></td><td>No, seconds per refresh</td><td>Mostly rigid</td><td>High</td><td>Yes</td></tr>
+      </tbody></table></div>
+    <div style="margin-top:36px;display:grid;gap:28px">
+      <figure class="fig figwrap reveal"><img src="assets/figures/r3-v0-layout.svg" alt="Panel layout for prototype v0: three flexible LED panels on the front of the shell forming a 240 by 360 millimetre screen, and three across the back forming a 360 by 240 millimetre screen." width="900" height="600" loading="lazy"><figcaption>Six 240 × 120 mm panels sit in pockets inside the shell, clear of the elbows and shoulders.</figcaption></figure>
+      <figure class="fig figwrap reveal"><img src="assets/figures/r3-v0-wiring.svg" alt="Prototype v0 wiring: a USB-C power bank and power-delivery trigger in the inner suit feed 9 volts through a magnetic dock to the shell, where a fuse and a 5 volt regulator power a Raspberry Pi Zero 2 W, an LED matrix driver and six chained panels. A phone picks the channel over Wi-Fi." width="900" height="560" loading="lazy"><figcaption>Only power crosses the dock in v0. The video controller sits in a sealed pod inside the shell.</figcaption></figure>
+    </div>
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card reveal"><span class="num">CONTROLLER</span><h3 style="margin-top:12px">A small computer and open-source driver</h3><p>A Raspberry Pi Zero 2 W with an LED matrix driver board plays clips that have been pre-scaled to the panels. A phone page picks the channel and sets brightness, within a cap.</p></div>
+      <div class="card reveal"><span class="num">POWER</span><h3 style="margin-top:12px">About 3.5 hours, estimated</h3><p>A 20,000 mAh USB-C power bank in the inner suit, at night brightness. Every clip passes a power limiter and a flash check before it can play. Runtime will be measured, not quoted.</p></div>
+      <div class="card reveal"><span class="num">CARE</span><h3 style="margin-top:12px">Splash-proof first, sealed later</h3><p>v0 aims for splash resistance with coated panels and a gasketed pod. The inner suit holds only a sealed cable once the battery is out, so it goes in the wash. Full sealing comes with custom tiles.</p></div>
+    </div>
+    <p class="fine reveal" style="margin-top:24px">Estimated parts cost for one v0 garment: about $510 before shipping, about half of it confirmed from seller listings in November 2026. Nothing here has been built or tested yet. v1 moves to custom sealed LED tiles shaped to the pattern pieces, with the controller and battery in the spine pack.</p>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     <div class="reveal"><p class="eyebrow">System</p><h2>Garment and platform, end to end.</h2></div>
