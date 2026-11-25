@@ -67,7 +67,7 @@ u:nth-child(2){animation-delay:calc(var(--s)*-.9s)}u:nth-child(3){animation-dela
   const mount = (el, opts = {}) => {
     const cut = opts.cut || el.dataset.cut || 'hoodie';
     el.classList.add('garment');
-    el.innerHTML = `<div class="garment-glow"></div><div class="garment-body"><div class="garment-skin"><iframe title="Garment skin preview" sandbox="" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div></div>
+    el.innerHTML = `<div class="garment-glow"></div><div class="garment-body"><div class="garment-skin"><iframe title="Garment skin preview" sandbox="" tabindex="-1" aria-hidden="true"></iframe></div></div>
     <svg class="garment-lines" viewBox="0 0 400 440" aria-hidden="true"><path class="g-shade"/><path class="g-out"/><path class="g-det"/></svg>`;
     const frame = el.querySelector('iframe');
     const api = {

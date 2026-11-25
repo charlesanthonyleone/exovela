@@ -19,7 +19,7 @@
   const grid = $('presets');
   Object.entries(E.PRESETS).forEach(([k, p]) => {
     const b = document.createElement('button'); b.className = 'preset'; b.dataset.k = k; b.setAttribute('aria-pressed', String(k === 'spectrum'));
-    b.innerHTML = `<iframe sandbox="" tabindex="-1" aria-hidden="true" loading="lazy"></iframe><span>${p.name}</span>`;
+    b.innerHTML = `<iframe sandbox="" tabindex="-1" aria-hidden="true"></iframe><span>${p.name}</span>`;
     b.querySelector('iframe').srcdoc = E.doc(p);
     b.addEventListener('click', () => choose(k));
     grid.appendChild(b);
