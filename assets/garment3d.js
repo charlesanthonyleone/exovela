@@ -71,11 +71,11 @@ function applyMaterials(root, kind, displayTex, envMap) {
         map: displayTex,
         emissive: 0xffffff,
         emissiveMap: displayTex,
-        emissiveIntensity: 1.35,
-        roughness: 0.14,
-        metalness: 0.05,
-        clearcoat: 1.0,
-        clearcoatRoughness: 0.08,
+        emissiveIntensity: 1.1,
+        roughness: 0.38,
+        metalness: 0.0,
+        clearcoat: 0.6,
+        clearcoatRoughness: 0.28,
         normalMap: M.shellN,
         normalScale: new THREE.Vector2(0.12, 0.12),
         roughnessMap: M.shellR
@@ -95,7 +95,7 @@ function applyMaterials(root, kind, displayTex, envMap) {
       const knit = matName === 'inner' || matName === 'lining';
       obj.material = new THREE.MeshPhysicalMaterial({
         ...common,
-        color: matName === 'lining' ? 0x6a6e78 : knit ? 0x2a2e36 : 0x141416,
+        color: matName === 'lining' ? 0x121318 : knit ? 0x2a2e36 : 0x141416,
         roughness: knit ? 0.82 : 0.62,
         metalness: 0,
         normalMap: knit ? M.knitN : M.shellN,
@@ -314,7 +314,7 @@ export async function mountGarment(el, opts = {}) {
 
   // interaction: drag to orbit
   let lastX = 0;
-  const onDown = ev => { view.dragging = true; lastX = ev.clientX ?? ev.touches?.[0].clientX; ev.preventDefault(); };
+  const onDown = ev => { view.dragging = true; lastX = ev.clientX ?? ev.touches?.[0].clientX; };
   const onMove = ev => {
     if (!view.dragging) return;
     const x = ev.clientX ?? ev.touches?.[0].clientX;
@@ -323,6 +323,7 @@ export async function mountGarment(el, opts = {}) {
   };
   const onUp = () => { view.dragging = false; };
   el.addEventListener('pointerdown', onDown);
+  el.addEventListener('keydown', ev => { if (ev.key === 'ArrowLeft') { view.targetYaw -= 0.35; ev.preventDefault(); } if (ev.key === 'ArrowRight') { view.targetYaw += 0.35; ev.preventDefault(); } });
   addEventListener('pointermove', onMove);
   addEventListener('pointerup', onUp);
 
@@ -335,7 +336,9 @@ export async function mountGarment(el, opts = {}) {
       view.skin.tick(t);
       dispTex.needsUpdate = true;
     }
-    const [r, g, b] = averageColor(skinCanvas);
+    const nowMs = performance.now();
+    if (!view._avgAt || nowMs - view._avgAt > 250) { view._avg = averageColor(skinCanvas); view._avgAt = nowMs; }
+    const [r, g, b] = view._avg;
     lights.fill.color.setRGB(r, g, b);
     lights.fill.intensity = 2.2;
     lights.fill.position.set(Math.sin(view.yaw) * 0.3, 1.15, 0.55);
@@ -352,7 +355,7 @@ export async function mountGarment(el, opts = {}) {
     view.yaw += (view.targetYaw - view.yaw) * 0.08;
 
     // breathing
-    const breath = reduced ? 1 : 1 + 0.012 * Math.sin(t * 1.5);
+    const breath = 1;
     const targetExp = view.mode === 'exploded' ? 1 : 0;
     const targetSec = view.mode === 'section' ? 1 : 0;
     const k = Math.min(1, dt * 5);

@@ -34,7 +34,9 @@ ready().then(apis => {
         const c = createSkinCanvas(192);
         const sk = createSkin(el.dataset.skin, c);
         sk.tick(1.2);
-        el.style.backgroundImage = `url(${c.toDataURL('image/jpeg', 0.7)})`;
+        const f = document.createElement('canvas'); f.width = 177; f.height = 154;
+        f.getContext('2d').drawImage(c, 192 * 0.02, 192 * 0.30, 192 * 0.46, 192 * 0.40, 0, 0, 177, 154);
+        el.style.backgroundImage = `url(${f.toDataURL('image/jpeg', 0.8)})`;
         el.style.backgroundSize = 'cover';
       });
     });

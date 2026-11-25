@@ -1,13 +1,13 @@
 <!--
 title: Studio | Exovela
 description: Design an Exovela skin live in your browser: pick a cut, recolor it, edit its HTML and CSS, or describe it to the AI designer.
-scripts: studio.js
+scripts: main.js,studio.js
 -->
 <section class="page-hero" style="padding-bottom:28px">
   <div class="wrap">
     <p class="eyebrow">Studio · live demo</p>
-    <h1>Design it. <span class="neon-text">Wear it.</span></h1>
-    <p class="lede">A working studio demo. The hoodie, jacket and joggers are a real two-piece model: a washable inner suit and a sealed display shell. What you see on the shell is full-motion content, warped along the fabric. Drag to turn it. Change the cut, pick a skin, or describe one.</p>
+    <h1>Try a skin on the shell.</h1>
+    <p class="lede">A working demo, drawn live in your browser. Pick a cut, then a skin, then change its colors and speed or describe a look. Drag the garment, or use the arrow keys, to turn it. This is a simplified model, not a product render.</p>
   </div>
 </section>
 
@@ -22,10 +22,10 @@ scripts: studio.js
         </div>
         <span class="credits" title="Demo credits. Nothing is charged.">Credits <b id="credits">20</b></span>
       </div>
-      <div id="stage" data-garment data-cut="hoodie" data-skin="aurora"></div>
+      <div id="stage" data-garment data-cut="hoodie" data-skin="aurora" tabindex="0" role="img" aria-label="Live 3D garment. Use the left and right arrow keys to turn it."></div>
       <div class="row" style="justify-content:space-between;margin-top:16px">
-        <span class="mono muted" style="font-size:12px" id="skin-name">Spectrum · preset</span>
-        <span class="mono muted" style="font-size:12px" id="power">Power estimate: high</span>
+        <span class="stage-hint" id="skin-name">Northern Lights · cinematic</span>
+        <span class="stage-hint" id="power">Power estimate: medium</span>
       </div>
     </div>
 
@@ -38,7 +38,7 @@ scripts: studio.js
       </div>
 
       <div class="panel" id="p-presets" role="tabpanel" aria-labelledby="t-presets">
-        <p class="muted" style="font-size:14.5px">Starting points. Every preset is plain HTML and CSS that you can open in the Code tab and change.</p>
+        <p class="muted" style="font-size:14.5px">Starting points. In this demo the presets are drawn by small canvas programs; on the platform, skins are HTML and CSS packages.</p>
         <div class="presets" id="presets"></div>
       </div>
 
@@ -67,7 +67,7 @@ scripts: studio.js
         <div class="field"><label for="code-css">CSS · use var(--a), var(--b), var(--c) and var(--s)</label><textarea id="code-css" spellcheck="false"></textarea></div>
         <div class="row"><button class="btn btn-led" id="apply"><span>Apply to garment</span></button><button class="btn" id="reset">Reset to preset</button></div>
         <p class="status" id="code-status" role="status"></p>
-        <p class="note">Sandboxed: scripts, network requests and external images are blocked, and only inline CSS and data images run. The real platform adds one more check, rejecting skins that flash more than three times a second, which follows the widely used photosensitive-safety guideline.</p>
+        <p class="note">In this demo, Apply reads the color and speed variables from your CSS and applies them to the preset. On the platform, the whole file is rendered in a sandbox with scripts and network access turned off, then checked for flash rate (no more than three flashes a second), brightness and power before it can be worn.</p>
       </div>
 
       <div class="panel" id="p-ai" role="tabpanel" aria-labelledby="t-ai" hidden>
@@ -85,9 +85,9 @@ scripts: studio.js
   <div class="wrap">
     <div class="reveal"><p class="eyebrow">The platform</p><h2>Three ways to make a skin.</h2></div>
     <div class="grid g3" style="margin-top:28px">
-      <div class="card neon reveal"><span class="num">CODE</span><h3 style="margin-top:12px">Write it</h3><p>HTML, CSS and SVG, with optional GLSL shaders and image sequences for advanced creators. You get a local preview, a garment-shaped canvas, and a command-line tool for people who live in a terminal.</p></div>
-      <div class="card neon reveal"><span class="num">AI</span><h3 style="margin-top:12px">Describe it</h3><p>Type or say what you want. The designer drafts a skin, you refine it in plain language, and it shows you the code so you can learn from it. Generations cost credits, which you can buy or earn from sales.</p></div>
-      <div class="card neon reveal"><span class="num">REMIX</span><h3 style="margin-top:12px">Build on someone's</h3><p>Open any skin whose creator allows remixing, change it, and publish your version. Attribution and the creator's share are handled automatically.</p></div>
+      <div class="card reveal"><span class="num">CODE</span><h3 style="margin-top:12px">Write it</h3><p>HTML, CSS and SVG, with optional GLSL shaders and image sequences for advanced creators. You get a local preview, a garment-shaped canvas, and a command-line tool for people who live in a terminal.</p></div>
+      <div class="card reveal"><span class="num">AI</span><h3 style="margin-top:12px">Describe it</h3><p>Type or say what you want. The designer drafts a skin, you refine it in plain language, and it shows you the code so you can learn from it. Generations cost credits, which you can buy or earn from sales.</p></div>
+      <div class="card reveal"><span class="num">REMIX</span><h3 style="margin-top:12px">Build on someone's</h3><p>Open any skin whose creator allows remixing, change it, and publish your version. Attribution and the creator's share are handled automatically.</p></div>
     </div>
   </div>
 </section>
