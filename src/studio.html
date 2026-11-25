@@ -1,0 +1,93 @@
+<!--
+title: Studio | Exovela
+description: Design an Exovela skin live in your browser: pick a cut, recolor it, edit its HTML and CSS, or describe it to the AI designer.
+scripts: studio.js
+-->
+<section class="page-hero" style="padding-bottom:28px">
+  <div class="wrap">
+    <p class="eyebrow">Studio · live demo</p>
+    <h1>Design it. <span class="neon-text">Wear it.</span></h1>
+    <p class="lede">This is a working demo of the creator studio. The garment preview is drawn from the same kind of HTML and CSS a real skin would use, running in a locked sandbox with no scripts and no network. Change the cut, the colors or the code, and watch it update.</p>
+  </div>
+</section>
+
+<section class="section-tight" style="padding-top:0">
+  <div class="wrap studio">
+    <div class="card neon preview">
+      <div class="row" style="justify-content:space-between;margin-bottom:18px">
+        <div class="cut-switch" role="group" aria-label="Garment cut">
+          <button class="chip" data-cut="hoodie" aria-pressed="true">Hoodie</button>
+          <button class="chip" data-cut="jacket" aria-pressed="false">Jacket</button>
+          <button class="chip" data-cut="joggers" aria-pressed="false">Joggers</button>
+        </div>
+        <span class="credits" title="Demo credits. Nothing is charged.">Credits <b id="credits">20</b></span>
+      </div>
+      <div id="stage" data-cut="hoodie" data-preset="spectrum"></div>
+      <div class="row" style="justify-content:space-between;margin-top:16px">
+        <span class="mono muted" style="font-size:12px" id="skin-name">Spectrum · preset</span>
+        <span class="mono muted" style="font-size:12px" id="power">Power estimate: high</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tabs" role="tablist" aria-label="Studio tools">
+        <button role="tab" aria-selected="true" aria-controls="p-presets" id="t-presets">Presets</button>
+        <button role="tab" aria-selected="false" aria-controls="p-settings" id="t-settings">Settings</button>
+        <button role="tab" aria-selected="false" aria-controls="p-code" id="t-code">Code</button>
+        <button role="tab" aria-selected="false" aria-controls="p-ai" id="t-ai">AI designer</button>
+      </div>
+
+      <div class="panel" id="p-presets" role="tabpanel" aria-labelledby="t-presets">
+        <p class="muted" style="font-size:14.5px">Starting points. Every preset is plain HTML and CSS that you can open in the Code tab and change.</p>
+        <div class="presets" id="presets"></div>
+      </div>
+
+      <div class="panel" id="p-settings" role="tabpanel" aria-labelledby="t-settings" hidden>
+        <div class="field"><span class="label">Colors</span>
+          <div class="row">
+            <label class="row" style="gap:8px"><input type="color" id="c-a" value="#ff2d55"> <span class="muted">Primary</span></label>
+            <label class="row" style="gap:8px"><input type="color" id="c-b" value="#0a84ff"> <span class="muted">Secondary</span></label>
+            <label class="row" style="gap:8px"><input type="color" id="c-c" value="#05060c"> <span class="muted">Base</span></label>
+          </div>
+        </div>
+        <div class="field"><label for="speed">Motion speed <span id="speed-v" class="mono">1.0×</span></label><input type="range" id="speed" min="0.25" max="3" step="0.05" value="1"></div>
+        <div class="field"><label for="bright">Brightness <span id="bright-v" class="mono">100%</span></label><input type="range" id="bright" min="20" max="130" step="1" value="100"></div>
+        <div class="field"><span class="label">Mode</span>
+          <div class="seg" role="group" aria-label="Mode">
+            <button class="chip" data-mode="live" aria-pressed="true">Live</button>
+            <button class="chip" data-mode="still" aria-pressed="false">Still frame</button>
+            <button class="chip" data-mode="off" aria-pressed="false">Display off</button>
+          </div>
+        </div>
+        <p class="note">On a real garment, these are the base settings in the companion app. Brightness also has a hard ceiling for night and driving.</p>
+      </div>
+
+      <div class="panel" id="p-code" role="tabpanel" aria-labelledby="t-code" hidden>
+        <div class="field"><label for="code-html">HTML</label><textarea id="code-html" spellcheck="false" style="min-height:90px"></textarea></div>
+        <div class="field"><label for="code-css">CSS · use var(--a), var(--b), var(--c) and var(--s)</label><textarea id="code-css" spellcheck="false"></textarea></div>
+        <div class="row"><button class="btn btn-led" id="apply"><span>Apply to garment</span></button><button class="btn" id="reset">Reset to preset</button></div>
+        <p class="status" id="code-status" role="status"></p>
+        <p class="note">Sandboxed: scripts, network requests and external images are blocked, and only inline CSS and data images run. The real platform adds one more check, rejecting skins that flash more than three times a second, which follows the widely used photosensitive-safety guideline.</p>
+      </div>
+
+      <div class="panel" id="p-ai" role="tabpanel" aria-labelledby="t-ai" hidden>
+        <div class="field"><label for="prompt">Describe your design</label><input type="text" id="prompt" placeholder="e.g. slow purple and teal aurora, calm"></div>
+        <div class="row"><button class="btn btn-led" id="gen"><span>Generate · 1 credit</span></button>
+          <div class="row" style="gap:6px" id="ideas"></div></div>
+        <p class="status" id="ai-status" role="status"></p>
+        <div class="callout info" style="margin-top:14px;font-size:14px"><strong>About this demo.</strong> No AI model runs on this page, and no credits are charged. Simple keyword rules in your browser pick a style, colors and speed, so you can feel the flow. In the real product, the prompt goes to a design model that writes the skin's HTML and CSS, and every result passes the same sandbox and safety checks before you can wear it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="reveal"><p class="eyebrow">The platform</p><h2>Three ways to make a skin.</h2></div>
+    <div class="grid g3" style="margin-top:28px">
+      <div class="card neon reveal"><span class="num">CODE</span><h3 style="margin-top:12px">Write it</h3><p>HTML, CSS and SVG, with optional GLSL shaders and image sequences for advanced creators. You get a local preview, a garment-shaped canvas, and a command-line tool for people who live in a terminal.</p></div>
+      <div class="card neon reveal"><span class="num">AI</span><h3 style="margin-top:12px">Describe it</h3><p>Type or say what you want. The designer drafts a skin, you refine it in plain language, and it shows you the code so you can learn from it. Generations cost credits, which you can buy or earn from sales.</p></div>
+      <div class="card neon reveal"><span class="num">REMIX</span><h3 style="margin-top:12px">Build on someone's</h3><p>Open any skin whose creator allows remixing, change it, and publish your version. Attribution and the creator's share are handled automatically.</p></div>
+    </div>
+  </div>
+</section>
