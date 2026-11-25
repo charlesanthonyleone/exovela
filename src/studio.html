@@ -7,7 +7,7 @@ scripts: studio.js
   <div class="wrap">
     <p class="eyebrow">Studio · live demo</p>
     <h1>Design it. <span class="neon-text">Wear it.</span></h1>
-    <p class="lede">This is a working demo of the creator studio. The garment preview is drawn from the same kind of HTML and CSS a real skin would use, running in a locked sandbox with no scripts and no network. Change the cut, the colors or the code, and watch it update.</p>
+    <p class="lede">A working studio demo. The hoodie, jacket and joggers are a real two-piece model: a washable inner suit and a sealed display shell. What you see on the shell is full-motion content, warped along the fabric. Drag to turn it. Change the cut, pick a skin, or describe one.</p>
   </div>
 </section>
 
@@ -22,7 +22,7 @@ scripts: studio.js
         </div>
         <span class="credits" title="Demo credits. Nothing is charged.">Credits <b id="credits">20</b></span>
       </div>
-      <div id="stage" data-cut="hoodie" data-preset="spectrum"></div>
+      <div id="stage" data-garment data-cut="hoodie" data-skin="aurora"></div>
       <div class="row" style="justify-content:space-between;margin-top:16px">
         <span class="mono muted" style="font-size:12px" id="skin-name">Spectrum · preset</span>
         <span class="mono muted" style="font-size:12px" id="power">Power estimate: high</span>
@@ -75,7 +75,7 @@ scripts: studio.js
         <div class="row"><button class="btn btn-led" id="gen"><span>Generate · 1 credit</span></button>
           <div class="row" style="gap:6px" id="ideas"></div></div>
         <p class="status" id="ai-status" role="status"></p>
-        <div class="callout info" style="margin-top:14px;font-size:14px"><strong>About this demo.</strong> No AI model runs on this page, and no credits are charged. Simple keyword rules in your browser pick a style, colors and speed, so you can feel the flow. In the real product, the prompt goes to a design model that writes the skin's HTML and CSS, and every result passes the same sandbox and safety checks before you can wear it.</div>
+        <div class="callout info" style="margin-top:14px;font-size:14px"><strong>About this demo.</strong> No model is called from this page, and no credits are charged. Keyword rules in your browser pick a style and colors so you can feel the flow. In the product, a design model writes the skin, and the same safety checks run before anything goes on a shell. People can also play media they have the rights to — a show, a music visualizer, a still they made.</div>
       </div>
     </div>
   </div>

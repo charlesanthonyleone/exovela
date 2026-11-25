@@ -2,12 +2,13 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Studio | Exovela</title><meta name="description" content="Design an Exovela skin live in your browser: pick a cut, recolor it, edit its HTML and CSS, or describe it to the AI designer."><meta name="theme-color" content="#02040a">
 <meta property="og:type" content="website"><meta property="og:title" content="Studio | Exovela"><meta property="og:description" content="Design an Exovela skin live in your browser: pick a cut, recolor it, edit its HTML and CSS, or describe it to the AI designer.">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="assets/sky/moon.webp" as="image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css"></head>
+<link rel="stylesheet" href="assets/site.css">
+<script type="importmap">{"imports":{"three":"./assets/vendor/three.module.min.js"}}</script>
+</head>
 <body class="">
-<div class="scene" aria-hidden="true"><div id="scene-fb" class="scene-fallback"></div><canvas id="scene-gl" class="scene-gl"></canvas><canvas id="scene-2d" class="scene-2d"></canvas></div>
-<canvas id="scene-top" class="scene-top" aria-hidden="true"></canvas>
+
 <div class="page">
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner">
@@ -20,7 +21,7 @@
   <div class="wrap">
     <p class="eyebrow">Studio · live demo</p>
     <h1>Design it. <span class="neon-text">Wear it.</span></h1>
-    <p class="lede">This is a working demo of the creator studio. The garment preview is drawn from the same kind of HTML and CSS a real skin would use, running in a locked sandbox with no scripts and no network. Change the cut, the colors or the code, and watch it update.</p>
+    <p class="lede">A working studio demo. The hoodie, jacket and joggers are a real two-piece model: a washable inner suit and a sealed display shell. What you see on the shell is full-motion content, warped along the fabric. Drag to turn it. Change the cut, pick a skin, or describe one.</p>
   </div>
 </section>
 
@@ -35,7 +36,7 @@
         </div>
         <span class="credits" title="Demo credits. Nothing is charged.">Credits <b id="credits">20</b></span>
       </div>
-      <div id="stage" data-cut="hoodie" data-preset="spectrum"></div>
+      <div id="stage" data-garment data-cut="hoodie" data-skin="aurora"></div>
       <div class="row" style="justify-content:space-between;margin-top:16px">
         <span class="mono muted" style="font-size:12px" id="skin-name">Spectrum · preset</span>
         <span class="mono muted" style="font-size:12px" id="power">Power estimate: high</span>
@@ -88,7 +89,7 @@
         <div class="row"><button class="btn btn-led" id="gen"><span>Generate · 1 credit</span></button>
           <div class="row" style="gap:6px" id="ideas"></div></div>
         <p class="status" id="ai-status" role="status"></p>
-        <div class="callout info" style="margin-top:14px;font-size:14px"><strong>About this demo.</strong> No AI model runs on this page, and no credits are charged. Simple keyword rules in your browser pick a style, colors and speed, so you can feel the flow. In the real product, the prompt goes to a design model that writes the skin's HTML and CSS, and every result passes the same sandbox and safety checks before you can wear it.</div>
+        <div class="callout info" style="margin-top:14px;font-size:14px"><strong>About this demo.</strong> No model is called from this page, and no credits are charged. Keyword rules in your browser pick a style and colors so you can feel the flow. In the product, a design model writes the skin, and the same safety checks run before anything goes on a shell. People can also play media they have the rights to — a show, a music visualizer, a still they made.</div>
       </div>
     </div>
   </div>
@@ -112,16 +113,12 @@
 <div class="footer-links"><span class="label">Explore</span><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="studio.html">Studio</a><a href="marketplace.html">Marketplace</a><a href="roadmap.html">Roadmap</a><a href="proof-of-concept.html">Proof of concept</a></div>
 <div class="footer-links"><span class="label">About the sky</span>
 <p class="fine">The stars here glow in full color, the way they might look with no atmosphere or ozone filtering and scattering their light.</p>
-<p class="fine">Milky Way: <a href="https://www.eso.org/public/images/eso0932a/" rel="noopener">ESO/S. Brunier</a>, CC BY 4.0 · Moon: <a href="https://commons.wikimedia.org/wiki/File:FullMoon2010.jpg" rel="noopener">Gregory H. Revera</a>, CC BY-SA 3.0</p>
+<p class="fine">The stars and moon are rendered for this scene. No stock photographs are used.</p>
 <p class="fine">© <span id="year">2026</span> Charles Anthony Leone</p></div>
 </div></footer>
 </div>
-<div class="scene-set">
-<div id="scene-panel" class="scene-panel" role="dialog" aria-label="Scene settings" hidden>
-<label><input type="checkbox" id="set-ocean"> Ocean animation</label>
-<label><input type="checkbox" id="set-sky"> Star &amp; sky animation</label>
-<p>Off shows a still frame. Defaults follow your system's reduced-motion setting.</p></div>
-<button id="gear" class="scene-gear" aria-expanded="false" aria-label="Scene settings" title="Scene settings"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3.5h-4l-.4 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg></button>
-</div>
-<script src="assets/scene.js" defer></script><script src="assets/ledwaves.js" defer></script><script src="assets/site.js" defer></script><script src="assets/garment.js" defer></script><script src="assets/studio.js" defer></script>
+
+<script src="assets/site.js" defer></script>
+<script type="module" src="assets/main.js"></script>
+<script type="module" src="assets/studio.js"></script>
 </body></html>

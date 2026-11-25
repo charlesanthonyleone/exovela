@@ -16,31 +16,26 @@ const footer = `<footer class="site-footer"><div class="footer-inner">
 <div class="footer-links"><span class="label">Explore</span>${NAV.map(([h, t]) => `<a href="${h}">${t}</a>`).join('')}</div>
 <div class="footer-links"><span class="label">About the sky</span>
 <p class="fine">The stars here glow in full color, the way they might look with no atmosphere or ozone filtering and scattering their light.</p>
-<p class="fine">Milky Way: <a href="https://www.eso.org/public/images/eso0932a/" rel="noopener">ESO/S. Brunier</a>, CC BY 4.0 · Moon: <a href="https://commons.wikimedia.org/wiki/File:FullMoon2010.jpg" rel="noopener">Gregory H. Revera</a>, CC BY-SA 3.0</p>
+<p class="fine">The stars and moon are rendered for this scene. No stock photographs are used.</p>
 <p class="fine">© <span id="year">2026</span> Charles Anthony Leone</p></div>
 </div></footer>`;
-const scene = `<div class="scene" aria-hidden="true"><div id="scene-fb" class="scene-fallback"></div><canvas id="scene-gl" class="scene-gl"></canvas><canvas id="scene-2d" class="scene-2d"></canvas></div>
-<canvas id="scene-top" class="scene-top" aria-hidden="true"></canvas>`;
-const gear = `<div class="scene-set">
-<div id="scene-panel" class="scene-panel" role="dialog" aria-label="Scene settings" hidden>
-<label><input type="checkbox" id="set-ocean"> Ocean animation</label>
-<label><input type="checkbox" id="set-sky"> Star &amp; sky animation</label>
-<p>Off shows a still frame. Defaults follow your system's reduced-motion setting.</p></div>
-<button id="gear" class="scene-gear" aria-expanded="false" aria-label="Scene settings" title="Scene settings"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3.5h-4l-.4 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg></button>
-</div>`;
+const scene = ``;
+const gear = ``;
 for (const f of readdirSync('src').filter(f => f.endsWith('.html'))) {
   const raw = readFileSync(`src/${f}`, 'utf8');
   const m = raw.match(/^<!--\s*([\s\S]*?)-->\s*/);
   const meta = Object.fromEntries((m ? m[1] : '').split('\n').map(l => l.match(/^(\w+):\s*(.*)$/)).filter(Boolean).map(x => [x[1], x[2].trim()]));
   const body = m ? raw.slice(m[0].length) : raw;
-  const extra = (meta.scripts || '').split(',').map(s => s.trim()).filter(Boolean).map(s => `<script src="assets/${s}" defer></script>`).join('');
+  const extra = (meta.scripts || '').split(',').map(s => s.trim()).filter(Boolean).map(s => `<script type="module" src="assets/${s}"></script>`).join('');
   const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>${meta.title}</title><meta name="description" content="${meta.description}"><meta name="theme-color" content="#02040a">
 <meta property="og:type" content="website"><meta property="og:title" content="${meta.title}"><meta property="og:description" content="${meta.description}">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="assets/sky/moon.webp" as="image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css"></head>
+<link rel="stylesheet" href="assets/site.css">
+<script type="importmap">{"imports":{"three":"./assets/vendor/three.module.min.js"}}</script>
+</head>
 <body class="${meta.body || ''}">
 ${scene}
 <div class="page">
@@ -51,7 +46,9 @@ ${body.trim()}
 ${footer}
 </div>
 ${gear}
-<script src="assets/scene.js" defer></script><script src="assets/ledwaves.js" defer></script><script src="assets/site.js" defer></script><script src="assets/garment.js" defer></script>${extra}
+<script src="assets/site.js" defer></script>
+<script type="module" src="assets/main.js"></script>
+${extra}
 </body></html>
 `;
   writeFileSync(f, html);

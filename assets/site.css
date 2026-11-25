@@ -278,3 +278,69 @@ html.still *,html.still *::before,html.still *::after{animation-play-state:pause
 .stage-caption{flex-wrap:wrap}
 @media (max-width:1020px){.toc ol{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.toc a{padding:5px 8px;font-size:13px}}
 @media (max-width:520px){.tabs{display:grid;grid-template-columns:1fr 1fr;border-radius:18px}.tabs button{border-radius:12px}}
+
+/* --- build 2: 3D garments + pier --- */
+.scene{position:fixed;inset:0;z-index:0;pointer-events:none;background:#02040a}
+.scene-gl{position:fixed;inset:0;width:100vw;height:100vh;display:block}
+.scene-fallback{position:fixed;inset:0;display:none;background:radial-gradient(60% 18% at 32% 60%,rgba(150,170,200,.10),transparent 70%),linear-gradient(to bottom,#010309 0%,#050b16 52%,#0c1522 59.6%,#050b14 60.4%,#01050b 100%)}
+.scene-fallback.on{display:block}
+.led-waves{display:none}
+
+.garment-3d{position:relative;aspect-ratio:4/5;width:100%;cursor:grab;touch-action:none}
+.garment-3d:active{cursor:grabbing}
+.garment-3d .garment-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;background:transparent}
+.garment-3d .garment-caption{position:absolute;left:0;right:0;bottom:0;pointer-events:none}
+.garment-glow{display:none} /* old */
+.garment-body,.garment-skin,.garment-lines{display:none}
+
+.hero-stage{position:relative;justify-self:center;width:min(100%,520px);min-height:520px}
+.hero-stage .garment-3d{width:100%;height:min(72vh,640px);aspect-ratio:auto}
+@media (max-width:880px){.hero-stage{width:min(100%,440px);min-height:420px;margin-top:10px}.hero-stage .garment-3d{height:min(62vh,520px)}}
+
+.listing .garment-3d{max-width:240px;margin:0 auto 10px;height:260px;aspect-ratio:auto}
+.preview .garment-3d,.preview #stage{max-width:440px;margin:0 auto;height:520px;aspect-ratio:auto;width:100%}
+@media (max-width:980px){.preview .garment-3d,.preview #stage{height:420px}}
+
+/* exploded / section viewer */
+.viewer-tools{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 8px}
+.layer-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:14px}
+.layer-legend span{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--dim)}
+.sw{width:10px;height:10px;border-radius:50%;display:inline-block;box-shadow:0 0 8px currentColor}
+
+.print-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+@media print{
+  .scene,.scene-set,.site-header,.menu-toggle,.print-actions,.read-progress{display:none!important}
+  body,.page,.doc,.card{background:#fff!important;color:#111!important;box-shadow:none!important;backdrop-filter:none!important}
+  .doc p,.doc li,p,h1,h2,h3{color:#111!important;text-shadow:none!important}
+  a{color:#111!important}
+  .page{max-width:none}
+}
+
+.preset-swatch{display:block;height:84px;background:#0b0d14 center/cover no-repeat}
+.preset span small{display:block;font-weight:500;color:var(--faint);font-size:11px;margin-top:2px}
+
+.preview .garment-3d,.preview #stage{aspect-ratio:auto;height:520px;max-height:none;width:100%}
+#assembly.garment-3d,#assembly{aspect-ratio:16/11;height:auto!important;max-height:640px;min-height:420px}
+.hero-stage .garment-3d{aspect-ratio:4/5;height:auto;max-height:min(72vh,680px)}
+.patent-fig{background:#fff;border-radius:10px;padding:10px 10px 4px;margin:22px 0}
+.patent-fig img{width:100%;height:auto;display:block;background:#fff}
+.patent-fig figcaption{color:var(--dim);font-size:14px;margin:8px 6px 6px}
+@media print{
+  .toc,.site-footer,.ticker,.settings,.menu-toggle,.print-actions,.read-progress,.scene,.scene-top,.scene-set,.led-waves{display:none!important}
+  body,html,.page,.doc,.card,.doc-layout{background:#fff!important;color:#111!important;box-shadow:none!important;backdrop-filter:none!important}
+  .doc-layout{display:block!important}
+  .patent-fig{break-inside:avoid;page-break-inside:avoid;border:0;padding:0}
+  .callout{border:1px solid #111;background:#fff!important;color:#111!important}
+  h1,h2,h3{break-after:avoid}
+  .page-hero{padding:0!important}
+}
+
+@media print{
+  .callout,.callout *,.patent-fig figcaption,figcaption,.muted,.fine,.dim,.tag,.neon-text,strong,em{
+    color:#111!important;
+    background:transparent!important;
+    -webkit-text-fill-color:#111!important;
+    text-shadow:none!important;
+  }
+  .tag{border:1px solid #111;border-radius:999px;padding:2px 8px}
+}

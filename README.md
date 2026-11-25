@@ -17,7 +17,7 @@ Invention by Charles Anthony Leone. Concept stage: no product exists, and the ga
 - `proof-of-concept.html`: technical disclosure draft
 
 ## Build
-Page bodies live in `src/`. Run `node tools/build.mjs` to wrap them with the shared header, scene and footer.
+Page bodies live in `src/`. Run `node tools/build.mjs` to wrap them with the shared header, pier scene and footer.
 
 ## Credits
-Night-ocean scene shared with Charles's other sites. Milky Way: ESO/S. Brunier (CC BY 4.0). Moon: Gregory H. Revera (CC BY-SA 3.0).
+The hero is an original neon LED pier, rendered in the browser. Stars and moon are procedural; no stock photographs are used. Colored stars are drawn as they might appear without atmosphere or ozone filtering and scattering their light.

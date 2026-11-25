@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Proof of concept & technical disclosure | Exovela</title><meta name="description" content="Invention disclosure draft for Exovela, a two-layer wearable display garment: field, prior art, detailed description, software platform, embodiments, draft claims, cost estimates, risks and prototype plan."><meta name="theme-color" content="#02040a">
-<meta property="og:type" content="website"><meta property="og:title" content="Proof of concept & technical disclosure | Exovela"><meta property="og:description" content="Invention disclosure draft for Exovela, a two-layer wearable display garment: field, prior art, detailed description, software platform, embodiments, draft claims, cost estimates, risks and prototype plan.">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="assets/sky/moon.webp" as="image">
+<title>Proof of concept & technical disclosure | Exovela</title><meta name="description" content="Filing-grade invention disclosure draft for Exovela: abstract, formal figures FIG. 1–10 with reference numerals, detailed description, specifications, embodiments, method and system claims, and a printable provisional-application-style PDF. Draft for attorney review. Not filed."><meta name="theme-color" content="#02040a">
+<meta property="og:type" content="website"><meta property="og:title" content="Proof of concept & technical disclosure | Exovela"><meta property="og:description" content="Filing-grade invention disclosure draft for Exovela: abstract, formal figures FIG. 1–10 with reference numerals, detailed description, specifications, embodiments, method and system claims, and a printable provisional-application-style PDF. Draft for attorney review. Not filed.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css"></head>
+<link rel="stylesheet" href="assets/site.css">
+<script type="importmap">{"imports":{"three":"./assets/vendor/three.module.min.js"}}</script>
+</head>
 <body class="">
-<div class="scene" aria-hidden="true"><div id="scene-fb" class="scene-fallback"></div><canvas id="scene-gl" class="scene-gl"></canvas><canvas id="scene-2d" class="scene-2d"></canvas></div>
-<canvas id="scene-top" class="scene-top" aria-hidden="true"></canvas>
+
 <div class="page">
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner">
@@ -21,8 +22,9 @@
   <div class="wrap">
     <p class="eyebrow">Proof of concept · Invention disclosure draft</p>
     <h1>The Exovela<br><span class="neon-text">technical disclosure.</span></h1>
-    <p class="lede">A complete written description of the invention: what it is, what came before it, how each part works and connects, how the software platform runs, the alternative ways to build it, and what still has to be proven.</p>
-    <div class="row" style="margin-top:18px;gap:10px"><span class="tag">Inventor · Charles Anthony Leone</span><span class="tag">Draft record · Nov 25, 2026</span><span class="tag">Revision 1</span><span class="tag">Status · Not filed</span></div>
+    <p class="lede">A complete written description of the invention: what it is, what came before it, how each part works and connects, how the software platform runs, the alternative ways to build it, and what still has to be proven. Formal figures with reference numerals are included for attorney review.</p>
+    <div class="row" style="margin-top:18px;gap:10px"><span class="tag">Inventor · Charles Anthony Leone</span><span class="tag">Draft record · Nov 25, 2026</span><span class="tag">Revision 2</span><span class="tag">Status · Not filed</span></div>
+    <div class="print-actions"><a class="btn" href="exovela-provisional-application-draft.pdf">Download draft PDF</a><button class="btn ghost" type="button" onclick="window.print()">Print this draft</button></div>
   </div>
 </section>
 
@@ -31,12 +33,15 @@
     <nav class="card toc" aria-label="Disclosure contents">
       <ol>
         <li><a href="#status">0. Status and notices</a></li>
+        <li><a href="#abstract">Abstract</a></li>
         <li><a href="#title">1. Title</a></li>
         <li><a href="#field">2. Field</a></li>
         <li><a href="#background">3. Background and prior art</a></li>
         <li><a href="#problems">4. Problems addressed</a></li>
         <li><a href="#summary">5. Summary</a></li>
-        <li><a href="#figures">6. Figures</a></li>
+        <li><a href="#drawings">6. Brief description of the drawings</a></li>
+        <li><a href="#figures">6A. Formal figures (FIG. 1–10)</a></li>
+        <li><a href="#numerals">6B. Reference numerals</a></li>
         <li><a href="#inner">7. Inner garment</a></li>
         <li><a href="#shell">8. Outer display shell</a></li>
         <li><a href="#interface">9. Layer interface</a></li>
@@ -60,6 +65,12 @@
         <div class="callout"><strong>This is a draft invention disclosure, not a patent and not a patent application.</strong> Nothing has been filed with any patent office, and no patent is pending. The claims in section 16 are a working draft for a registered patent attorney or agent to review, rewrite and file. Nothing on this page is legal advice.</div>
         <div class="callout" style="margin-top:12px"><strong>A note on public disclosure.</strong> Publishing an invention can affect whether it can be patented. In the United States, an inventor's own public disclosure generally starts a one-year window to file. Many other countries require absolute novelty, which means a public disclosure made before filing can bar a patent there. Talk to a patent attorney about timing, and consider filing a provisional application, before sharing this further.</div>
         <p style="margin-top:16px">Figures are schematic illustrations. Every number marked as an estimate is a planning assumption, not a measurement, and has to be replaced by supplier quotes and bench test results.</p>
+      </section>
+
+
+      <section id="abstract">
+        <h2>Abstract</h2>
+        <p>A wearable display garment system (10) includes a launderable inner suit (12) worn against the body and a sealed, non-launderable outer display shell (14) worn over the inner suit. The inner suit carries a spine pack (34) with a battery (60) and a controller (58), a wiring harness (36, 40), thermal or cooling features (38), and an electromechanical dock (28). The outer shell carries a flexible display layer (22) covering a substantial portion of its visible surface, a moisture barrier (50) and a clear protective coat (24), and a matching shell-side dock (94). The docks couple through magnets (32), alignment features (52), a seal (54) and pogo-pin contacts (30) that form the only electrical path between the layers. Content is authored in a studio (72), executed in a sandbox (74), checked (76), packaged (80), optionally distributed through a marketplace (78), and mapped (86) onto the shell. The same two-piece architecture is used for a hoodie (16), a jacket (18) and pants (20). After use, the shell is detached and wiped; the inner suit is laundered. This document is a draft for attorney review and is not a filed patent application.</p>
       </section>
 
       <section id="title">
@@ -107,61 +118,132 @@
         <p><span class="para">[0010]</span>A <strong>software platform</strong> lets users author garment content (skins) in standard web languages such as HTML, CSS and SVG, and optionally shader or image-sequence formats. Content is mapped onto each garment cut's pattern pieces, run in a sandbox without network access, checked automatically for flash rate, luminance, power and fit, then compiled into a package the garment's controller can play. An <strong>AI design service</strong> generates or edits skins from natural-language requests and is metered in credits. A <strong>marketplace</strong> distributes skins under defined licenses, tracks remix lineage, pays creators, and exports designs to print-on-demand production of physical goods.</p>
       </section>
 
+      <section id="drawings">
+        <h2>6. Brief description of the drawings</h2>
+        <p>The figures are schematic and are provided to support this draft. They are not as-filed formal drawings and will need to be prepared to patent-office drafting rules before any filing. Like numerals refer to like parts throughout.</p>
+        <p><span class="para">[0101]</span>FIG. 1 is a front view of a wearable display garment system (10) in an assembled hoodie embodiment (16), showing the outer display shell (14), the display surface (22), the hood (46), drawcords (88), a cuff interface (44) and a rib hem (48).</p>
+        <p><span class="para">[0102]</span>FIG. 2 is an exploded view of the system of FIG. 1, with the outer shell (14) separated from the inner suit (12), and with front and back views of the inner suit showing a spine pack (34), a harness (36) and a dock (28).</p>
+        <p><span class="para">[0103]</span>FIG. 3 shows the inner suit (12) from the front and back, including the dock (28), harness (36), spine pack (34) with battery (60), thermal or cooling features (38), wiring (40) and cuff interfaces (44).</p>
+        <p><span class="para">[0104]</span>FIG. 4 shows the outer display shell (14), including the display layer (22), a clear coat (24), panel tiles (68), seams (70), the hood (46), rib hem (48), drawcords (88) and the shell-side dock (94).</p>
+        <p><span class="para">[0105]</span>FIG. 5 is an enlarged cross-section of the electromechanical dock, showing the inner-suit dock (28), shell-side dock (94), pogo pins (30), magnets (32), an alignment feature (52) and a seal (54).</p>
+        <p><span class="para">[0106]</span>FIG. 6 is a layer cross-section through the torso, applicable to a hoodie, jacket or pants, from the body outward through the inner suit (12), thermal layer (38), wiring (40), dock (28), display (22), moisture barrier (50) and clear coat (24).</p>
+        <p><span class="para">[0107]</span>FIG. 7 shows three garment-cut embodiments of the same architecture: a hoodie (16), a jacket (18) with a zipper or placket (90), and pants (20).</p>
+        <p><span class="para">[0108]</span>FIG. 8 is an electrical and control block diagram of the inner suit (12) and the outer shell (14), including the battery (60), controller (58), sensors (64), transceiver (62), dock (28), display drivers (66), display (22) and shell contact pads (94).</p>
+        <p><span class="para">[0109]</span>FIG. 9 is a flowchart of a method of using the system: donning the inner suit, donning the shell, aligning and coupling the docks, playing mapped content, detaching the shell, laundering the inner suit and wiping the shell.</p>
+        <p><span class="para">[0110]</span>FIG. 10 is a block diagram of an authoring and distribution system, including a studio (72), a sandbox (74), a safety checker (76), a skin package (80), a marketplace (78), pattern mapping (86) and the garment system (10).</p>
+        <p>The detailed description in sections 7–15 is to be read with FIGS. 1–10 and the numerals listed in section 6B.</p>
+      </section>
+
       <section id="figures">
-        <h2>6. Figures</h2>
-        <figure class="fig">
-          <svg viewBox="0 0 760 300" role="img" aria-label="Figure 2: system block diagram">
-            <defs><linearGradient id="fs" x1="0" x2="1"><stop offset="0" stop-color="#ff2d55"/><stop offset=".5" stop-color="#30d158"/><stop offset="1" stop-color="#0a84ff"/></linearGradient></defs>
-            <g font-family="Inter,sans-serif" font-size="13" fill="#dfe6f3">
-              <rect x="10" y="110" width="120" height="70" rx="12" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.4)"/><text x="70" y="140" text-anchor="middle">Phone app</text><text x="70" y="160" text-anchor="middle" fill="#8b96ad" font-size="11">studio · library</text>
-              <rect x="200" y="40" width="230" height="220" rx="16" fill="rgba(100,210,255,.05)" stroke="#64d2ff"/><text x="315" y="64" text-anchor="middle" fill="#64d2ff" font-size="12" font-family="JetBrains Mono">INNER GARMENT · SPINE PACK</text>
-              <rect x="220" y="80" width="90" height="50" rx="8" fill="rgba(0,0,0,.3)" stroke="rgba(255,255,255,.3)"/><text x="265" y="110" text-anchor="middle">Battery+BMS</text>
-              <rect x="320" y="80" width="90" height="50" rx="8" fill="rgba(0,0,0,.3)" stroke="rgba(255,255,255,.3)"/><text x="365" y="110" text-anchor="middle">Controller</text>
-              <rect x="220" y="145" width="90" height="50" rx="8" fill="rgba(0,0,0,.3)" stroke="rgba(255,255,255,.3)"/><text x="265" y="175" text-anchor="middle">Fans / vents</text>
-              <rect x="320" y="145" width="90" height="50" rx="8" fill="rgba(0,0,0,.3)" stroke="rgba(255,255,255,.3)"/><text x="365" y="175" text-anchor="middle">Sensors</text>
-              <text x="315" y="232" text-anchor="middle" fill="#8b96ad" font-size="11">launderable textile · thermal channels</text>
-              <rect x="470" y="115" width="60" height="60" rx="30" fill="rgba(255,214,10,.08)" stroke="#ffd60a"/><text x="500" y="150" text-anchor="middle" fill="#ffd60a" font-size="12">Dock</text>
-              <rect x="570" y="40" width="180" height="220" rx="16" fill="rgba(191,90,242,.05)" stroke="url(#fs)" stroke-width="1.6"/><text x="660" y="64" text-anchor="middle" fill="#bf5af2" font-size="12" font-family="JetBrains Mono">OUTER SHELL · SEALED</text>
-              <rect x="590" y="80" width="140" height="40" rx="8" fill="rgba(0,0,0,.3)" stroke="rgba(255,255,255,.3)"/><text x="660" y="105" text-anchor="middle">Panel drivers</text>
-              <rect x="590" y="132" width="65" height="50" rx="6" fill="url(#fs)" opacity=".7"/><rect x="665" y="132" width="65" height="50" rx="6" fill="url(#fs)" opacity=".7"/><rect x="590" y="192" width="65" height="44" rx="6" fill="url(#fs)" opacity=".55"/><rect x="665" y="192" width="65" height="44" rx="6" fill="url(#fs)" opacity=".55"/>
-              <text x="660" y="252" text-anchor="middle" fill="#8b96ad" font-size="11">display zones per pattern piece</text>
-            </g>
-            <g stroke="#fff" stroke-width="1.4" fill="none" opacity=".75"><path class="dash" d="M130 145H200"/><path d="M410 105H450V145H470"/><path d="M530 145H560V100H590"/></g>
-            <text x="165" y="135" text-anchor="middle" fill="#8b96ad" font-size="11" font-family="JetBrains Mono">BLE</text>
-          </svg>
-          <figcaption>Fig. 2. System block diagram. Fig. 1 (the five-layer stack) is on the <a href="how-it-works.html">How it works</a> page.</figcaption>
+        <h2>6A. Formal figures (FIG. 1–10)</h2>
+        <p>Black-and-white line figures with reference numerals, for attorney review. Print or the draft PDF shows them on a white ground.</p>
+        <figure class="fig patent-fig" id="fig1">
+          <img src="assets/figures/fig-1-assembled.svg" alt="FIG. 1" width="900" height="auto">
+          <figcaption>FIG. 1 is a front view of a wearable display garment system (10) in an assembled hoodie embodiment (16), showing the outer display shell (14), the display surface (22), the hood (46), drawcords (88), a cuff interface (44) and a rib hem (48).</figcaption>
         </figure>
-        <figure class="fig">
-          <svg viewBox="0 0 760 220" role="img" aria-label="Figure 3: dock cross-section">
-            <g font-family="Inter,sans-serif" font-size="12" fill="#dfe6f3">
-              <rect x="40" y="40" width="680" height="34" fill="rgba(191,90,242,.18)" stroke="#bf5af2"/><text x="50" y="62">Shell laminate: cover film / display / backing</text>
-              <rect x="300" y="74" width="160" height="34" fill="rgba(255,214,10,.15)" stroke="#ffd60a"/><text x="380" y="96" text-anchor="middle">Shell dock: recessed, potted</text>
-              <g fill="#ffd60a"><rect x="330" y="104" width="10" height="8"/><rect x="360" y="104" width="10" height="8"/><rect x="390" y="104" width="10" height="8"/><rect x="420" y="104" width="10" height="8"/></g>
-              <rect x="300" y="122" width="160" height="34" fill="rgba(100,210,255,.12)" stroke="#64d2ff"/><text x="380" y="144" text-anchor="middle">Suit dock: spring pins + magnets</text>
-              <rect x="40" y="156" width="680" height="30" fill="rgba(100,210,255,.08)" stroke="rgba(100,210,255,.6)"/><text x="50" y="176">Inner garment textile and spine pack</text>
-              <text x="560" y="104" fill="#8b96ad">gasket ring</text><path d="M470 116H555" stroke="#8b96ad" fill="none"/>
-            </g>
-          </svg>
-          <figcaption>Fig. 3. Dock cross-section (schematic). The shell side has flush, sealed contact pads and no openings. The suit side carries the spring pins, magnets and a compressible gasket.</figcaption>
+        <figure class="fig patent-fig" id="fig2">
+          <img src="assets/figures/fig-2-exploded.svg" alt="FIG. 2" width="900" height="auto">
+          <figcaption>FIG. 2 is an exploded view of the system of FIG. 1, with the outer shell (14) separated from the inner suit (12), and with front and back views of the inner suit showing a spine pack (34), a harness (36) and a dock (28).</figcaption>
         </figure>
-        <figure class="fig">
-          <svg viewBox="0 0 760 170" role="img" aria-label="Figure 4: content pipeline">
-            <g font-family="Inter,sans-serif" font-size="12.5" fill="#dfe6f3">
-              <g stroke="rgba(255,255,255,.35)" fill="rgba(255,255,255,.04)"><rect x="10" y="30" width="120" height="54" rx="10"/><rect x="160" y="30" width="120" height="54" rx="10"/><rect x="310" y="30" width="120" height="54" rx="10"/><rect x="460" y="30" width="120" height="54" rx="10"/><rect x="610" y="30" width="140" height="54" rx="10"/><rect x="310" y="104" width="120" height="50" rx="10"/><rect x="460" y="104" width="120" height="50" rx="10"/></g>
-              <text x="70" y="54" text-anchor="middle">Author</text><text x="70" y="72" text-anchor="middle" fill="#8b96ad" font-size="11">code · AI · remix</text>
-              <text x="220" y="54" text-anchor="middle">Sandbox render</text><text x="220" y="72" text-anchor="middle" fill="#8b96ad" font-size="11">per-cut UV map</text>
-              <text x="370" y="54" text-anchor="middle">Validator</text><text x="370" y="72" text-anchor="middle" fill="#8b96ad" font-size="11">flash · nits · power</text>
-              <text x="520" y="54" text-anchor="middle">Compiler</text><text x="520" y="72" text-anchor="middle" fill="#8b96ad" font-size="11">skin package</text>
-              <text x="680" y="54" text-anchor="middle">Garment</text><text x="680" y="72" text-anchor="middle" fill="#8b96ad" font-size="11">controller → panels</text>
-              <text x="370" y="134" text-anchor="middle">Marketplace</text><text x="520" y="134" text-anchor="middle">Print on demand</text>
-            </g>
-            <g stroke="#64d2ff" stroke-width="1.4" fill="none"><path class="dash" d="M130 57H160M280 57H310M430 57H460M580 57H610M370 84V104M430 129H460"/></g>
-          </svg>
-          <figcaption>Fig. 4. Content pipeline from authoring to the garment, with marketplace and print-on-demand branches.</figcaption>
+        <figure class="fig patent-fig" id="fig3">
+          <img src="assets/figures/fig-3-inner-suit.svg" alt="FIG. 3" width="900" height="auto">
+          <figcaption>FIG. 3 shows the inner suit (12) from the front and back, including the dock (28), harness (36), spine pack (34) with battery (60), thermal or cooling features (38), wiring (40) and cuff interfaces (44).</figcaption>
+        </figure>
+        <figure class="fig patent-fig" id="fig4">
+          <img src="assets/figures/fig-4-outer-shell.svg" alt="FIG. 4" width="900" height="auto">
+          <figcaption>FIG. 4 shows the outer display shell (14), including the display layer (22), a clear coat (24), panel tiles (68), seams (70), the hood (46), rib hem (48), drawcords (88) and the shell-side dock (94).</figcaption>
+        </figure>
+        <figure class="fig patent-fig" id="fig5">
+          <img src="assets/figures/fig-5-dock.svg" alt="FIG. 5" width="900" height="auto">
+          <figcaption>FIG. 5 is an enlarged cross-section of the electromechanical dock, showing the inner-suit dock (28), shell-side dock (94), pogo pins (30), magnets (32), an alignment feature (52) and a seal (54).</figcaption>
+        </figure>
+        <figure class="fig patent-fig" id="fig6">
+          <img src="assets/figures/fig-6-section.svg" alt="FIG. 6" width="900" height="auto">
+          <figcaption>FIG. 6 is a layer cross-section through the torso, applicable to a hoodie, jacket or pants, from the body outward through the inner suit (12), thermal layer (38), wiring (40), dock (28), display (22), moisture barrier (50) and clear coat (24).</figcaption>
+        </figure>
+        <figure class="fig patent-fig" id="fig7">
+          <img src="assets/figures/fig-7-embodiments.svg" alt="FIG. 7" width="900" height="auto">
+          <figcaption>FIG. 7 shows three garment-cut embodiments of the same architecture: a hoodie (16), a jacket (18) with a zipper or placket (90), and pants (20).</figcaption>
+        </figure>
+        <figure class="fig patent-fig" id="fig8">
+          <img src="assets/figures/fig-8-electrical.svg" alt="FIG. 8" width="900" height="auto">
+          <figcaption>FIG. 8 is an electrical and control block diagram of the inner suit (12) and the outer shell (14), including the battery (60), controller (58), sensors (64), transceiver (62), dock (28), display drivers (66), display (22) and shell contact pads (94).</figcaption>
+        </figure>
+        <figure class="fig patent-fig" id="fig9">
+          <img src="assets/figures/fig-9-method.svg" alt="FIG. 9" width="900" height="auto">
+          <figcaption>FIG. 9 is a flowchart of a method of using the system: donning the inner suit, donning the shell, aligning and coupling the docks, playing mapped content, detaching the shell, laundering the inner suit and wiping the shell.</figcaption>
+        </figure>
+        <figure class="fig patent-fig" id="fig10">
+          <img src="assets/figures/fig-10-platform.svg" alt="FIG. 10" width="900" height="auto">
+          <figcaption>FIG. 10 is a block diagram of an authoring and distribution system, including a studio (72), a sandbox (74), a safety checker (76), a skin package (80), a marketplace (78), pattern mapping (86) and the garment system (10).</figcaption>
         </figure>
       </section>
+
+      <section id="numerals">
+        <h2>6B. Reference numerals</h2>
+        <div class="tbl"><table>
+          <thead><tr><th>Numeral</th><th>Element</th></tr></thead>
+          <tbody>
+            <tr><td>10</td><td>Wearable display garment system</td></tr>
+            <tr><td>12</td><td>Inner suit (launderable, body-side)</td></tr>
+            <tr><td>14</td><td>Outer display shell (sealed, not laundered)</td></tr>
+            <tr><td>16</td><td>Hoodie embodiment</td></tr>
+            <tr><td>18</td><td>Jacket embodiment</td></tr>
+            <tr><td>20</td><td>Pants / joggers embodiment</td></tr>
+            <tr><td>22</td><td>Flexible display layer / display surface</td></tr>
+            <tr><td>24</td><td>Clear protective coat</td></tr>
+            <tr><td>28</td><td>Inner-suit electromechanical dock</td></tr>
+            <tr><td>30</td><td>Pogo-pin contacts (power and data)</td></tr>
+            <tr><td>32</td><td>Magnetic couplers</td></tr>
+            <tr><td>34</td><td>Spine pack</td></tr>
+            <tr><td>36</td><td>Harness</td></tr>
+            <tr><td>38</td><td>Thermal / cooling channels or features</td></tr>
+            <tr><td>40</td><td>Wiring / conductors</td></tr>
+            <tr><td>42</td><td>Connectors</td></tr>
+            <tr><td>44</td><td>Cuff interface</td></tr>
+            <tr><td>46</td><td>Hood</td></tr>
+            <tr><td>48</td><td>Rib hem</td></tr>
+            <tr><td>50</td><td>Moisture barrier</td></tr>
+            <tr><td>52</td><td>Alignment feature</td></tr>
+            <tr><td>54</td><td>Seal / gasket</td></tr>
+            <tr><td>56</td><td>Neck opening</td></tr>
+            <tr><td>58</td><td>Controller</td></tr>
+            <tr><td>60</td><td>Battery</td></tr>
+            <tr><td>62</td><td>Wireless transceiver</td></tr>
+            <tr><td>64</td><td>Sensors (temperature, moisture, motion)</td></tr>
+            <tr><td>66</td><td>Display drivers</td></tr>
+            <tr><td>68</td><td>Flexible display panel tiles</td></tr>
+            <tr><td>70</td><td>Panel seams or boundaries</td></tr>
+            <tr><td>72</td><td>Authoring studio</td></tr>
+            <tr><td>74</td><td>Sandbox</td></tr>
+            <tr><td>76</td><td>Safety / power / fit checker</td></tr>
+            <tr><td>78</td><td>Marketplace</td></tr>
+            <tr><td>80</td><td>Skin package</td></tr>
+            <tr><td>86</td><td>Pattern / canvas mapping of content</td></tr>
+            <tr><td>88</td><td>Drawcords</td></tr>
+            <tr><td>90</td><td>Zipper or placket</td></tr>
+            <tr><td>92</td><td>Pocket</td></tr>
+            <tr><td>94</td><td>Shell-side dock / contact pads</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section id="detailed">
+        <h2>6C. Detailed description with reference to the drawings</h2>
+        <p><span class="para">[0111]</span>Referring to FIG. 1, a wearable display garment system (10) is shown in an assembled hoodie embodiment (16). An outer display shell (14) is worn over an inner suit (12). A display surface (22) covers a substantial portion of the visible exterior of the shell, including, in this embodiment, the torso, sleeves and hood (46). Drawcords (88) and a rib hem (48) are conventional garment features of the shell. A cuff interface (44) may pass power or data to a sleeve region, or may be mechanical only.</p>
+        <p><span class="para">[0112]</span>Referring to FIG. 2, the shell (14) is separable from the inner suit (12). The inner suit is shown from the front and the back. A spine pack (34) on the back of the inner suit houses a battery and a controller. A harness (36) distributes loads and can route wiring. A dock (28) on the inner suit faces a corresponding dock on the underside of the shell. In the exploded condition the two docks are aligned but not coupled.</p>
+        <p><span class="para">[0113]</span>Referring to FIG. 3, the inner suit (12) is the launderable, body-side layer. It provides a knit or other washable textile against the wearer, thermal or cooling features (38), wiring (40) following the harness (36), cuff interfaces (44), and the inner dock (28). The spine pack (34) is preferably removable from the textile before laundering. The battery (60) is carried in the spine pack, not in the shell, so the shell has no laundry-incompatible energy store.</p>
+        <p><span class="para">[0114]</span>Referring to FIG. 4, the outer shell (14) carries the flexible display layer (22), which may be formed of tiles (68) meeting at seams (70). A clear coat (24) and a moisture barrier, described with FIG. 6, encapsulate the display so the shell can be wiped and is not designed to be machine-washed. A shell-side dock (94) is the only electrical port on the shell. The hood (46), rib hem (48) and drawcords (88) are shown on the hoodie cut; other cuts omit the hood.</p>
+        <p><span class="para">[0115]</span>Referring to FIG. 5, the dock is an electromechanical interface. The inner-suit dock (28) carries spring-loaded pogo pins (30) and one polarity of magnetic couplers (32). The shell-side dock (94) carries sealed contact pads and the complementary magnets. An alignment feature (52), such as a pin and socket, registers the two sides before the pins compress. A seal or gasket (54) surrounds the contact array. In a preferred form the shell side has no openings: the pads are flush and potted or otherwise sealed. A controller on the inner suit preferably energizes the pins only after a valid connection is detected. In an alternative, power is transferred inductively and data by near-field communication, and neither side presents an exposed contact.</p>
+        <p><span class="para">[0116]</span>Referring to FIG. 6, a layer cross-section through the torso is the same in principle for a hoodie, a jacket or pants. From the body outward: the inner suit (12); thermal or cooling features (38); a wiring harness (40); the dock plane (28); the flexible display (22); a moisture barrier (50); and a clear coat (24). The inner-suit layers are washable with the textile, or are removed (the spine pack) before a wash. The shell layers are never laundered. The dock is the only electrical path across that boundary.</p>
+        <p><span class="para">[0117]</span>Referring to FIG. 7, the same two-piece architecture is applied to a hoodie (16), a jacket (18) and pants (20). The jacket may include a zipper or placket (90) and a collar. The pants embodiment may use fewer, larger color zones or a full mapped display, as described in the embodiments below. A single inner suit may be arranged to drive more than one shell, the shell identifying itself through the dock.</p>
+        <p><span class="para">[0118]</span>Referring to FIG. 8, the battery (60), controller (58), sensors (64) and a wireless transceiver (62) reside on the inner-suit side of the dock (28). Display drivers (66), the flexible display (22) and shell contact pads (94) reside on the shell side. Sensors may include temperature, moisture and motion. The transceiver may link the garment to a phone or to the studio and marketplace described with FIG. 10.</p>
+        <p><span class="para">[0119]</span>Referring to FIG. 9, a method of using the system includes: donning the inner suit (12); donning the outer shell (14) over the inner suit; aligning the docks (28, 94) with the alignment feature (52); coupling the magnets (32) and engaging the pogo pins (30); playing content that has been mapped (86) onto the display (22); detaching the shell from the inner suit; laundering the inner suit; and wiping the shell. The shell is maintained like a phone, not like ordinary laundry.</p>
+        <p><span class="para">[0120]</span>Referring to FIG. 10, content is authored in a studio (72), including by writing HTML, CSS and related web languages, or by an assisted generator. The content is executed in a sandbox (74) without network access, checked (76) for flash rate, luminance, estimated power and fit to a garment cut, and compiled into a skin package (80). A marketplace (78) may distribute packages under a license, including remix lineage. Pattern mapping (86) places the package onto the display (22) of a particular garment system (10). Sections 14.1–14.9 describe this platform in further detail. No performance numbers in this draft are measured results.</p>
+      </section>
+
       <section id="inner">
-        <h2>7. Inner garment (body-side layer)</h2>
+        <h2>7. Inner garment (body-side layer) (12)</h2>
         <p><span class="para">[0011]</span>The inner garment is a close-fitting or relaxed-fit base layer, such as a long-sleeve top, a hooded top, or a top and pant set, worn directly against the body. It is the only layer meant to touch skin, and it is designed to be machine-washed once the power and control module has been removed, or replaced cheaply.</p>
         <h3>7.1 Textile</h3>
         <p><span class="para">[0012]</span>Example materials include moisture-wicking knits (polyester, nylon or merino blends with elastane), with zones of three-dimensional spacer mesh. The spacer mesh holds the shell slightly away from the body and forms air channels. Antimicrobial or odor-control finishes may be applied. A lightweight, wipeable liner face may be placed where the inner garment meets the shell, so it doesn't shed lint onto the shell's inside surface.</p>
@@ -174,7 +256,7 @@
       </section>
 
       <section id="shell">
-        <h2>8. Outer display shell</h2>
+        <h2>8. Outer display shell (14)</h2>
         <p><span class="para">[0016]</span>The shell is a garment-shaped assembly with a hood or collar, body panels and sleeves. Its visible surface is covered mostly by addressable display elements laid out to follow the garment's pattern pieces. It is built as a laminate, from the outside in:</p>
         <ol>
           <li><strong>Protective cover layer.</strong> A clear, hard-coated polymer film (for example polyurethane or polyimide with a hard coat) on areas that bend a lot. Ultra-thin glass is an option on flatter areas such as the back or a structured jacket front. It may carry anti-smudge (oleophobic), anti-glare and low-friction coatings, so fibers and dust don't stick.</li>
@@ -192,7 +274,7 @@
       </section>
 
       <section id="interface">
-        <h2>9. Layer interface</h2>
+        <h2>9. Layer interface (28, 94)</h2>
         <h3>9.1 Mechanical attachment</h3>
         <p><span class="para">[0020]</span>The shell and inner garment are joined along a perimeter at the neckline, front opening, cuffs and hem, using any of the following: a separating zipper, snaps, hook-and-loop strips, or a magnetic tape. This holds the shell in the right position over the thermal channels and keeps the dock lined up. The attachment can also be partial, leaving the shell to hang free at the hem for airflow.</p>
         <h3>9.2 The dock</h3>
@@ -270,7 +352,7 @@ Runtime   ≈ ( E_battery × η_conversion ) / P_total</div>
       </section>
 
       <section id="embodiments">
-        <h2>15. Embodiments</h2>
+        <h2>15. Embodiments (16, 18, 20 and alternatives)</h2>
         <ol>
           <li><strong>A. Zoned hoodie (first prototype).</strong> A hooded shell with display zones on the chest, back and upper sleeves, over a hooded inner garment with a spine pack. Thickness is acceptable.</li>
           <li><strong>B. Structured jacket.</strong> A stiffer shell with larger, flatter panels, optionally using ultra-thin glass covers on the back and front panels, plus a collar and a front zip that runs through a display break.</li>
@@ -308,6 +390,13 @@ Runtime   ≈ ( E_battery × η_conversion ) / P_total</div>
           <li>The method of claim 16, wherein the license is selected from a group comprising a personal license, a remix license, an open license and a numbered-edition license, and wherein ownership of a numbered edition is recorded and transferable.</li>
           <li>A garment kit comprising an inner garment according to claim 1 and a plurality of interchangeable outer display shells of different cuts, each shell comprising an identity element readable through the dock.</li>
           <li>The system of claim 1, wherein the outer display shell comprises an outermost protective cover layer having a hard coat and a low-friction coating configured to reduce adhesion of textile fibers.</li>
+          <li>The system of claim 1, wherein the outer display shell is selected from a hoodie shell, a jacket shell and a pants shell, each shell sharing the dock and a common content-mapping format.</li>
+          <li>The system of claim 1, wherein the inner garment comprises a removable spine pack housing a battery and a controller, and a wiring harness extending from the spine pack to the dock and to at least one cuff region.</li>
+          <li>A method of using the system of claim 1, comprising: donning the inner garment; donning the outer display shell over the inner garment; aligning and coupling the dock; displaying content on the display elements; detaching the outer display shell from the inner garment; laundering the inner garment; and wiping the outer display shell without laundering the shell.</li>
+          <li>The method of claim 23, wherein aligning and coupling the dock comprises engaging an alignment feature, closing a magnetic couple, and compressing spring-loaded contacts against sealed pads on the shell.</li>
+          <li>The method of claim 23, wherein the content has been mapped onto pattern pieces of the particular shell cut before it is displayed.</li>
+          <li>A system for authoring and playing garment display content, comprising: an authoring environment configured to accept content in a web language; a sandbox configured to execute the content without network access; a checker configured to evaluate flash rate, luminance, estimated power and fit of the content to a garment cut; and a garment system according to claim 1 configured to play a package produced by the authoring environment after the content has passed the checker.</li>
+          <li>The system of claim 26, further comprising a marketplace configured to distribute the package under a license and to record a remix lineage for a derived package.</li>
         </ol>
       </section>
 
@@ -369,9 +458,9 @@ Runtime   ≈ ( E_battery × η_conversion ) / P_total</div>
         <div class="tbl"><table><tbody>
           <tr><td><strong>Invention</strong></td><td>Exovela two-layer wearable display garment and content platform</td></tr>
           <tr><td><strong>Inventor</strong></td><td>Charles Anthony Leone</td></tr>
-          <tr><td><strong>Draft recorded</strong></td><td>November 25, 2026 (Revision 1)</td></tr>
+          <tr><td><strong>Draft recorded</strong></td><td>November 25, 2026 (Revision 2)</td></tr>
           <tr><td><strong>Filing status</strong></td><td>Not filed. No application pending.</td></tr>
-          <tr><td><strong>Document type</strong></td><td>Invention disclosure draft and technical proof of concept</td></tr>
+          <tr><td><strong>Document type</strong></td><td>Invention disclosure draft, formal figures FIG. 1–10, and provisional-application-style PDF for attorney review</td></tr>
         </tbody></table></div>
       </section>
     </article>
@@ -385,16 +474,12 @@ Runtime   ≈ ( E_battery × η_conversion ) / P_total</div>
 <div class="footer-links"><span class="label">Explore</span><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="studio.html">Studio</a><a href="marketplace.html">Marketplace</a><a href="roadmap.html">Roadmap</a><a href="proof-of-concept.html">Proof of concept</a></div>
 <div class="footer-links"><span class="label">About the sky</span>
 <p class="fine">The stars here glow in full color, the way they might look with no atmosphere or ozone filtering and scattering their light.</p>
-<p class="fine">Milky Way: <a href="https://www.eso.org/public/images/eso0932a/" rel="noopener">ESO/S. Brunier</a>, CC BY 4.0 · Moon: <a href="https://commons.wikimedia.org/wiki/File:FullMoon2010.jpg" rel="noopener">Gregory H. Revera</a>, CC BY-SA 3.0</p>
+<p class="fine">The stars and moon are rendered for this scene. No stock photographs are used.</p>
 <p class="fine">© <span id="year">2026</span> Charles Anthony Leone</p></div>
 </div></footer>
 </div>
-<div class="scene-set">
-<div id="scene-panel" class="scene-panel" role="dialog" aria-label="Scene settings" hidden>
-<label><input type="checkbox" id="set-ocean"> Ocean animation</label>
-<label><input type="checkbox" id="set-sky"> Star &amp; sky animation</label>
-<p>Off shows a still frame. Defaults follow your system's reduced-motion setting.</p></div>
-<button id="gear" class="scene-gear" aria-expanded="false" aria-label="Scene settings" title="Scene settings"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3.5h-4l-.4 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg></button>
-</div>
-<script src="assets/scene.js" defer></script><script src="assets/ledwaves.js" defer></script><script src="assets/site.js" defer></script><script src="assets/garment.js" defer></script>
+
+<script src="assets/site.js" defer></script>
+<script type="module" src="assets/main.js"></script>
+
 </body></html>
