@@ -1,0 +1,79 @@
+<!--
+title: Exovela Shoe | Prototype 02, side panels and heel that light up
+description: The Exovela shoe has sealed LED panels on the side and heel, and a removable, washable inner bootie. Try its live demo. Concept by Charles Anthony Leone.
+body: page-shoe
+scripts: live-ui.js
+preload: assets/img/shoe-side-1080.avif 1080w, assets/img/shoe-side-1440.avif 1440w, assets/img/shoe-side-2160.avif 2160w
+preloadsizes: (max-width: 900px) 92vw, 760px
+-->
+<section class="lg-hero" data-live-garment="shoe" aria-labelledby="shoe-h">
+  <div class="wrap shoe-grid">
+    <div class="lg-head">
+      <p class="eyebrow">Exovela · Prototype 02, the shoe</p>
+      <h1 id="shoe-h">A sneaker with a screen on the side.</h1>
+      <p class="lede">Sealed LED panels on the side and the heel, and an inner bootie that comes out so you can wash it. It runs the same looks as the sweater, re-flowed for a foot.</p>
+    </div>
+    <div class="lg-stage shoe-stage">
+      <picture>
+        <source type="image/avif" srcset="assets/img/shoe-side-1080.avif 1080w, assets/img/shoe-side-1440.avif 1440w, assets/img/shoe-side-2160.avif 2160w" sizes="(max-width: 900px) 92vw, 760px">
+        <img src="assets/img/shoe-side-1080.webp" srcset="assets/img/shoe-side-1080.webp 1080w, assets/img/shoe-side-1440.webp 1440w, assets/img/shoe-side-2160.webp 2160w" sizes="(max-width: 900px) 92vw, 760px" width="2160" height="1215" alt="Side view of a dark sneaker. The side panel and heel glow with LED pixels." fetchpriority="high" decoding="async">
+      </picture>
+      <canvas aria-label="Live shoe demo" role="img"></canvas>
+      <div class="lg-over lg-over-top"><span></span>
+        <div class="seg" role="group" aria-label="Display look"><button type="button" data-look="0" aria-pressed="true">LED</button><button type="button" data-look="1" aria-pressed="false">OLED</button></div>
+      </div>
+      <div class="lg-over lg-over-bottom"><span></span><span class="render-note">Simulated on a concept render</span></div>
+    </div>
+    <div class="lg-panel">
+      <p class="lg-label">Looks</p>
+      <div class="chips">
+        <button type="button" class="chip" data-shoe="psych" aria-pressed="true">Psychedelic</button>
+        <button type="button" class="chip" data-shoe="show" aria-pressed="false">Surf show</button>
+        <button type="button" class="chip" data-shoe="ocean" aria-pressed="false">Night ocean</button>
+        <button type="button" class="chip" data-shoe="fire" aria-pressed="false">Fireplace</button>
+        <button type="button" class="chip" data-shoe="grid" aria-pressed="false">Neon grid</button>
+        <button type="button" class="chip" data-shoe="ticker" aria-pressed="false">Handle + clock</button>
+        <button type="button" class="chip" data-shoe="ad" aria-pressed="false">Flannel + ad</button>
+      </div>
+      <p class="lg-label">Your account's ad slot</p>
+      <button type="button" class="btn btn-sm" data-ad-toggle aria-pressed="false">Ad slot off</button>
+      <p class="fine">Turn the slot on here or on the <a href="index.html#live">sweater</a>. It belongs to your account, so it shows up on whatever you wear: the sweater's back, this shoe's heel.</p>
+      <p class="fine lg-status" data-lg-status aria-live="polite"></p>
+      <p class="fine">Prototype resolution: about 5 mm between LEDs. The exact pitch of the first pair isn't settled yet.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section rule">
+  <div class="wrap">
+    <div class="reveal"><p class="eyebrow">Why it's built this way</p><h2>Wear it in the rain. Wash the part that touches you.</h2></div>
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card reveal"><span class="num">REMOVABLE INNER</span><h3>A bootie that comes out</h3><p>The part that touches your foot is a separate knit liner with no electronics in it. Pull it out and put it in the wash.</p></div>
+      <div class="card reveal"><span class="num">SEALED LEDS</span><h3>Waterproof panels</h3><p>The LED panels are sealed in clear silicone inside the outer shell, so rain and puddles don't reach them. The shell wipes clean.</p></div>
+      <div class="card reveal"><span class="num">ONE ACCOUNT</span><h3>Matches what you're wearing</h3><p>Same looks, same ad slot, same phone app as the sweater. Pick a look once and both pieces follow it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section rule">
+  <div class="wrap split" style="align-items:start">
+    <div class="reveal"><p class="eyebrow">Build plan</p><h2>A first pair from small parts.</h2>
+      <p class="lede">Not built yet. These are the parts we'd start with, and every number is an estimate until we measure it.</p>
+      <div class="actions"><a class="btn" href="proof-of-concept.html#build">Full build plan</a></div></div>
+    <div class="reveal"><dl class="spec">
+      <dt>Side panels</dt><dd>Small flexible boards of tiny addressable LEDs, about 5 mm apart, potted in clear silicone. These would be made to order for the first pair</dd>
+      <dt>Heel</dt><dd>A small curved panel of the same LEDs</dd>
+      <dt>Brain</dt><dd>A thumb-sized microcontroller with Bluetooth and Wi-Fi, in a sealed pod in the heel</dd>
+      <dt>Battery</dt><dd>A small rechargeable cell in the heel pod, charged by a magnetic connector or a wireless pad. About 2 to 3 hours at night brightness (estimate)</dd>
+      <dt>Liner</dt><dd>Removable knit bootie with no electronics, machine washable</dd>
+      <dt>Parts</dt><dd>About $190 to $260 per pair for a hand-built prototype, most of it the custom LED boards (estimate)</dd>
+    </dl></div>
+  </div>
+</section>
+
+<section class="section-tight rule">
+  <div class="wrap split" style="align-items:center">
+    <div class="reveal"><p class="eyebrow">Status</p><h2>Concept stage.</h2></div>
+    <p class="muted reveal">No shoe exists yet. The picture is a concept render, and the demo is drawn live in your browser. No application has been filed.</p>
+  </div>
+</section>

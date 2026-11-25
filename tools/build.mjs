@@ -1,7 +1,7 @@
 // Builds the static pages: wraps each src/*.html body with the shared head, header, scene and footer.
 // Usage: node tools/build.mjs
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
-const NAV = [['index.html', 'Home'], ['how-it-works.html', 'How it works'], ['studio.html', 'Studio'], ['marketplace.html', 'Marketplace'], ['roadmap.html', 'Roadmap'], ['proof-of-concept.html', 'Technology']];
+const NAV = [['index.html', 'Home'], ['shoe.html', 'Shoe'], ['how-it-works.html', 'How it works'], ['studio.html', 'Studio'], ['marketplace.html', 'Marketplace'], ['roadmap.html', 'Roadmap'], ['proof-of-concept.html', 'Technology']];
 const mark = `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.5c-4.6 0-7.2 3.3-7.4 7.2L4.8 13 3.8 27.5h5.4l.9-8.6.3 9.6h11.2l.3-9.6.9 8.6h5.4L27.2 13l-3.8-2.3C23.2 6.8 20.6 3.5 16 3.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.6 11c.4-2.3 1.6-3.6 3.4-3.6s3 1.3 3.4 3.6c-.9 1.9-2 2.8-3.4 2.8s-2.5-.9-3.4-2.8Z" fill="#8fd8ff"/></svg>`;
 const header = `<a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner">

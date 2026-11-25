@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Exovela | A garment whose outer layer is a display</title><meta name="description" content="Exovela is a two-piece garment: a washable inner suit that carries the battery and handles body heat, and a sealed, flexible display shell that is wiped clean and never washed. Concept by Charles Anthony Leone."><meta name="theme-color" content="#02040a">
-<meta property="og:type" content="website"><meta property="og:title" content="Exovela | A garment whose outer layer is a display"><meta property="og:description" content="Exovela is a two-piece garment: a washable inner suit that carries the battery and handles body heat, and a sealed, flexible display shell that is wiped clean and never washed. Concept by Charles Anthony Leone.">
+<title>Exovela | A sweater that plays anything, zone by zone</title><meta name="description" content="Exovela is a thick knit sweater with LED panels under the stitches. Chest, stomach, back, sleeves and cuffs each play their own source: your shows, a game, a note from your phone, code you wrote. Concept by Charles Anthony Leone."><meta name="theme-color" content="#02040a">
+<meta property="og:type" content="website"><meta property="og:title" content="Exovela | A sweater that plays anything, zone by zone"><meta property="og:description" content="Exovela is a thick knit sweater with LED panels under the stitches. Chest, stomach, back, sleeves and cuffs each play their own source: your shows, a game, a note from your phone, code you wrote. Concept by Charles Anthony Leone.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css"><link rel="preload" as="image" type="image/avif" imagesrcset="assets/img/hero-960.avif 960w, assets/img/hero-1440.avif 1440w, assets/img/hero-1920.avif 1920w, assets/img/hero-2560.avif 2560w, assets/img/hero-3840.avif 3840w" imagesizes="(max-width: 900px) 640px, 100vw" fetchpriority="high">
+<link rel="stylesheet" href="assets/site.css"><link rel="preload" as="image" type="image/avif" imagesrcset="assets/img/sweater-front-1080.avif 1080w, assets/img/sweater-front-1440.avif 1440w, assets/img/sweater-front-2160.avif 2160w" imagesizes="(max-width: 900px) 92vw, 600px" fetchpriority="high">
 <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.min.js"}}</script>
 </head>
 <body class="page-home">
@@ -14,121 +14,181 @@
 <header class="site-header"><div class="header-inner">
 <a class="brand" href="index.html" aria-label="Exovela home"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.5c-4.6 0-7.2 3.3-7.4 7.2L4.8 13 3.8 27.5h5.4l.9-8.6.3 9.6h11.2l.3-9.6.9 8.6h5.4L27.2 13l-3.8-2.3C23.2 6.8 20.6 3.5 16 3.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.6 11c.4-2.3 1.6-3.6 3.4-3.6s3 1.3 3.4 3.6c-.9 1.9-2 2.8-3.4 2.8s-2.5-.9-3.4-2.8Z" fill="#8fd8ff"/></svg><span class="brand-name">EXOVELA</span></a>
 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-<nav id="site-nav" class="site-nav" aria-label="Main"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="studio.html">Studio</a><a href="marketplace.html">Marketplace</a><a href="roadmap.html">Roadmap</a><a href="proof-of-concept.html">Technology</a></nav>
+<nav id="site-nav" class="site-nav" aria-label="Main"><a href="index.html">Home</a><a href="shoe.html">Shoe</a><a href="how-it-works.html">How it works</a><a href="studio.html">Studio</a><a href="marketplace.html">Marketplace</a><a href="roadmap.html">Roadmap</a><a href="proof-of-concept.html">Technology</a></nav>
 </div></header>
 <main id="main" tabindex="-1">
-<section class="hero">
-  <div class="cmp" data-composite='{"fx":0.62,"fxMobile":0.735,"stars":"assets/img/hero-stars.json","led":"assets/img/hero-led.webp","water":"assets/img/hero-water.webp","screen":{"shade":"assets/img/hero-shade.webp","box":[0.640625,0.305556,0.15625,0.398148],"cycle":["aurora","solstice","profile","grid","cartoon"],"every":7000,"spill":[0.72,0.74,0.09]}}'>
-    <div class="cmp-frame">
-      <picture>
-        <source type="image/avif" srcset="assets/img/hero-960.avif 960w, assets/img/hero-1440.avif 1440w, assets/img/hero-1920.avif 1920w, assets/img/hero-2560.avif 2560w, assets/img/hero-3840.avif 3840w" sizes="(max-width: 900px) 640px, 100vw">
-        <img src="assets/img/hero-1920.webp" srcset="assets/img/hero-960.webp 960w, assets/img/hero-1440.webp 1440w, assets/img/hero-1920.webp 1920w, assets/img/hero-2560.webp 2560w, assets/img/hero-3840.webp 3840w" sizes="(max-width: 900px) 640px, 100vw" width="3840" height="2160" alt="The Exovela display shell, a hoodie whose surface is lit with moving color, beside the charcoal inner suit, on a wooden pier at night with LED-lit rails and a full moon." fetchpriority="high" decoding="async">
-      </picture>
+<section class="lg-hero" id="live" data-live-garment="sweater" aria-labelledby="hero-h">
+  <div class="wrap lg-grid">
+    <div class="lg-head">
+      <p class="eyebrow">Exovela · Prototype 01, the sweater</p>
+      <h1 id="hero-h">Wear anything, zone by zone.</h1>
+      <p class="lede">A thick knit sweater with LED panels under the stitches. The chest, stomach, back, both sleeves and the cuffs each run their own source: your show, a game, a note from your phone, code you wrote.</p>
     </div>
-    <span class="render-note">Concept render</span>
-  </div>
-  <div class="hero-copy">
-    <div class="inner">
-      <p class="eyebrow">Exovela · Concept 01</p>
-      <h1>The outer layer is a display.</h1>
-      <p class="lede">Exovela is two pieces. A washable inner suit carries the battery and handles your body heat. Over it goes a sealed, flexible display shell that plays full-motion content, and is wiped clean, never washed.</p>
-      <div class="actions">
-        <a class="btn btn-led" href="#live">Try it live</a>
-        <a class="btn" href="how-it-works.html">How it’s built</a>
+    <div class="lg-stage">
+      <picture>
+        <source type="image/avif" srcset="assets/img/sweater-front-1080.avif 1080w, assets/img/sweater-front-1440.avif 1440w, assets/img/sweater-front-2160.avif 2160w" sizes="(max-width: 900px) 92vw, 600px">
+        <img src="assets/img/sweater-front-1080.webp" srcset="assets/img/sweater-front-1080.webp 1080w, assets/img/sweater-front-1440.webp 1440w, assets/img/sweater-front-2160.webp 2160w" sizes="(max-width: 900px) 92vw, 600px" width="2160" height="2880" alt="A thick charcoal knit sweater on a pier at night. Light from LED panels under the knit shows a different picture on the chest, stomach, sleeves and cuffs." fetchpriority="high" decoding="async">
+      </picture>
+      <canvas aria-label="Live sweater. Tap a zone to edit it, or tap the board to play." role="img"></canvas>
+      <div class="lg-over lg-over-top">
+        <div class="seg" role="group" aria-label="View"><button type="button" data-view="front" aria-pressed="true">Front</button><button type="button" data-view="back" aria-pressed="false">Back</button></div>
+        <div class="seg" role="group" aria-label="Display look"><button type="button" data-look="0" aria-pressed="true">LED</button><button type="button" data-look="1" aria-pressed="false">OLED</button></div>
       </div>
+      <div class="lg-over lg-over-bottom">
+        <div class="seg" role="group" aria-label="Pixel pitch"><button type="button" data-pitch="10" aria-pressed="true">10 mm</button><button type="button" data-pitch="5" aria-pressed="false">5 mm</button><button type="button" data-pitch="2.5" aria-pressed="false">2.5 mm</button></div>
+        <span class="render-note">Simulated on a concept render</span>
+      </div>
+    </div>
+    <div class="lg-panel">
+      <div class="tabs" role="tablist" aria-label="Demo mode">
+        <button type="button" role="tab" data-tab="looks" aria-selected="true">Preset looks</button>
+        <button type="button" role="tab" data-tab="free" aria-selected="false">Free mode</button>
+      </div>
+      <div data-pane="looks">
+        <div class="presets" data-presets></div>
+        <p class="fine">One tap lays out every zone. Each look is <a href="#motion">motion-aware</a>: torso scenes stay inside the torso, and the sleeves get stripes, tickers, widgets or solid color that still read when your arms move.</p>
+      </div>
+      <div data-pane="free" hidden>
+        <p class="lg-label">1 · Pick a zone, or tap one on the sweater</p>
+        <div class="chips" data-zones></div>
+        <p class="lg-label">2 · Give it a source</p>
+        <div class="tabs tabs-sm" role="tablist" aria-label="Source">
+          <button type="button" role="tab" data-src="shows" aria-selected="true">Shows</button>
+          <button type="button" role="tab" data-src="mirror" aria-selected="false">Phone</button>
+          <button type="button" role="tab" data-src="code" aria-selected="false">Code</button>
+          <button type="button" role="tab" data-src="draw" aria-selected="false">Draw</button>
+          <button type="button" role="tab" data-src="game" aria-selected="false">Game</button>
+          <button type="button" role="tab" data-src="ad" aria-selected="false">Ad slot</button>
+          <button type="button" role="tab" data-src="widgets" aria-selected="false">Widgets</button>
+          <button type="button" role="tab" data-src="patterns" aria-selected="false">Patterns</button>
+        </div>
+        <div data-srcpane="shows">
+          <label class="lg-inline">Play across <select data-span><option value="zone">this zone</option><option value="torso" selected>chest + stomach</option><option value="all">every zone, each framed on its own</option></select></label>
+          <div class="chans" data-shows></div>
+          <p class="fine">Host your shows: anything you have the rights to. These clips are originals made for this demo.</p>
+        </div>
+        <div data-srcpane="mirror" hidden>
+          <div class="phone-row"><div class="phone"><canvas data-mirror width="180" height="320" aria-label="Simulated phone screen"></canvas></div>
+          <p class="fine">Simulated mirroring. Your phone's screen goes to the selected zone, live. In the product it would stream over Wi-Fi from an app.</p></div>
+        </div>
+        <div data-srcpane="code" hidden>
+          <div class="code-head"><span class="fine">draw(led, t): led.w, led.h, led.set(x, y, r, g, b), led.fill(), led.text(), led.hsv()</span></div>
+          <textarea data-code spellcheck="false" rows="8" aria-label="Code for the selected zone"></textarea>
+          <div class="actions-sm"><button type="button" class="btn btn-sm btn-led" data-run>Run on this zone</button><button type="button" class="btn btn-sm" data-sample="plasma">Plasma</button><button type="button" class="btn btn-sm" data-sample="ticker">Ticker</button><button type="button" class="btn btn-sm" data-sample="life">Dot rain</button></div>
+          <p class="fine" data-code-err aria-live="polite">Your code runs in its own worker thread, away from this page, and is stopped if a frame takes longer than a second.</p>
+        </div>
+        <div data-srcpane="draw" hidden>
+          <div class="phone-row"><div class="phone">
+            <div class="ptabs" role="tablist"><button type="button" role="tab" data-ptab="text" aria-selected="true">Text</button><button type="button" role="tab" data-ptab="pad" aria-selected="false">Draw</button></div>
+            <div data-ppane="text"><textarea data-text rows="4" aria-label="Message for your back">hey cute girl with the ladybug glasses</textarea><button type="button" class="btn btn-sm btn-led" data-send>Send to sweater</button></div>
+            <div data-ppane="pad" hidden><canvas data-pad width="300" height="300" aria-label="Draw pad"></canvas><div class="inks"><button type="button" data-ink="#8fd8ff" aria-label="Blue"></button><button type="button" data-ink="#ff5fa2" aria-label="Pink"></button><button type="button" data-ink="#ffcf5a" aria-label="Yellow"></button><button type="button" data-ink="#36ff9a" aria-label="Green"></button><button type="button" class="btn btn-sm" data-clear>Clear</button></div></div>
+          </div>
+          <p class="fine">Write or draw on your phone and it shows up on the zone you picked. The back is the default.</p></div>
+        </div>
+        <div data-srcpane="game" hidden>
+          <div class="phone-row"><div class="phone"><div class="ttt" data-ttt></div><p class="fine" data-ttt-status aria-live="polite"></p><button type="button" class="btn btn-sm" data-ttt-new>New game</button></div>
+          <p class="fine">Tic-tac-toe on your chest. Tap a square on the sweater or on the phone. You're X.</p></div>
+        </div>
+        <div data-srcpane="ad" hidden data-ad>
+          <div class="card ad-card"><span class="num">AD SLOT · A-0142</span><h3>Bound to your account</h3>
+          <p>Rent out a slot and it follows you: whatever Exovela piece you wear, the slot shows up in the same place. Here it sits on the sweater's back, and it moves to the heel when you put on the <a href="shoe.html">shoe</a>.</p>
+          <p class="fine" data-ad-state></p><button type="button" class="btn btn-sm btn-led" data-ad-toggle aria-pressed="false">Turn the slot on</button></div>
+        </div>
+        <div data-srcpane="widgets" hidden>
+          <div class="chips"><button type="button" class="chip" data-pat="clock">Clock</button><button type="button" class="chip" data-pat="temp" data-opts='{"value":48}'>Temperature (demo value)</button><button type="button" class="chip" data-pat="ticker">Handle ticker</button><button type="button" class="chip" data-pat="eq" data-opts='{"vertical":true}'>Level meter</button></div>
+          <label class="lg-inline">Your handle <input data-handle value="@yourname" maxlength="24"></label>
+        </div>
+        <div data-srcpane="patterns" hidden>
+          <div class="chips"><button type="button" class="chip" data-pat="flannel">Flannel</button><button type="button" class="chip" data-pat="plasma">Psychedelic</button><button type="button" class="chip" data-pat="stripes">Stripes</button><button type="button" class="chip" data-pat="snow">Snow</button><button type="button" class="chip" data-pat="fireplace">Fireplace</button><button type="button" class="chip" data-pat="eq">Equalizer</button><button type="button" class="chip" data-pat="grid">Neon grid</button><button type="button" class="chip" data-pat="warp">Warp</button><button type="button" class="chip" data-off>Off</button></div>
+          <label class="lg-inline">Solid color <input type="color" data-solid value="#2a6cff"></label>
+        </div>
+      </div>
+      <p class="fine lg-status" data-lg-status aria-live="polite"></p>
+      <p class="fine">Prototype resolution. We don't know the first screen's exact pixel pitch or color depth yet, so switch between the pitches we'd test. 10 mm is LED mesh, 2.5 mm is the flexible panels in the build plan.</p>
     </div>
   </div>
 </section>
 
-<section class="section live" id="live" aria-labelledby="live-h">
-  <div class="wrap">
-    <div class="live-grid">
-    <div class="live-head"><p class="eyebrow">Live demo</p><h2 id="live-h">Pick a channel.</h2></div>
-    <div class="live-stage" data-live='{"base":"assets/img/demo-base-1080.webp","base2x":"assets/img/demo-base-2160.webp","maps":"assets/img/demo-maps.webp","warp":"assets/img/demo-warp.webp","box":[0.25278,0.21458,0.43519,0.58611],"aspect":0.75,"cols":96,"rows":144,"gain":1.0,"channels":[{"id":"santa","label":"Dancing Santa"},{"id":"surf","label":"Surf"},{"id":"ocean","label":"Night ocean"},{"id":"aurora","label":"Aurora"},{"id":"rain","label":"City rain"}]}'>
-      <picture>
-        <source type="image/avif" srcset="assets/img/demo-base-1080.avif 1080w, assets/img/demo-base-1440.avif 1440w, assets/img/demo-base-2160.avif 2160w" sizes="(max-width: 900px) 92vw, 560px">
-        <img class="live-poster" src="assets/img/demo-base-1080.webp" srcset="assets/img/demo-base-1080.webp 1080w, assets/img/demo-base-1440.webp 1440w, assets/img/demo-base-2160.webp 2160w" sizes="(max-width: 900px) 92vw, 560px" width="2160" height="2880" alt="The display shell hoodie on a pier at night, its front panel playing the selected channel." loading="lazy" decoding="async">
-      </picture>
-      <canvas aria-hidden="true"></canvas>
-      <span class="render-note">Simulated on a concept render</span>
-    </div>
-    <div class="live-copy">
-      <p class="lede">Each channel is a short video loop playing on the shell’s front panel. The picture bends with the folds, picks up the fabric’s shading, and throws its light onto the hood and sleeves.</p>
-      <div class="chans" role="group" aria-label="Channels">
-        <button type="button" class="chan" data-channel="santa" aria-pressed="true"><img src="assets/video/ch-santa-poster.jpg" alt="" width="60" height="80" loading="lazy" decoding="async"><span>Dancing Santa</span></button>
-        <button type="button" class="chan" data-channel="surf" aria-pressed="false"><img src="assets/video/ch-surf-poster.jpg" alt="" width="60" height="80" loading="lazy" decoding="async"><span>Surf</span></button>
-        <button type="button" class="chan" data-channel="ocean" aria-pressed="false"><img src="assets/video/ch-ocean-poster.jpg" alt="" width="60" height="80" loading="lazy" decoding="async"><span>Night ocean</span></button>
-        <button type="button" class="chan" data-channel="aurora" aria-pressed="false"><img src="assets/video/ch-aurora-poster.jpg" alt="" width="60" height="80" loading="lazy" decoding="async"><span>Aurora</span></button>
-        <button type="button" class="chan" data-channel="rain" aria-pressed="false"><img src="assets/video/ch-rain-poster.jpg" alt="" width="60" height="80" loading="lazy" decoding="async"><span>City rain</span></button>
-      </div>
-      <button type="button" class="btn btn-sm" data-led-grid aria-pressed="false">Show prototype resolution</button>
-      <p class="fine" data-live-status aria-live="polite">Now showing: Dancing Santa</p>
-      <p class="fine">The prototype resolution view shows what the first wearable build can draw: 96 × 144 LEDs at 2.5 mm pitch on the front, from three flexible panels. Clips are original, made for this demo. <a href="proof-of-concept.html#build">How we’d build it</a></p>
-    </div>
+<section class="section rule" id="motion">
+  <div class="wrap split">
+    <div class="reveal"><p class="eyebrow">Motion-aware layouts</p><h2>Built for a body that moves.</h2></div>
+    <div class="reveal">
+      <p class="lede">A picture that runs from your chest down your arm breaks the moment you reach for something. So every look keeps each zone self-contained.</p>
+      <ul class="ticks">
+        <li><strong>Torso scenes stay framed in the torso.</strong> Chest and stomach can join into one screen because they move together.</li>
+        <li><strong>Sleeves get things that survive motion:</strong> vertical stripes, tickers, a clock, a level meter, solid color.</li>
+        <li><strong>Cuffs are light bands:</strong> a color or a pulse, never a picture.</li>
+        <li><strong>The layout knows the garment.</strong> The same look re-flows onto a shoe or a cardigan, zone by zone.</li>
+      </ul>
     </div>
   </div>
 </section>
 
 <section class="section">
-  <div class="wrap split">
-    <div class="reveal">
-      <p class="eyebrow">The problem</p>
-      <h2>Light-up clothing never survived the laundry.</h2>
+  <div class="wrap">
+    <div class="reveal"><p class="eyebrow">What it plays</p><h2>Six ways to use a zone.</h2></div>
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card reveal"><span class="num">SHOWS</span><h3>Your shows, on your stomach</h3><p>Host whole episodes of anything you have the rights to. People watch while they talk to you.</p></div>
+      <div class="card reveal"><span class="num">PHONE</span><h3>Mirror your phone</h3><p>Send a playlist, a map or a photo from your phone to one zone, live.</p></div>
+      <div class="card reveal"><span class="num">CODE</span><h3>Write what it draws</h3><p>A tiny canvas API per zone. A plasma, a ticker, a game. Code is sandboxed and checked for safe flash rates before it plays.</p></div>
+      <div class="card reveal"><span class="num">DRAW</span><h3>Write on your back</h3><p>Type or draw on your phone and it shows up on the zone you pick. Say what you didn't get to say out loud.</p></div>
+      <div class="card reveal"><span class="num">GAMES</span><h3>Play on your chest</h3><p>Tic-tac-toe today. Anything turn-based that someone can tap on their own phone tomorrow.</p></div>
+      <div class="card reveal"><span class="num">AD SLOTS</span><h3>Rent space that follows you</h3><p>Ad slots belong to your account, so they move with you onto every Exovela piece you wear. You choose who rents them.</p></div>
     </div>
-    <div class="reveal">
-      <p class="lede">The sound-reactive shirts of the mid-2000s put a fragile panel inside a garment that had to be washed, with a battery in a pocket and a graphic fixed at the factory. People wore them for a season.</p>
-      <p class="muted">Exovela separates the two jobs. The inner suit is the part that gets sweaty and goes in the machine, once the spine pack is unclipped. The shell carries the display, is sealed like a phone, and is cared for like one.</p>
+  </div>
+</section>
+
+<section class="section rule">
+  <div class="wrap split" style="align-items:start">
+    <div class="reveal"><p class="eyebrow">How we'd make it real</p><h2>A first sweater from parts on sale today.</h2>
+      <p class="lede">Why a sweater first: thick knit hides flexible LED panels and diffuses them into soft pixels, so it looks like a sweater when it's off. A thin shirt would show every board.</p>
+      <div class="actions"><a class="btn btn-led" href="proof-of-concept.html#build">Read the build plan</a><a class="btn" href="how-it-works.html">How the two layers work</a></div></div>
+    <div class="reveal"><dl class="spec">
+      <dt>Chest, stomach, back</dt><dd>Flexible LED matrix panels (2.5 mm pitch) in pockets under the knit</dd>
+      <dt>Sleeves</dt><dd>Separate flexible LED strips that bend with the arm</dd>
+      <dt>Cuffs</dt><dd>Addressable LED bands</dd>
+      <dt>Controller</dt><dd>A small single-board computer for the panels, a second microcontroller for sleeves and cuffs, phone app over Wi-Fi</dd>
+      <dt>Power</dt><dd>USB-C power bank in the washable inner layer, one magnetic dock. About 1.5 hours at night brightness (estimate)</dd>
+      <dt>Parts</dt><dd>About $950 for one prototype sweater (estimate)</dd>
+      <dt>Status</dt><dd>Not built yet. Every number here is an estimate until it's measured.</dd>
+    </dl></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="reveal"><p class="eyebrow">The ecosystem</p><h2>Buy the piece once. Change it every day.</h2></div>
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card reveal"><span class="num">THE BASE PIECE</span><h3>One garment, any look</h3><p>You buy the sweater or the shoe. Looks are software, so the same piece is a flannel at lunch and a fireplace at night.</p></div>
+      <div class="card reveal"><span class="num">CREATOR MARKET</span><h3>Design, sell and buy looks</h3><p>A free marketplace for looks, widgets and games. Creators set their price, and every look is checked for fit, power and flash safety before it's listed.</p><p><a href="marketplace.html">How creators get paid</a></p></div>
+      <div class="card reveal"><span class="num">MADE TO ORDER</span><h3>New styles, made on demand</h3><p>We're working toward a manufacturing partner that can make new cuts in small runs, so a popular design can become a real garment without a big factory order. That partnership is in the works; it doesn't exist yet.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section rule" id="lineup">
+  <div class="wrap">
+    <div class="reveal"><p class="eyebrow">The lineup</p><h2>Start where the tech hides well.</h2></div>
+    <div class="lineup reveal">
+      <a class="lu now" href="#live"><span class="num">PROTOTYPE 01</span><strong>Sweater</strong><span>Thick knit, panels under the stitches.</span></a>
+      <a class="lu now" href="shoe.html"><span class="num">PROTOTYPE 02</span><strong>Shoe</strong><span>Sealed LED side panels and heel, washable inner.</span></a>
+      <div class="lu"><span class="num">NEXT</span><strong>Joggers</strong><span>Thigh and shin zones.</span></div>
+      <div class="lu"><span class="num">NEXT</span><strong>Cardigan</strong><span>Two front panels, a knit back.</span></div>
+      <div class="lu"><span class="num">LATER</span><strong>V-neck</strong><span>Thinner knit, finer pixels.</span></div>
+      <div class="lu"><span class="num">LAST</span><strong>T-shirt</strong><span>Waits for stretchable displays.</span></div>
+    </div>
+    <div class="grid g3" style="margin-top:32px">
+      <div class="card reveal"><span class="num">STEP 1</span><h3>Prototype</h3><p>Off-the-shelf panels, hand-built. Expensive and heavy, but it plays.</p></div>
+      <div class="card reveal"><span class="num">STEP 2</span><h3>Custom tiles</h3><p>Sealed LED tiles cut to the pattern pieces, made in volume. Lighter, cheaper per garment.</p></div>
+      <div class="card reveal"><span class="num">STEP 3</span><h3>Within reach</h3><p>Fewer, smarter zones for a lower-priced line, and a shell you can move between seasons. Stretchable displays bring the thin pieces last.</p></div>
     </div>
   </div>
 </section>
 
 <section class="section-tight rule">
-  <div class="wrap">
-    <div class="photo reveal">
-      <div class="cmp" data-composite='{"fx":0.5,"fxMobile":0.5,"screen":{"shade":"assets/img/rear-shade.webp","box":[0.541667,0.018519,0.385417,0.935185],"cycle":["grid","aurora","profile"],"every":8000}}'>
-        <div class="cmp-frame">
-          <picture>
-            <source type="image/avif" srcset="assets/img/rear-960.avif 960w, assets/img/rear-1440.avif 1440w, assets/img/rear-1920.avif 1920w, assets/img/rear-2560.avif 2560w" sizes="(max-width: 1240px) 100vw, 1200px">
-            <img src="assets/img/rear-1440.webp" srcset="assets/img/rear-960.webp 960w, assets/img/rear-1440.webp 1440w, assets/img/rear-1920.webp 1920w, assets/img/rear-2560.webp 2560w" sizes="(max-width: 1240px) 100vw, 1200px" width="2560" height="1440" alt="Rear view of both pieces. Left: the inner suit, with a slim spine pack between the shoulder blades and a small dock above it. Right: the display shell, its back and hood lit." loading="lazy" decoding="async">
-          </picture>
-        </div>
-        <span class="render-note">Concept render</span>
-      </div>
-    </div>
-    <div class="grid g3" style="margin-top:28px">
-      <div class="reveal"><span class="num">INNER SUIT</span><h3 style="margin-top:10px">Washable, and carries the power</h3><p class="muted">A wicking knit with spacer-mesh channels that hold the shell off your body and move warm air out. The battery and controller sit in a removable spine pack between the shoulder blades.</p></div>
-      <div class="reveal"><span class="num">DOCK</span><h3 style="margin-top:10px">One sealed connection</h3><p class="muted">Power and data cross at a single magnetic dock on the upper back. Spring pins on the suit side meet flush, potted pads on the shell, and stay unpowered until the two are properly mated.</p></div>
-      <div class="reveal"><span class="num">DISPLAY SHELL</span><h3 style="margin-top:10px">Sealed, never washed</h3><p class="muted">Flexible display tiles follow the pattern pieces under a clear, hard-coated film. No exposed contacts and no seams that hold water. Wipe it, hang it on its charger.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="split" style="align-items:end">
-      <div class="reveal"><p class="eyebrow">What it plays</p><h2>Anything you can put on a screen, cut to fit a garment.</h2></div>
-      <p class="lede reveal">Motion pieces, a still, a short you have the rights to, or a page about you that you update like a profile. Skins are written in HTML and CSS, generated from a description, or bought from the people who make them.</p>
-    </div>
-    <div class="grid g4" style="margin-top:40px">
-      <figure class="fig reveal"><div class="tile" data-skin-tile="aurora"></div><figcaption>Northern Lights · motion</figcaption></figure>
-      <figure class="fig reveal"><div class="tile" data-skin-tile="profile"></div><figcaption>Profile · updates from your phone</figcaption></figure>
-      <figure class="fig reveal"><div class="tile" data-skin-tile="cartoon"></div><figcaption>Channel 7 · original short</figcaption></figure>
-      <figure class="fig reveal"><div class="tile" data-skin-tile="solstice"></div><figcaption>Solstice · still, lowest power</figcaption></figure>
-    </div>
-    <div class="actions"><a class="btn btn-led" href="studio.html">Try a skin on the hoodie</a><a class="btn" href="marketplace.html">How creators get paid</a></div>
-  </div>
-</section>
-
-<section class="section rule">
-  <div class="wrap">
-    <div class="reveal"><p class="eyebrow">Roadmap</p><h2>Prove the system first. Then make it thin.</h2></div>
-    <div class="grid g4" style="margin-top:32px">
-      <div class="card reveal"><span class="num">01</span><h3 style="margin-top:12px">Hoodie and jacket</h3><p>First prototypes. Thickness is acceptable. The goal is to prove the two-layer system on a body.</p></div>
-      <div class="card reveal"><span class="num">02</span><h3 style="margin-top:12px">Thinner shells</h3><p>More of the surface covered, better heat handling, less weight.</p></div>
-      <div class="card reveal"><span class="num">03</span><h3 style="margin-top:12px">More cuts</h3><p>A straight jacket, a suit jacket and other base shapes, each with its own shell.</p></div>
-      <div class="card reveal"><span class="num">04</span><h3 style="margin-top:12px">Pants</h3><p>Fixed-cut trousers and joggers in large color zones you set from your phone.</p></div>
-    </div>
-    <div class="actions"><a class="btn" href="roadmap.html">Read the roadmap</a></div>
+  <div class="wrap split" style="align-items:center">
+    <div class="reveal"><p class="eyebrow">Status</p><h2>Concept stage, honestly labeled.</h2></div>
+    <p class="muted reveal">No product exists yet. The pictures are concept renders, and the demo above is drawn live in your browser. A technical disclosure has been prepared for review by a patent attorney. No application has been filed. <a href="proof-of-concept.html">Technology and status</a></p>
   </div>
 </section>
 </main>
@@ -136,11 +196,11 @@
 <div><a class="brand" href="index.html"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3.5c-4.6 0-7.2 3.3-7.4 7.2L4.8 13 3.8 27.5h5.4l.9-8.6.3 9.6h11.2l.3-9.6.9 8.6h5.4L27.2 13l-3.8-2.3C23.2 6.8 20.6 3.5 16 3.5Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.6 11c.4-2.3 1.6-3.6 3.4-3.6s3 1.3 3.4 3.6c-.9 1.9-2 2.8-3.4 2.8s-2.5-.9-3.4-2.8Z" fill="#8fd8ff"/></svg><span class="brand-name">EXOVELA</span></a>
 <p style="margin-top:16px;max-width:420px">A two-piece garment: a washable inner suit, and a sealed display shell that is never washed. An invention by Charles Anthony Leone.</p>
 <p class="fine">Concept stage. No product exists. Photographs on this site are concept renders, and the studio garment is drawn live in your browser. No patent application has been filed.</p></div>
-<div class="footer-links"><span class="label">Pages</span><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="studio.html">Studio</a><a href="marketplace.html">Marketplace</a><a href="roadmap.html">Roadmap</a><a href="proof-of-concept.html">Technology</a></div>
+<div class="footer-links"><span class="label">Pages</span><a href="index.html">Home</a><a href="shoe.html">Shoe</a><a href="how-it-works.html">How it works</a><a href="studio.html">Studio</a><a href="marketplace.html">Marketplace</a><a href="roadmap.html">Roadmap</a><a href="proof-of-concept.html">Technology</a></div>
 <div class="footer-links"><span class="label">Status</span><p class="fine">Concept 01 · design and engineering study. Specifications are targets and estimates, not measured results.</p><p class="fine">© <span id="year">2026</span> Charles Anthony Leone</p></div>
 </div></footer>
 </div>
 
 <script src="assets/site.js" defer></script>
-<script type="module" src="assets/composite.js"></script><script type="module" src="assets/tiles.js"></script><script type="module" src="assets/livedemo.js"></script>
+<script type="module" src="assets/live-ui.js"></script>
 </body></html>
