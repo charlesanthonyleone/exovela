@@ -187,9 +187,25 @@ def fig_system(t, site):
     if not site: b += f'<text x="450" y="592" text-anchor="middle" font-size="18" font-weight="bold">FIG. 5</text>'
     return svg(W, H, b, t, 'System block diagram', x0=0, x1=900)
 
+def fig_method(t, site):
+    W, H = 900, 520
+    b = f'<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="{t["ln"]}"/></marker></defs>'
+    steps = [('S1','Don inner suit 12, spine pack 34 fitted'),('S2','Don display shell 14 over it'),('S3','Align at 52, magnets 32 pull docks 28/94 together'),
+             ('S4','Controller 58 verifies keyed seat and shell ID, then energises pins 30'),('S5','Play content mapped 86 to this shell'),
+             ('S6','Separate shell at dock and perimeter attachment'),('S7','Remove spine pack; launder inner suit'),('S8','Wipe shell; hang on charger')]
+    for i,(k,txt) in enumerate(steps):
+        col, row = i // 4, i % 4
+        x = 60 + col * 420; y = 50 + row * 110
+        b += f'<rect x="{x}" y="{y}" width="360" height="64" rx="8" fill="{t["fill2"]}" stroke="{t["ln"]}" stroke-width="1.2"/>'
+        b += f'<text x="{x+16}" y="{y+38}" font-size="13" fill="{t["num"]}">{k}  {txt}</text>'
+        if row < 3: b += f'<path d="M{x+180} {y+64} V{y+106}" stroke="{t["ln"]}" stroke-width="1.2" marker-end="url(#ah)"/>'
+    b += f'<path d="M420 412 H450 V82 H476" fill="none" stroke="{t["ln"]}" stroke-width="1.2" marker-end="url(#ah)"/>'
+    if not site: b += f'<text x="450" y="505" text-anchor="middle" font-size="18" font-weight="bold">FIG. 2</text>'
+    return svg(W, H, b, t, 'Method of use', x0=0, x1=900)
+
 def write(path, s):
     os.makedirs(os.path.dirname(path), exist_ok=True); open(path, 'w').write(s)
-figs = [('exploded', fig_exploded, 1), ('section', fig_section, 3), ('dock', fig_dock, 4), ('system', fig_system, 5)]
+figs = [('exploded', fig_exploded, 1), ('method', fig_method, 2), ('section', fig_section, 3), ('dock', fig_dock, 4), ('system', fig_system, 5)]
 for name, fn, n in figs:
     write(f'{ROOT}/assets/figures/r2-{name}.svg', fn(TH['site'], True))
     write(f'{ROOT}/poc/figures/FIG-{n}-{name}.svg', fn(TH['patent'], False))
